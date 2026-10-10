@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- marks that JS is running, so the loader never traps a visitor without it -->
+<script>document.documentElement.classList.add('js');</script>
+<title>Sanskar Raikwar — UI/UX &amp; Graphic Designer</title>
+<meta name="description" content="Portfolio of Sanskar Raikwar — Google-certified UI/UX designer, graphic designer and video editor at imaPRO Marketing, Bahrain.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..800;1,300..800&family=Instrument+Serif:ital@0;1&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============================ LOADER ============================ -->
+<div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading">
+  <canvas class="loader__hex" id="loadHex" aria-hidden="true"></canvas>
+  <div class="loader__scrim" aria-hidden="true"></div>
+  <div class="loader__bloom" aria-hidden="true"></div>
+
+  <div class="loader__top">
+    <span class="loader__count"><span id="loadNum">0</span><sup>%</sup></span>
+  </div>
+
+  <div class="loader__id">
+    <div class="lmark" role="img" aria-label="Sanskar Raikwar">
+      <svg class="lmark__ring" viewBox="0 0 100 116" aria-hidden="true">
+        <polygon class="lmark__ring-line" pathLength="1" points="50,2 97,30 97,86 50,114 3,86 3,30"/>
+        <polygon class="lmark__ring-halo" pathLength="1" points="50,2 97,30 97,86 50,114 3,86 3,30"/>
+        <polygon class="lmark__ring-head" pathLength="1" points="50,2 97,30 97,86 50,114 3,86 3,30"/>
+      </svg>
+      <!-- the script fills this with 12 slices of the logo -->
+      <span class="lmark__cut" data-slices="12" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <div class="loader__bar"><i id="loadBar"></i></div>
+  <div class="loader__veil" aria-hidden="true"></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<main id="top">
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <!-- honeycomb is painted on this canvas — see drawHoneycomb() at the bottom -->
+  <!-- Background: the honeycomb film, tinted into the site's cream. The poster
+       is its first frame (embedded), so there is something on screen before the
+       video decodes; the loop was crossfaded tail-to-head so it never jumps.
+       preview build: the 1440p film is embedded here so the page works as one file. -->
+  <div class="hero__bg" aria-hidden="true">
+    <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/img-02.jpg">
+      <source src="assets/video-01.mp4" type="video/mp4">
+    </video>
+    <div class="hero__tint"></div>
+  </div>
+  <div class="hero__fade" aria-hidden="true"></div>
+
+  <h1 class="hero__title">
+    <span class="hero__side hero__side--l">
+      <span class="hero__kicker">Google-Certified UI/UX Designer</span>
+      <span class="line"><span class="hero__word">Sanskar</span></span>
+    </span>
+
+    <span class="hero__photo" role="img" aria-label="Sanskar Raikwar"></span>
+
+    <span class="hero__side hero__side--r">
+      <span class="hero__kicker">Graphic Designer &amp; Video Editor</span>
+      <span class="line"><span class="hero__word">Raikwar</span></span>
+      <span class="hero__loc">Lucknow, India – <span id="clock">--:--</span> GMT+5:30</span>
+    </span>
+  </h1>
+</section>
+
+<!-- ============================ MARQUEE ============================ -->
+<div class="marquee mq mq--pause" data-speed="38" aria-hidden="true">
+  <ul class="marquee__track mq__set">
+    <li>UI / UX Design</li><li>Wireframing</li><li>Prototyping</li><li>Design Systems</li>
+    <li>Graphic Design</li><li>Brand Content</li><li>Video Editing</li><li>Front-end</li>
+  </ul>
+</div>
+
+<!-- ============================ SKILLS ============================ -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="shead">
+      <div data-reveal>
+        <div class="label">What I do</div>
+        <h2 class="h2 shead__h">Interface, identity, <em class="serif">motion</em>.</h2>
+        <p class="shead__sub">The three crafts I get hired for. Scroll — each one stacks on the last.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stacked deck: each card pins as the next slides over it; the preview on
+       the right stays put and swaps its visual for whichever card is on top. -->
+  <div class="wrap stack" id="stack">
+    <div class="stack__cards">
+
+      <article class="scard" data-i="0" data-rise>
+        <div class="srow">
+          <div class="scard__in">
+            <div class="scard__body">
+              <span class="scard__hand">Research first</span>
+              <h3 class="scard__title"><span class="scard__num">01.</span> UI/UX Design</h3>
+              <p class="scard__desc">
+                Brief, competitor scan and user flows before anything gets drawn. Then wireframes
+                to settle structure, high-fidelity screens with every state, a clickable prototype
+                the client can use, and a component set so the build stays consistent after handoff.
+              </p>
+              <ul class="scard__list">
+                <li>Figma, Framer, FigJam</li>
+                <li>User research, flows, wireframes</li>
+                <li>UI, prototypes, design systems</li>
+                <li>Google UX Design certificate, 2024</li>
+              </ul>
+            </div>
+          </div>
+          <div class="stack__frame" aria-hidden="true">
+            <div class="viz viz--ux is-on" data-i="0">
+              <div class="viz__phone">
+                <i class="viz__bar viz__bar--w40"></i><i class="viz__bar viz__bar--w70"></i>
+                <div class="viz__hero"></div>
+                <div class="viz__row"><i></i><i></i><i></i></div>
+                <i class="viz__bar viz__bar--w90"></i><i class="viz__bar viz__bar--w60"></i>
+                <div class="viz__btn"></div>
+                <div class="viz__sel"><b></b><b></b><b></b><b></b></div>
+              </div>
+              <div class="viz__cursor"></div>
+            </div>
+            <div class="stack__badge">
+              <span class="stack__badge-mark"></span>
+              <span><b>Sanskar Raikwar</b><em>UI/UX &amp; Graphic Designer</em></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scard" data-i="1" data-rise>
+        <div class="srow">
+          <div class="scard__in">
+            <div class="scard__body">
+              <span class="scard__hand">Brand defining</span>
+              <h3 class="scard__title"><span class="scard__num">02.</span> Graphic Design</h3>
+              <p class="scard__desc">
+                Social posts, carousels, campaign assets and print pieces that hold one brand
+                look across every channel. Type and spacing first, then colour — the same
+                eye that shapes the interfaces.
+              </p>
+              <ul class="scard__list">
+                <li>Illustrator, Photoshop, Canva</li>
+                <li>Carousels, banners, ads, posters</li>
+                <li>Logos, identity, brand systems</li>
+                <li>30+ social carousels shipped</li>
+              </ul>
+            </div>
+          </div>
+          <div class="stack__frame" aria-hidden="true">
+            <div class="viz viz--gfx is-on" data-i="1">
+              <div class="viz__poster viz__poster--reel">
+                <!-- the real brand reel, looping silently and clean, no marks over it.
+                     card-video.mp4 sits next to this file; the preview build inlines it. -->
+                <video class="viz__vid" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+                  <source src="assets/video-02.mp4" type="video/mp4">
+                  <source src="assets/video-03.webm" type="video/webm">
+                </video>
+              </div>
+            </div>
+            <div class="stack__badge">
+              <span class="stack__badge-mark"></span>
+              <span><b>Sanskar Raikwar</b><em>UI/UX &amp; Graphic Designer</em></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scard" data-i="2" data-rise>
+        <div class="srow">
+          <div class="scard__in">
+            <div class="scard__body">
+              <span class="scard__hand">Motion with purpose</span>
+              <h3 class="scard__title"><span class="scard__num">03.</span> Video Editing</h3>
+              <p class="scard__desc">
+                Product and campaign videos cut for social and client channels — pacing,
+                captions, sound and colour, with motion graphics where a still would not
+                carry the message.
+              </p>
+              <ul class="scard__list">
+                <li>CapCut, After Effects, Premiere</li>
+                <li>Reels, explainers, promos</li>
+                <li>Motion graphics, captions</li>
+                <li>Colour grading, sound</li>
+              </ul>
+            </div>
+          </div>
+          <div class="stack__frame" aria-hidden="true">
+            <div class="viz viz--vid is-on" data-i="2">
+              <div class="viz__monitor">
+                <!-- the editing reel, looping silently. card-video2.mp4 sits next to
+                     this file; the preview build inlines it. -->
+                <video class="viz__vid" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+                  <source src="assets/video-04.mp4" type="video/mp4">
+                  <source src="assets/video-05.webm" type="video/webm">
+                </video>
+              </div>
+            </div>
+            <div class="stack__badge">
+              <span class="stack__badge-mark"></span>
+              <span><b>Sanskar Raikwar</b><em>UI/UX &amp; Graphic Designer</em></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ABOUT ============================ -->
+<section class="section" id="about" style="background:var(--paper-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="about">
+      <div class="about__head" data-reveal>
+        <div class="label">About</div>
+        <h2 class="h2 shead__h">A bit <em class="serif">about me</em>.</h2>
+      </div>
+
+      <div class="about__portrait" role="img" aria-label="Sanskar Raikwar" data-reveal data-reveal-delay="1"></div>
+
+      <div class="about__body" data-reveal>
+        <p class="lead">
+          I'm a UI/UX and graphic designer in Bahrain who also edits video.
+        </p>
+        <p class="muted">
+          I started in <em>UI/UX design</em>, added graphic design, then video editing. The
+          <em>Google UX certificate (2024)</em> is why I begin every project with research.
+          I use AI to work <em>faster and better</em> — more directions in less time, and
+          I choose what ships.
+        </p>
+
+        <div class="about__cta">
+          <a class="btn" href="#contact">
+            Get in touch
+            <svg class="arw" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button class="btn btn--ghost btn--copy" type="button" id="copyMail" data-mail="raikwarsanskar049@gmail.com">
+            <span class="btn__ic" aria-hidden="true">
+              <svg class="ic-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="12" rx="2.5"/><path d="M15.5 5.5H6.5A2.5 2.5 0 0 0 4 8v9"/></svg>
+              <svg class="ic-done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.6 10 17.6 19.5 7"/></svg>
+            </span>
+            <span class="btn__t">Copy email</span>
+          </button>
+          <!-- point this at your CV file, e.g. href="Sanskar-Raikwar-CV.pdf" download -->
+          <a class="btn btn--ghost" href="#" data-cv>Download CV</a>
+        </div>
+
+        <ul class="about__list">
+          <li><span>Based in</span><span>Krishna Nagar, Lucknow</span></li>
+          <li><span>Working at</span><span>imaPRO Marketing, Bahrain</span></li>
+          <li><span>Since</span><span>February 2025</span></li>
+          <li><span>Certified</span><span>Google UX Design, 2024</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROCESS ============================ -->
+<section class="section" id="process" style="padding-block:clamp(56px,8vw,120px)">
+  <div class="wrap">
+    <div class="shead" style="margin-bottom:clamp(20px,3vw,36px)">
+      <div data-reveal>
+        <div class="label">Process</div>
+        <h2 class="h2 shead__h">How a project <em class="serif">runs</em>.</h2>
+        <p class="shead__sub">Six steps, in the same order for UI/UX, graphic and video. Only the artefacts change.</p>
+      </div>
+    </div>
+
+    <div class="proc" id="proc">
+      <div class="proc__legend" aria-hidden="true" data-reveal>
+        <span><i></i>UI/UX</span><span><i></i>Graphic</span><span><i></i>Video</span>
+      </div>
+      <ol class="proc__steps">
+        <li class="pstep" data-rise style="--k:0">
+          <span class="pstep__rail" aria-hidden="true"></span>
+          <span class="pstep__node" aria-hidden="true"><svg viewBox="0 0 100 116"><polygon class="pstep__nodering" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="pstep__nodebg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg></span>
+          <span class="pstep__n">01</span>
+          <div class="pstep__main">
+            <h3 class="pstep__name">Brief</h3>
+            <p class="pstep__desc">What it has to do, who it is for, where it will live.</p>
+          </div>
+          <dl class="pstep__crafts">
+            <div><dt>UI/UX</dt><dd>Product goal, users, platform</dd></div>
+            <div><dt>Graphic</dt><dd>Message, brand, formats</dd></div>
+            <div><dt>Video</dt><dd>Story, channel, runtime</dd></div>
+          </dl>
+        </li>
+        <li class="pstep" data-rise style="--k:1">
+          <span class="pstep__rail" aria-hidden="true"></span>
+          <span class="pstep__node" aria-hidden="true"><svg viewBox="0 0 100 116"><polygon class="pstep__nodering" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="pstep__nodebg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg></span>
+          <span class="pstep__n">02</span>
+          <div class="pstep__main">
+            <h3 class="pstep__name">Research</h3>
+            <p class="pstep__desc">Look before drawing anything.</p>
+          </div>
+          <dl class="pstep__crafts">
+            <div><dt>UI/UX</dt><dd>Competitors, user interviews</dd></div>
+            <div><dt>Graphic</dt><dd>References, market, mood</dd></div>
+            <div><dt>Video</dt><dd>References, footage, music</dd></div>
+          </dl>
+        </li>
+        <li class="pstep" data-rise style="--k:2">
+          <span class="pstep__rail" aria-hidden="true"></span>
+          <span class="pstep__node" aria-hidden="true"><svg viewBox="0 0 100 116"><polygon class="pstep__nodering" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="pstep__nodebg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg></span>
+          <span class="pstep__n">03</span>
+          <div class="pstep__main">
+            <h3 class="pstep__name">Concept</h3>
+            <p class="pstep__desc">One direction, rough on purpose, agreed before any polish.</p>
+          </div>
+          <dl class="pstep__crafts">
+            <div><dt>UI/UX</dt><dd>User flows, wireframes</dd></div>
+            <div><dt>Graphic</dt><dd>Sketches, moodboard</dd></div>
+            <div><dt>Video</dt><dd>Script, storyboard</dd></div>
+          </dl>
+        </li>
+        <li class="pstep" data-rise style="--k:3">
+          <span class="pstep__rail" aria-hidden="true"></span>
+          <span class="pstep__node" aria-hidden="true"><svg viewBox="0 0 100 116"><polygon class="pstep__nodering" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="pstep__nodebg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg></span>
+          <span class="pstep__n">04</span>
+          <div class="pstep__main">
+            <h3 class="pstep__name">Make</h3>
+            <p class="pstep__desc">The long middle: every screen, every artwork, every cut.</p>
+          </div>
+          <dl class="pstep__crafts">
+            <div><dt>UI/UX</dt><dd>Hi-fi screens, components</dd></div>
+            <div><dt>Graphic</dt><dd>Final artwork, typography</dd></div>
+            <div><dt>Video</dt><dd>Edit, motion, sound</dd></div>
+          </dl>
+        </li>
+        <li class="pstep" data-rise style="--k:4">
+          <span class="pstep__rail" aria-hidden="true"></span>
+          <span class="pstep__node" aria-hidden="true"><svg viewBox="0 0 100 116"><polygon class="pstep__nodering" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="pstep__nodebg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg></span>
+          <span class="pstep__n">05</span>
+          <div class="pstep__main">
+            <h3 class="pstep__name">Review</h3>
+            <p class="pstep__desc">Put it in front of people and fix what breaks.</p>
+          </div>
+          <dl class="pstep__crafts">
+            <div><dt>UI/UX</dt><dd>Prototype, usability test</dd></div>
+            <div><dt>Graphic</dt><dd>Client rounds, print proof</dd></div>
+            <div><dt>Video</dt><dd>Review cuts, notes</dd></div>
+          </dl>
+        </li>
+        <li class="pstep" data-rise style="--k:5">
+          <span class="pstep__rail" aria-hidden="true"></span>
+          <span class="pstep__node" aria-hidden="true"><svg viewBox="0 0 100 116"><polygon class="pstep__nodering" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="pstep__nodebg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg></span>
+          <span class="pstep__n">06</span>
+          <div class="pstep__main">
+            <h3 class="pstep__name">Deliver</h3>
+            <p class="pstep__desc">Files the next person can open and use.</p>
+          </div>
+          <dl class="pstep__crafts">
+            <div><dt>UI/UX</dt><dd>Specs, tokens, handoff</dd></div>
+            <div><dt>Graphic</dt><dd>Print and digital files</dd></div>
+            <div><dt>Video</dt><dd>Exports for every channel</dd></div>
+          </dl>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EXPERIENCE ============================ -->
+<section class="section" id="experience" style="background:var(--paper-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="shead">
+      <div data-reveal>
+        <div class="label">Experience</div>
+        <h2 class="h2 shead__h">Since February <em class="serif">2025</em>.</h2>
+        <p class="shead__sub">One studio, three crafts. Every brief that comes through the agency lands on the same desk.</p>
+      </div>
+    </div>
+
+    <article class="xp" data-reveal>
+      <header class="xp__head">
+        <div class="xp__who">
+          <span class="xp__mark" aria-hidden="true">
+            <svg class="xp__well" viewBox="0 0 100 116">
+              <polygon class="xp__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/>
+              <polygon class="xp__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/>
+            </svg>
+            <img src="assets/img-03.png" alt="" width="132" height="132" decoding="async">
+          </span>
+          <h3 class="xp__co">imaPRO<span>Marketing Company WLL · Bahrain</span></h3>
+        </div>
+        <div class="xp__when">
+          <span class="xp__role">UI/UX &amp; Graphic Designer</span>
+          <span class="xp__dates">
+            <i class="xp__live" aria-hidden="true"></i>
+            Feb 2025 — Now <b id="xpLen"></b>
+          </span>
+        </div>
+      </header>
+
+      <div class="xdiv xdiv--in" data-reveal>
+        <span class="label">My role here</span>
+        <span class="xdiv__line" aria-hidden="true"></span>
+      </div>
+
+      <ul class="xp__crafts">
+        <li class="craft" data-rise style="--k:0">
+          <span class="craft__n">01</span>
+          <h4 class="craft__t">UI/UX Design</h4>
+          <p class="craft__d">Responsive web and app screens for client products — flows, wireframes, high-fidelity designs and the handoff that follows them.</p>
+        </li>
+        <li class="craft" data-rise style="--k:1">
+          <span class="craft__n">02</span>
+          <h4 class="craft__t">Graphic Design</h4>
+          <p class="craft__d">Campaign key visuals, social posts and carousels. One idea, cut for every format the brand ships on.</p>
+        </li>
+        <li class="craft" data-rise style="--k:2">
+          <span class="craft__n">03</span>
+          <h4 class="craft__t">Video Editing</h4>
+          <p class="craft__d">Reels and product films — edit, motion graphics, sound and colour for the same brands I design for.</p>
+        </li>
+      </ul>
+    </article>
+
+    <div class="xdiv" data-reveal>
+      <span class="label">Certified</span>
+      <span class="xdiv__line" aria-hidden="true"></span>
+    </div>
+
+    <article class="cert" data-reveal>
+      <div class="cert__main">
+        <span class="cert__seal" aria-hidden="true">
+          <svg class="cert__sealsvg" viewBox="0 0 100 116">
+            <polygon class="cert__sealbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/>
+            <polygon class="cert__sealring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/>
+          </svg>
+          <img class="cert__g" src="assets/img-04.png" alt="" width="128" height="128" loading="lazy" decoding="async">
+          <span class="cert__check">
+            <svg viewBox="0 0 100 116"><polygon points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg>
+            <svg class="cert__ck" viewBox="0 0 24 24"><path class="cert__tick" d="M6 12.4 10.3 16.7 18 8.6" pathLength="1"/></svg>
+          </span>
+        </span>
+        <div>
+          <h3 class="cert__t">Google UX Design Professional Certificate</h3>
+          <p class="cert__meta">Google · Coursera · 2024 · <b>7 courses</b></p>
+        </div>
+        <button class="cert__verify" type="button" id="certOpen" aria-haspopup="dialog">
+          <i aria-hidden="true"></i>
+          <span>View certificate</span>
+          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg>
+        </button>
+      </div>
+      <ul class="cert__courses">
+        <li style="--k:0">Foundations of UX Design</li>
+        <li style="--k:1">Empathize, Define, Ideate</li>
+        <li style="--k:2">Wireframes &amp; Low-Fidelity Prototypes</li>
+        <li style="--k:3">UX Research &amp; Testing</li>
+        <li style="--k:4">High-Fidelity Designs in Figma</li>
+        <li style="--k:5">Dynamic User Interfaces for Websites</li>
+        <li style="--k:6">Design for Social Good</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ WORK ============================ -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="shead work__head">
+      <div data-reveal>
+        <div class="label">Selected work</div>
+        <h2 class="h2 work__h">Projects I have <em class="serif">shipped</em>.</h2>
+        <p class="work__note">
+          One from each craft — an app redesign, a run of brand content, a set of
+          video cuts. They play one after the other; tap a name to jump.
+        </p>
+      </div>
+      <button class="btn work__all" type="button" aria-haspopup="dialog" data-reveal data-reveal-delay="1">
+        See all work
+        <svg class="arw" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="stage" id="wkStage" data-reveal>
+      <div class="stage__view">
+        <figure class="slide is-on" data-i="0">
+          <span class="slide__art work__art work__art--a"></span>
+          <span class="slide__ghost">Braxtone screens — 2100 × 900</span>
+          <span class="slide__badge">Client project</span>
+          <span class="slide__craft"><i aria-hidden="true"></i><span>UI/UX Design</span></span>
+        </figure>
+        <figure class="slide" data-i="1">
+          <span class="slide__art work__art work__art--d"></span>
+          <span class="slide__ghost">Carousel grid — 2100 × 900</span>
+          <span class="slide__badge">Client work</span>
+          <span class="slide__craft"><i aria-hidden="true"></i><span>Graphic Design</span></span>
+        </figure>
+        <figure class="slide" data-i="2">
+          <span class="slide__art work__art work__art--e"></span>
+          <span class="slide__ghost">Video stills — 2100 × 900</span>
+          <span class="slide__badge">Client work</span>
+          <span class="slide__craft"><i aria-hidden="true"></i><span>Video Editing</span></span>
+        </figure>
+      </div>
+
+      <div class="stage__meta">
+        <div class="smeta is-on" data-i="0">
+          <span class="smeta__n">01 — UI/UX</span>
+          <h3>Braxtone — Car Insurance App Redesign</h3>
+          <p>Rebuilt the app around Braxtone's new brand guidelines. Reworked the navigation and cleaned up every key screen, then delivered high-fidelity designs for both versions on a new design system.</p>
+        </div>
+        <div class="smeta" data-i="1">
+          <span class="smeta__n">02 — Graphic</span>
+          <h3>Social Carousels &amp; Brand Content</h3>
+          <p>Thirty-plus carousels and post sets built so a client's feed reads as one brand rather than a folder of separate posts. Key visuals, templates and the copy that sits on them.</p>
+        </div>
+        <div class="smeta" data-i="2">
+          <span class="smeta__n">03 — Video</span>
+          <h3>Product Videos &amp; Campaign Reels</h3>
+          <p>Short product and campaign cuts for client channels — edit and pacing in Premiere and CapCut, titles and motion in After Effects, colour and sound to finish.</p>
+        </div>
+      </div>
+
+      <div class="stage__rail" role="tablist" aria-label="Projects">
+        <button class="srail is-on" type="button" data-i="0" role="tab" aria-selected="true">UI/UX Design</button>
+        <button class="srail" type="button" data-i="1" role="tab" aria-selected="false">Graphic Design</button>
+        <button class="srail" type="button" data-i="2" role="tab" aria-selected="false">Video Editing</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ REVIEWS ============================
+     HOW TO FILL THIS IN
+     One <article class="rcd"> per review. In each card swap:
+       1. the <blockquote>  — the client's words, exactly as they sent them
+       2. rcd__n            — their name
+       3. rcd__r            — their role, then the company
+       4. the <b> initial   — or drop in their logo: <img src="data:image/png;base64,..." alt="">
+
+     STARS — data-stars on the <article> sets how many are filled, 1 to 5.
+     Only put a number here if the client actually gave that rating. If they
+     did not rate anything, DELETE the data-stars attribute and the star row
+     hides itself — better an honest card with no stars than five invented ones.
+
+     Running three reviews instead of four? Delete the fourth <article> AND the
+     fourth <button class="rtick">. The script clones and renumbers the rest.
+     ============================================================ -->
+<section class="section revs" id="reviews">
+  <div class="wrap">
+    <div class="shead">
+      <div data-reveal>
+        <div class="label">Client words</div>
+        <h2 class="h2 shead__h">What it is like to <em class="serif">work with me</em>.</h2>
+        <p class="shead__sub">
+          Feedback from the people who briefed the work, sat through the revisions
+          and signed it off. Their words, not mine.
+        </p>
+      </div>
+      <div class="rq__head" data-reveal data-reveal-delay="1">
+        <button class="rqbtn" type="button" data-go="-1" aria-label="Previous review">
+          <svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1M6 1 1 6l5 5"/></svg>
+        </button>
+        <button class="rqbtn" type="button" data-go="1" aria-label="Next review">
+          <svg viewBox="0 0 16 12" aria-hidden="true"><path d="M1 6h14M10 1l5 5-5 5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="rq" id="revStage" data-reveal>
+      <div class="rq__view">
+        <div class="rtrack" id="revTrack">
+          <article class="rcd" data-stars="5">
+            <div class="rcd__top">
+              <span class="rcd__mark" aria-hidden="true">&ldquo;</span>
+              <span class="rcd__stars" role="img" aria-label="5 out of 5"><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg></span>
+            </div>
+            <blockquote class="rcd__q">Paste your best client review here, word for word. Two or three sentences is plenty — the ones that say what you were like to work with, not just that the work looked good.</blockquote>
+            <footer class="rcd__by">
+              <span class="rcd__av" aria-hidden="true">
+                <svg class="rcd__hex" viewBox="0 0 100 116"><polygon class="rcd__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="rcd__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg>
+                <b>A</b>
+              </span>
+              <span class="rcd__who">
+                <span class="rcd__n">Client name</span>
+                <span class="rcd__r">Role · Company</span>
+              </span>
+            </footer>
+          </article>
+          <article class="rcd" data-stars="5">
+            <div class="rcd__top">
+              <span class="rcd__mark" aria-hidden="true">&ldquo;</span>
+              <span class="rcd__stars" role="img" aria-label="5 out of 5"><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg></span>
+            </div>
+            <blockquote class="rcd__q">Second review goes here. Shorter is fine — one or two lines that land beat a paragraph that does not.</blockquote>
+            <footer class="rcd__by">
+              <span class="rcd__av" aria-hidden="true">
+                <svg class="rcd__hex" viewBox="0 0 100 116"><polygon class="rcd__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="rcd__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg>
+                <b>B</b>
+              </span>
+              <span class="rcd__who">
+                <span class="rcd__n">Client name</span>
+                <span class="rcd__r">Role · Company</span>
+              </span>
+            </footer>
+          </article>
+          <article class="rcd" data-stars="5">
+            <div class="rcd__top">
+              <span class="rcd__mark" aria-hidden="true">&ldquo;</span>
+              <span class="rcd__stars" role="img" aria-label="5 out of 5"><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg></span>
+            </div>
+            <blockquote class="rcd__q">Third review goes here. If the client named a craft — the app screens, the carousels, the reels — keep that in.</blockquote>
+            <footer class="rcd__by">
+              <span class="rcd__av" aria-hidden="true">
+                <svg class="rcd__hex" viewBox="0 0 100 116"><polygon class="rcd__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="rcd__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg>
+                <b>C</b>
+              </span>
+              <span class="rcd__who">
+                <span class="rcd__n">Client name</span>
+                <span class="rcd__r">Role · Company</span>
+              </span>
+            </footer>
+          </article>
+          <article class="rcd" data-stars="5">
+            <div class="rcd__top">
+              <span class="rcd__mark" aria-hidden="true">&ldquo;</span>
+              <span class="rcd__stars" role="img" aria-label="5 out of 5"><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg><svg class="rcd__st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45l-5.81 3.05 1.11-6.47-4.7-4.58 6.5-.95z"/></svg></span>
+            </div>
+            <blockquote class="rcd__q">Fourth review goes here. Delete this whole article and its tick if you only have three.</blockquote>
+            <footer class="rcd__by">
+              <span class="rcd__av" aria-hidden="true">
+                <svg class="rcd__hex" viewBox="0 0 100 116"><polygon class="rcd__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="rcd__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg>
+                <b>D</b>
+              </span>
+              <span class="rcd__who">
+                <span class="rcd__n">Client name</span>
+                <span class="rcd__r">Role · Company</span>
+              </span>
+            </footer>
+          </article>
+        </div>
+      </div>
+
+      <div class="rq__ticks" aria-label="Reviews">
+        <button class="rtick is-on" type="button" data-i="0" aria-label="Review 1"><i></i></button>
+        <button class="rtick" type="button" data-i="1" aria-label="Review 2"><i></i></button>
+        <button class="rtick" type="button" data-i="2" aria-label="Review 3"><i></i></button>
+        <button class="rtick" type="button" data-i="3" aria-label="Review 4"><i></i></button>
+      </div>
+    </div>
+
+    <!-- Remove this line once the real reviews are in. -->
+    <p class="revs__note">Placeholder text — real client reviews and their real ratings go in before this page goes live</p>
+  </div>
+</section>
+
+<!-- ============================ EVERYTHING ELSE ============================ -->
+<section class="section trail" id="archive" aria-label="Everything else">
+  <div class="trail__layer" id="trailLayer" aria-hidden="true"></div>
+  <div class="wrap trail__copy">
+    <div class="label" data-reveal>Archive</div>
+    <h2 class="h2 trail__h2" data-reveal>Everything <em class="serif">else</em>.</h2>
+    <p class="trail__lead" data-reveal data-reveal-delay="1">Posts, reels, campaigns, one-offs. <b id="trailCount">52</b> pieces from the last year, the ones that never needed a case study.</p>
+    <span class="trail__hint" data-reveal data-reveal-delay="2" aria-hidden="true"><b class="trail__hint-mouse">move around</b><b class="trail__hint-touch">tap anywhere</b>
+      <svg viewBox="0 0 38 22"><path pathLength="1" d="M2 4c6 12 16 16 30 10m-6-6 6 6-8 4"/></svg>
+    </span>
+  </div>
+</section>
+<script src="js/trail-data.js"></script>
+
+<!-- ============================ TOOLKIT ============================ -->
+<section class="section toolkit" id="toolkit">
+  <div class="wrap">
+    <div class="shead">
+      <div data-reveal>
+        <div class="label">Toolkit</div>
+        <h2 class="h2 shead__h">What I <em class="serif">work in</em>.</h2>
+        <p class="shead__sub">Grouped by the work they do — interface, identity, motion — with the AI
+        that sits inside each workflow on its own row.</p>
+      </div>
+    </div>
+
+  <div class="tk" id="tk">
+    <aside class="tk__rail" aria-hidden="true"></aside>
+    <div class="tk__groups">
+    <div class="tkgroup">
+      <div class="tkgroup__head" data-reveal>
+        <span class="tkgroup__hand">Interface</span>
+        <h3 class="tkgroup__title">UI/UX Design</h3>
+        <p class="tkgroup__desc">Research, wireframes, prototypes and the systems that keep a product consistent. AI drafts the first pass; the calls stay mine.</p>
+        <span class="tkgroup__count">7 tools <b>+ 4 AI</b></span>
+      </div>
+      <!-- Honeycomb: two rows of the craft's tools, then a row of the AI that
+           sits inside that workflow. Placement is done by layoutHives(). -->
+      <div class="hive">
+        <div class="tool" style="--k:0">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.01</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-57.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Figma</b><span>UI, prototyping, FigJam boards</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:1">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.02</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-58.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Framer</b><span>Interactive web prototypes</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:2">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.03</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-59.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Adobe XD</b><span>Screens and click-throughs</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:3">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.04</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-60.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Miro</b><span>Journey maps, brainstorming</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:4">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.05</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-61.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Maze</b><span>Remote usability testing</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:5">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.06</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-62.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Zeplin</b><span>Specs and developer handoff</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:6">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.07</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-63.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>LottieFiles</b><span>UI micro-animations</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:7">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.08</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-57.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Figma Make</b><span>First-pass screens from a brief</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:8">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.09</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-64.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Claude</b><span>Research synthesis, UX copy drafts</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:9">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.10</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-65.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Uizard</b><span>Sketch to wireframe, fast</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:10">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>01.11</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-61.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Maze AI</b><span>Test results into findings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tkgroup">
+      <div class="tkgroup__head" data-reveal>
+        <span class="tkgroup__hand">Identity</span>
+        <h3 class="tkgroup__title">Graphic Design</h3>
+        <p class="tkgroup__desc">Brand marks, campaign assets and print, all holding one look. AI for concepts and cleanup, the hand for the final.</p>
+        <span class="tkgroup__count">4 tools <b>+ 3 AI</b></span>
+      </div>
+      <!-- Honeycomb: one row of the craft's tools, then a row of the AI that
+           sits inside that workflow. Placement is done by layoutHives(). -->
+      <div class="hive">
+        <div class="tool" style="--k:0">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>02.01</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-66.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Illustrator</b><span>Logos, vectors, print artwork</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:1">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>02.02</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-67.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Photoshop</b><span>Retouching and composites</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:2">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>02.03</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-68.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Canva</b><span>Templates a client team can reuse</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:3">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>02.04</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-69.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Affinity</b><span>Vector work on the go</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:4">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>02.05</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-70.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Midjourney</b><span>Mood boards, early concepts</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:5">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>02.06</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-71.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Adobe Firefly</b><span>Generative fill, extend, cleanup</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:6">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>02.07</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-72.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Gemini</b><span>Image generation and edits</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tkgroup">
+      <div class="tkgroup__head" data-reveal>
+        <span class="tkgroup__hand">Motion</span>
+        <h3 class="tkgroup__title">Video Editing</h3>
+        <p class="tkgroup__desc">Cuts, motion graphics and colour for social and client channels. AI for generated shots and voice; the edit is mine.</p>
+        <span class="tkgroup__count">4 tools <b>+ 3 AI</b></span>
+      </div>
+      <!-- Honeycomb: one row of the craft's tools, then a row of the AI that
+           sits inside that workflow. Placement is done by layoutHives(). -->
+      <div class="hive">
+        <div class="tool" style="--k:0">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>03.01</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-73.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>Premiere Pro</b><span>Main edit, pacing, captions</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:1">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>03.02</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-74.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>After Effects</b><span>Motion graphics, titles</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:2">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>03.03</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-75.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>CapCut</b><span>Fast social and product cuts</span></div>
+          </div>
+        </div>
+        <div class="tool" style="--k:3">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>03.04</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-76.png" alt="" width="176" height="176" loading="lazy" decoding="async"></figure><b>DaVinci Resolve</b><span>Colour grading</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:4">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>03.05</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-77.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Kling</b><span>Generated clips and B&#8209;roll</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:5">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>03.06</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-78.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>Google Flow</b><span>Veo scenes, extended shots</span></div>
+          </div>
+        </div>
+        <div class="tool" data-ai style="--k:6">
+          <div class="tool__hex" data-reveal>
+            <div class="tool__in"><i>03.07</i><figure class="tool__mark"><svg class="tool__well" viewBox="0 0 100 116" aria-hidden="true"><polygon class="tool__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="tool__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-79.png" alt="" width="176" height="176" loading="lazy" decoding="async"><em class="tool__ai">AI</em></figure><b>ElevenLabs</b><span>Voiceover and dubbing drafts</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="label" data-reveal>Contact</div>
+    <div class="contact__head" data-reveal>
+      <h2 class="h2">Let's work <em class="serif">together</em>.</h2>
+      <p class="contact__sub">Open to UI/UX, brand design and video work. Tell me what you are building and when you need it.</p>
+    </div>
+
+    <div class="contact__cards">
+      <a class="rcard" href="mailto:raikwarsanskar049@gmail.com" data-reveal>
+        <span class="cwell" aria-hidden="true"><svg class="cwell__svg" viewBox="0 0 100 116"><polygon class="cwell__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="cwell__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img class="cwell__img" src="assets/img-80.png" alt=""></span>
+        <span class="rcard__body">
+          <span class="rcard__k">Email</span>
+          <span class="rcard__v">raikwarsanskar049@<wbr>gmail.com</span>
+        </span>
+        <span class="rcard__arw" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="rcard" href="tel:+916232442970" data-reveal data-reveal-delay="1">
+        <span class="cwell" aria-hidden="true"><svg class="cwell__svg" viewBox="0 0 100 116"><polygon class="cwell__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="cwell__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img class="cwell__img" src="assets/img-81.png" alt=""></span>
+        <span class="rcard__body">
+          <span class="rcard__k">Phone</span>
+          <span class="rcard__v">+91 62324 42970</span>
+        </span>
+        <span class="rcard__arw" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="rcard" href="https://wa.me/916232442970?text=Hi%20Sanskar%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noopener" data-reveal data-reveal-delay="2">
+        <span class="cwell" aria-hidden="true"><svg class="cwell__svg" viewBox="0 0 100 116"><polygon class="cwell__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="cwell__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img class="cwell__img" src="assets/img-82.png" alt=""></span>
+        <span class="rcard__body">
+          <span class="rcard__k">WhatsApp</span>
+          <span class="rcard__v">Message me</span>
+        </span>
+        <span class="rcard__arw" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+
+    <div class="contact__facts">
+      <div class="fact" data-reveal data-reveal-delay="2">
+        <span class="cwell cwell--sm" aria-hidden="true"><svg class="cwell__svg" viewBox="0 0 100 116"><polygon class="cwell__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="cwell__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img class="cwell__img" src="assets/img-83.png" alt="" width="138" height="180" decoding="async"></span>
+        <span class="fact__k">Based in</span>
+        <span class="fact__v">Krishna Nagar, Lucknow, UP</span>
+        <span class="fact__x"><i class="fact__live" aria-hidden="true"></i><span id="clock2">--:--</span> local</span>
+      </div>
+      <div class="fact" data-reveal data-reveal-delay="3">
+        <span class="cwell cwell--sm" aria-hidden="true"><svg class="cwell__svg" viewBox="0 0 100 116"><polygon class="cwell__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/><polygon class="cwell__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/></svg><img src="assets/img-03.png" alt="" width="132" height="132" decoding="async"></span>
+        <span class="fact__k">Working at</span>
+        <span class="fact__v">imaPRO Marketing, Bahrain</span>
+        <span class="fact__x">Since Feb 2025</span>
+      </div>
+    </div>
+
+    <div class="cpanel" data-reveal>
+      <div class="cpanel__intro">
+        <div class="label">Start a project</div>
+        <h3 class="cpanel__h">Tell me<br>about it.</h3>
+        <p class="cpanel__p">A few lines are enough to start — what it is, roughly when, and anything you already have.</p>
+        <div class="cpanel__note"><i></i> Available for work</div>
+      </div>
+
+      <div>
+        <form class="form" id="form" method="POST" action="https://formspree.io/f/xqpkoznl" novalidate>
+          <!-- Formspree reads these: the subject line on the email, and a
+               honeypot only a bot would ever fill in. -->
+          <input type="hidden" name="_subject" value="New enquiry from sanskarraikwar.com">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <div class="two">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" placeholder="Your name" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" placeholder="you@company.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-company">Company / role</label>
+            <input id="f-company" name="company" type="text" placeholder="Marketing Lead, Company" autocomplete="organization">
+          </div>
+
+          <div class="field">
+            <label id="lbl-status">I'm here about</label>
+            <div class="choices" role="radiogroup" aria-labelledby="lbl-status">
+              <label class="choice"><input type="radio" name="status" value="design" checked><span>Design project</span></label>
+              <label class="choice"><input type="radio" name="status" value="video"><span>Video work</span></label>
+              <label class="choice"><input type="radio" name="status" value="role"><span>A role</span></label>
+              <label class="choice"><input type="radio" name="status" value="other"><span>Something else</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-msg">Details</label>
+            <textarea id="f-msg" name="message" placeholder="Scope, timeline, budget range — whatever you have so far." required></textarea>
+          </div>
+
+          <div>
+            <button class="btn btn--accent" type="submit" id="send">
+              <span id="sendT">Send message</span>
+              <svg class="arw" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="form__err" id="formErr" role="alert" hidden></p>
+          </div>
+        </form>
+
+        <div class="sent" id="sent" role="status">
+          <div class="tick" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="m4.5 10.5 3.5 3.5 7.5-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="h3">Thanks — message received.</h3>
+          <p class="muted" style="margin-top:10px;font-size:15px">
+            It has landed in my inbox and I usually reply within a day.
+            If it is urgent, raikwarsanskar049@gmail.com reaches me directly.
+          </p>
+          <button class="btn btn--ghost" type="button" id="again" style="margin-top:20px">Send another</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot">
+  <div class="foot__banner">
+    <div class="foot__namemq mq" data-speed="32" role="img" aria-label="Sanskar Raikwar">
+      <ul class="mq__set">
+        <li class="foot__name">Sanskar Raikwar</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot__strip mq mq--pause" data-speed="46" aria-hidden="true">
+    <ul class="foot__track mq__set">
+      <li>Let's work together <i class="foot__sep"></i></li>
+      <li>Open to freelance <i class="foot__sep"></i></li>
+      <li>Let's work together <i class="foot__sep"></i></li>
+      <li>Say hello <i class="foot__sep"></i></li>
+    </ul>
+  </div>
+
+  <div class="wrap fgrid">
+
+    <div class="fcol fcol--brand" data-reveal>
+      <a class="fmark" href="#top" aria-label="Sanskar Raikwar — back to top">
+        <i class="fmark__logo" aria-hidden="true"></i>
+      </a>
+      <span class="foot__tag"><i></i> Available for work</span>
+      <p class="fcol__line">
+        UI/UX design, graphic design and video editing — three crafts, one person.
+        Currently at <b>imaPRO Marketing</b>, Bahrain.
+      </p>
+      <a class="btn btn--accent fcol__cta" href="#contact">Start a project <svg class="arw" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="fcol" data-reveal data-reveal-delay="1">
+      <h3 class="fcol__h">Elsewhere</h3>
+      <div class="socials">
+        <a class="soc" href="https://www.linkedin.com/in/sanskar-raikwar-a08b94329" target="_blank" rel="noopener me">
+          <span class="soc__hex" aria-hidden="true"><svg class="soc__well" viewBox="0 0 100 116"><polygon class="soc__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/><polygon class="soc__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg><img src="assets/img-84.png" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
+          <span class="soc__name">LinkedIn</span>
+          <span class="soc__at">sanskar-raikwar</span>
+          <svg class="soc__go" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg>
+        </a>
+        <a class="soc" href="https://www.behance.net/sanskarraikwar" target="_blank" rel="noopener me">
+          <span class="soc__hex" aria-hidden="true"><svg class="soc__well" viewBox="0 0 100 116"><polygon class="soc__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/><polygon class="soc__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg><img src="assets/img-85.png" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
+          <span class="soc__name">Behance</span>
+          <span class="soc__at">sanskarraikwar</span>
+          <svg class="soc__go" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg>
+        </a>
+        <a class="soc" href="https://www.instagram.com/sanskar.studio8/" target="_blank" rel="noopener me">
+          <span class="soc__hex" aria-hidden="true"><svg class="soc__well" viewBox="0 0 100 116"><polygon class="soc__wellring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/><polygon class="soc__wellbg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg><img src="assets/img-86.png" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
+          <span class="soc__name">Instagram</span>
+          <span class="soc__at">@sanskar.studio8</span>
+          <svg class="soc__go" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="fcol" data-reveal data-reveal-delay="2">
+      <h3 class="fcol__h">Get in touch</h3>
+      <a class="foot__link" href="mailto:raikwarsanskar049@gmail.com">
+        <i class="ic ic--mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path class="ic__flap" d="m3.5 7.5 8.5 6.3 8.5-6.3"/></svg></i>
+        <span>raikwarsanskar049@gmail.com</span>
+      </a>
+      <a class="foot__link foot__tel" href="tel:+916232442970">
+        <i class="ic ic--tel" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.6 3.5h2.9l1.7 4.2-2 1.5a11 11 0 0 0 6.6 6.6l1.5-2 4.2 1.7v2.9a2 2 0 0 1-2.2 2A17 17 0 0 1 3.6 5.7a2 2 0 0 1 2-2.2Z"/><path class="ic__wave" d="M14.3 6.6a3.6 3.6 0 0 1 3.1 3.1"/><path class="ic__wave ic__wave--2" d="M14.8 3a7 7 0 0 1 6.2 6.2"/></svg></i>
+        <span>+91 62324 42970</span>
+      </a>
+      <a class="foot__link foot__wa" href="https://wa.me/916232442970?text=Hi%20Sanskar%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noopener">
+        <i class="ic ic--wa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a8 8 0 0 0-6.9 12.03L4 20l4.1-1.05A8 8 0 1 0 12 4Z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></i>
+        <span>Chat on WhatsApp</span>
+      </a>
+      <p class="fcol__loc">Krishna Nagar, Lucknow<br>Uttar Pradesh, India</p>
+    </div>
+
+  </div>
+
+  <div class="wrap">
+    <div class="foot__row">
+      <span>&copy; <span id="yr">2026</span> Sanskar Raikwar</span>
+      <a class="foot__top" href="#top"><i aria-hidden="true"></i> Back to top</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================ WORK GALLERY ============================ -->
+<div class="workdoc certdoc" id="workDoc" hidden role="dialog" aria-modal="true" aria-label="All work">
+  <div class="certdoc__bar">
+    <button class="certdoc__back" type="button" id="workBack">
+      <span class="certdoc__hex" aria-hidden="true">
+        <svg class="bg" viewBox="0 0 100 116"><polygon points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg>
+        <svg class="ar" viewBox="0 0 12 12"><path d="M7.5 2 3.5 6l4 4"/></svg>
+      </span>
+      Back to portfolio
+    </button>
+    <span class="certdoc__count"><b id="wCount">0</b> pieces</span>
+  </div>
+
+  <div class="workdoc__scroll" id="workScroll">
+    <div class="wrap">
+      <header class="workdoc__head">
+        <div class="label">The full set</div>
+        <h1 class="workdoc__h">Every piece, <em>in one place</em>.</h1>
+        <p class="workdoc__lead">Interfaces, brand work and motion side by side — the projects that got a case study and the everyday output that did not. Filter by craft, click anything to see it full size.</p>
+      </header>
+
+      <div class="wfilt" id="wFilt" role="tablist" aria-label="Filter work">
+        <button type="button" class="is-on" data-cat="all" role="tab" aria-selected="true">All <b></b></button>
+        <button type="button" data-cat="ux" role="tab" aria-selected="false"><i>01</i>Web &amp; UI/UX <b></b></button>
+        <button type="button" data-cat="gfx" role="tab" aria-selected="false"><i>02</i>Graphic Design <b></b></button>
+        <button type="button" data-cat="mo" role="tab" aria-selected="false"><i>03</i>Video / Motion <b></b></button>
+      </div>
+
+      <div class="wgrid" id="wGrid"></div>
+
+      <div class="workdoc__foot">
+        <p>More of the same, plus the pieces that live outside this site.</p>
+        <a class="cert__verify" href="https://www.behance.net/sanskarraikwar" target="_blank" rel="noopener">
+          <i aria-hidden="true"></i>
+          <span>See it on Behance</span>
+          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="clight" id="wLight" hidden>
+    <button class="clight__x" type="button" id="wLightX" aria-label="Close">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12"/></svg>
+    </button>
+    <button class="clight__nav clight__nav--p" type="button" id="wLightP" aria-label="Previous">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2 4 7l5 5"/></svg>
+    </button>
+    <button class="clight__nav clight__nav--n" type="button" id="wLightN" aria-label="Next">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M5 2l5 5-5 5"/></svg>
+    </button>
+    <figure class="clight__fig">
+      <img id="wLightImg" alt="">
+      <figcaption class="clight__cap">
+        <div><h3 id="wLightT"></h3><span id="wLightD"></span></div>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- ============================ CERTIFICATES ============================ -->
+<div class="certdoc" id="certDoc" hidden role="dialog" aria-modal="true" aria-label="Certificates">
+  <div class="certdoc__bar">
+    <button class="certdoc__back" type="button" id="certBack">
+      <span class="certdoc__hex" aria-hidden="true">
+        <svg class="bg" viewBox="0 0 100 116"><polygon points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/></svg>
+        <svg class="ar" viewBox="0 0 12 12"><path d="M7.5 2 3.5 6l4 4"/></svg>
+      </span>
+      Back to portfolio
+    </button>
+    <span class="certdoc__count"><b>1</b> programme · <b>7</b> courses</span>
+  </div>
+
+  <div class="certdoc__scroll" id="certScroll">
+    <div class="wrap">
+      <header class="certdoc__head">
+        <div class="label">Credentials</div>
+        <h2 class="h2">Google UX Design<br><em class="serif">Professional Certificate</em>.</h2>
+        <p class="certdoc__lead">Seven course certificates, completed in 2024 and issued to <b>Sanskar Raikwar</b> by Google through Coursera. Every one carries its own credential ID — click Verify on any card to check it at the source.</p>
+      </header>
+      <article class="cfeat" data-reveal>
+        <button class="ccard__open cfeat__open" type="button" data-i="0" aria-label="View the professional certificate">
+          <img src="assets/img-87.jpg" alt="Google UX Design Professional Certificate awarded to Sanskar Raikwar" loading="lazy" decoding="async">
+          <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+        </button>
+        <div class="cfeat__side">
+          <span class="cfeat__tag"><i></i>The programme</span>
+          <h3 class="cfeat__t">One certificate,<br><em>seven courses</em>.</h3>
+          <p class="cfeat__d">Awarded once every course in the programme was complete — the credential Google and Coursera issue for the whole track.</p>
+          <div class="cfeat__meta"><span>Issued 24 Oct 2024</span><span>ID I1G3E9Z36AOH</span></div>
+          <a class="cert__verify" href="https://www.coursera.org/account/accomplishments/professional-cert/I1G3E9Z36AOH" target="_blank" rel="noopener">
+            <i aria-hidden="true"></i>
+            <span>Verify this certificate</span>
+            <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <div class="cgrid__lab" data-reveal>
+        <span class="label">The seven courses</span>
+        <span aria-hidden="true"></span>
+      </div>
+      <ul class="cgrid">
+        <li class="ccard" style="--k:0">
+          <button class="ccard__open" type="button" data-i="1" aria-label="View certificate: Foundations of User Experience (UX) Design">
+            <img src="assets/img-88.jpg" alt="Google course certificate for Foundations of User Experience (UX) Design" loading="lazy" decoding="async">
+            <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+          </button>
+          <div class="ccard__meta">
+            <span class="ccard__n">01</span>
+            <h3 class="ccard__t">Foundations of User Experience (UX) Design</h3>
+            <div class="ccard__foot">
+              <span class="ccard__date">Sep 24, 2024</span>
+              <a class="ccard__verify" href="https://www.coursera.org/account/accomplishments/verify/YM3CG5LTI4P6" target="_blank" rel="noopener">
+                <i aria-hidden="true"></i>Verify
+                <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+            </div>
+          </div>
+        </li>
+        <li class="ccard" style="--k:1">
+          <button class="ccard__open" type="button" data-i="2" aria-label="View certificate: Start the UX Design Process: Empathize, Define, and Ideate">
+            <img src="assets/img-89.jpg" alt="Google course certificate for Start the UX Design Process: Empathize, Define, and Ideate" loading="lazy" decoding="async">
+            <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+          </button>
+          <div class="ccard__meta">
+            <span class="ccard__n">02</span>
+            <h3 class="ccard__t">Start the UX Design Process: Empathize, Define, and Ideate</h3>
+            <div class="ccard__foot">
+              <span class="ccard__date">Sep 25, 2024</span>
+              <a class="ccard__verify" href="https://www.coursera.org/account/accomplishments/verify/8BG6SCC47GSN" target="_blank" rel="noopener">
+                <i aria-hidden="true"></i>Verify
+                <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+            </div>
+          </div>
+        </li>
+        <li class="ccard" style="--k:2">
+          <button class="ccard__open" type="button" data-i="3" aria-label="View certificate: Build Wireframes and Low-Fidelity Prototypes">
+            <img src="assets/img-90.jpg" alt="Google course certificate for Build Wireframes and Low-Fidelity Prototypes" loading="lazy" decoding="async">
+            <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+          </button>
+          <div class="ccard__meta">
+            <span class="ccard__n">03</span>
+            <h3 class="ccard__t">Build Wireframes and Low-Fidelity Prototypes</h3>
+            <div class="ccard__foot">
+              <span class="ccard__date">Sep 25, 2024</span>
+              <a class="ccard__verify" href="https://www.coursera.org/account/accomplishments/verify/QVQTYGFRW69L" target="_blank" rel="noopener">
+                <i aria-hidden="true"></i>Verify
+                <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+            </div>
+          </div>
+        </li>
+        <li class="ccard" style="--k:3">
+          <button class="ccard__open" type="button" data-i="4" aria-label="View certificate: Conduct UX Research and Test Early Concepts">
+            <img src="assets/img-91.jpg" alt="Google course certificate for Conduct UX Research and Test Early Concepts" loading="lazy" decoding="async">
+            <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+          </button>
+          <div class="ccard__meta">
+            <span class="ccard__n">04</span>
+            <h3 class="ccard__t">Conduct UX Research and Test Early Concepts</h3>
+            <div class="ccard__foot">
+              <span class="ccard__date">Sep 25, 2024</span>
+              <a class="ccard__verify" href="https://www.coursera.org/account/accomplishments/verify/T6UK04UUG2UA" target="_blank" rel="noopener">
+                <i aria-hidden="true"></i>Verify
+                <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+            </div>
+          </div>
+        </li>
+        <li class="ccard" style="--k:4">
+          <button class="ccard__open" type="button" data-i="5" aria-label="View certificate: Create High-Fidelity Designs and Prototypes in Figma">
+            <img src="assets/img-92.jpg" alt="Google course certificate for Create High-Fidelity Designs and Prototypes in Figma" loading="lazy" decoding="async">
+            <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+          </button>
+          <div class="ccard__meta">
+            <span class="ccard__n">05</span>
+            <h3 class="ccard__t">Create High-Fidelity Designs and Prototypes in Figma</h3>
+            <div class="ccard__foot">
+              <span class="ccard__date">Sep 26, 2024</span>
+              <a class="ccard__verify" href="https://www.coursera.org/account/accomplishments/verify/V2VGIUHQWV7W" target="_blank" rel="noopener">
+                <i aria-hidden="true"></i>Verify
+                <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+            </div>
+          </div>
+        </li>
+        <li class="ccard" style="--k:5">
+          <button class="ccard__open" type="button" data-i="6" aria-label="View certificate: Build Dynamic User Interfaces (UI) for Websites">
+            <img src="assets/img-93.jpg" alt="Google course certificate for Build Dynamic User Interfaces (UI) for Websites" loading="lazy" decoding="async">
+            <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+          </button>
+          <div class="ccard__meta">
+            <span class="ccard__n">06</span>
+            <h3 class="ccard__t">Build Dynamic User Interfaces (UI) for Websites</h3>
+            <div class="ccard__foot">
+              <span class="ccard__date">Sep 26, 2024</span>
+              <a class="ccard__verify" href="https://www.coursera.org/account/accomplishments/verify/SO18V0OJ9KVM" target="_blank" rel="noopener">
+                <i aria-hidden="true"></i>Verify
+                <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+            </div>
+          </div>
+        </li>
+        <li class="ccard" style="--k:6">
+          <button class="ccard__open" type="button" data-i="7" aria-label="View certificate: Design a User Experience for Social Good & Prepare for Jobs">
+            <img src="assets/img-94.jpg" alt="Google course certificate for Design a User Experience for Social Good & Prepare for Jobs" loading="lazy" decoding="async">
+            <span class="ccard__zoom" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M1 5V1h4M13 9v4H9M9 1h4v4M5 13H1V9"/></svg></span>
+          </button>
+          <div class="ccard__meta">
+            <span class="ccard__n">07</span>
+            <h3 class="ccard__t">Design a User Experience for Social Good & Prepare for Jobs</h3>
+            <div class="ccard__foot">
+              <span class="ccard__date">Oct 19, 2024</span>
+              <a class="ccard__verify" href="https://www.coursera.org/account/accomplishments/verify/O7DGYQ5O1JTR" target="_blank" rel="noopener">
+                <i aria-hidden="true"></i>Verify
+                <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="clight" id="cLight" hidden>
+    <button class="clight__x" type="button" id="cLightX" aria-label="Close">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12"/></svg>
+    </button>
+    <button class="clight__nav clight__nav--p" type="button" id="cLightP" aria-label="Previous certificate">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2 4 7l5 5"/></svg>
+    </button>
+    <button class="clight__nav clight__nav--n" type="button" id="cLightN" aria-label="Next certificate">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M5 2l5 5-5 5"/></svg>
+    </button>
+    <figure class="clight__fig">
+      <img id="cLightImg" alt="">
+      <figcaption class="clight__cap">
+        <div><h3 id="cLightT"></h3><span id="cLightD"></span></div>
+        <a class="clight__go" id="cLightGo" href="#" target="_blank" rel="noopener">Verify on Coursera <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3.4 1.6h5v5"/></svg></a>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<script src="js/certs-data.js"></script>
+
+<!-- ============================ BACK TO TOP ============================ -->
+<button class="totop" type="button" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 44 50" aria-hidden="true">
+    <polygon class="totop__fill"  points="22,5 39.3,15 39.3,35 22,45 4.7,35 4.7,15"/>
+    <polygon class="totop__track" points="22,2 41.9,13.5 41.9,36.5 22,48 2.1,36.5 2.1,13.5"/>
+    <polygon class="totop__bar" id="toTopBar" points="22,2 41.9,13.5 41.9,36.5 22,48 2.1,36.5 2.1,13.5"/>
+  </svg>
+  <span class="totop__ico">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M8 13.5V3M8 3 3.4 7.6M8 3l4.6 4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg viewBox="0 0 16 16" fill="none"><path d="M8 13.5V3M8 3 3.4 7.6M8 3l4.6 4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </span>
+</button>
+
+<!-- ============================ FLOATING DOCK ============================ -->
+<nav class="dock" aria-label="Primary">
+  <a class="dock__home" href="#top" aria-label="Sanskar Raikwar — home">
+    <span class="dock__mark" role="img" aria-label="Sanskar Raikwar"></span>
+  </a>
+  <a class="dlink" href="#skills"><span class="flip" data-text="Skills"><span>Skills</span></span></a>
+  <a class="dlink" href="#about"><span class="flip" data-text="About"><span>About</span></span></a>
+  <a class="dlink" href="#work"><span class="flip" data-text="Portfolio"><span>Portfolio</span></span>
+    <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <a class="dlink" href="#toolkit" data-optional><span class="flip" data-text="Toolkit"><span>Toolkit</span></span></a>
+  <a class="dlink" href="#reviews" data-optional><span class="flip" data-text="Reviews"><span>Reviews</span></span></a>
+  <a class="dock__cta" href="#contact">
+    <span class="dock__roll"><span>Contact me</span><span aria-hidden="true">Contact me</span></span>
+    <svg class="dock__cta-arw" width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</nav>
+
+<!-- phone only: top bar + menu sheet (hidden above 640px) -->
+<header class="topbar">
+  <a class="topbar__home" href="#top" aria-label="Sanskar Raikwar — home"><span class="topbar__mark" role="img" aria-label="Sanskar Raikwar"></span></a>
+  <button class="topbar__btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet">
+    <svg class="topbar__ico" viewBox="0 0 28 28" aria-hidden="true">
+      <polygon class="topbar__hex" points="14,1.8 24.6,7.9 24.6,20.1 14,26.2 3.4,20.1 3.4,7.9"/>
+      <rect class="topbar__bar topbar__bar--1" x="8" y="10.9" width="12" height="2" rx="1"/>
+      <rect class="topbar__bar topbar__bar--2" x="8" y="15.1" width="12" height="2" rx="1"/>
+    </svg>
+    <span class="sr-only t-menu">Menu</span><span class="sr-only t-close">Close</span>
+  </button>
+</header>
+<nav class="sheet" id="sheet" aria-label="Primary (phone)">
+  <ul class="sheet__list">
+    <li><a class="sheet__link" href="#skills"><small>01</small><span class="sheet__txt"><b>Skills</b><em>UI/UX, graphic, video</em></span><i class="sheet__arw" aria-hidden="true"></i></a></li>
+    <li><a class="sheet__link" href="#about"><small>02</small><span class="sheet__txt"><b>About</b><em>A bit about me</em></span><i class="sheet__arw" aria-hidden="true"></i></a></li>
+    <li><a class="sheet__link" href="#work"><small>04</small><span class="sheet__txt"><b>Portfolio</b><em>Selected work</em></span><i class="sheet__arw" aria-hidden="true"></i></a></li>
+    <li><a class="sheet__link" href="#toolkit"><small>05</small><span class="sheet__txt"><b>Toolkit</b><em>What I work with</em></span><i class="sheet__arw" aria-hidden="true"></i></a></li>
+    <li><a class="sheet__link" href="#reviews"><small>06</small><span class="sheet__txt"><b>Reviews</b><em>What clients said</em></span><i class="sheet__arw" aria-hidden="true"></i></a></li>
+    <li><a class="sheet__link" href="#contact"><small>07</small><span class="sheet__txt"><b>Contact</b><em>Start a project</em></span><i class="sheet__arw" aria-hidden="true"></i></a></li>
+  </ul>
+  <div class="sheet__foot">
+    <a class="sheet__cta" href="#contact">
+      <span class="dock__roll"><span>Contact me</span><span aria-hidden="true">Contact me</span></span>
+      <svg class="sheet__cta-arw" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="sheet__contact">
+      <a class="foot__link" href="mailto:raikwarsanskar049@gmail.com">
+        <i class="ic ic--mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path class="ic__flap" d="m3.5 7.5 8.5 6.3 8.5-6.3"/></svg></i>
+        <span>raikwarsanskar049@gmail.com</span>
+      </a>
+      <a class="foot__link foot__tel" href="tel:+916232442970">
+        <i class="ic ic--tel" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.6 3.5h2.9l1.7 4.2-2 1.5a11 11 0 0 0 6.6 6.6l1.5-2 4.2 1.7v2.9a2 2 0 0 1-2.2 2A17 17 0 0 1 3.6 5.7a2 2 0 0 1 2-2.2Z"/><path class="ic__wave" d="M14.3 6.6a3.6 3.6 0 0 1 3.1 3.1"/><path class="ic__wave ic__wave--2" d="M14.8 3a7 7 0 0 1 6.2 6.2"/></svg></i>
+        <span>+91 62324 42970</span>
+      </a>
+      <div class="sheet__soc">
+        <a class="ssoc" href="https://www.linkedin.com/in/sanskar-raikwar-a08b94329" target="_blank" rel="noopener me" aria-label="LinkedIn" style="--k:0">
+          <span class="ssoc__hex">
+            <svg class="ssoc__well" viewBox="0 0 100 116" aria-hidden="true">
+              <polygon class="ssoc__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/>
+              <polygon class="ssoc__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/>
+            </svg>
+            <img src="assets/img-84.png" alt="" width="104" height="104" loading="lazy" decoding="async">
+          </span>
+          <b>LinkedIn</b>
+        </a>
+        <a class="ssoc" href="https://www.behance.net/sanskarraikwar" target="_blank" rel="noopener me" aria-label="Behance" style="--k:1">
+          <span class="ssoc__hex">
+            <svg class="ssoc__well" viewBox="0 0 100 116" aria-hidden="true">
+              <polygon class="ssoc__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/>
+              <polygon class="ssoc__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/>
+            </svg>
+            <img src="assets/img-85.png" alt="" width="104" height="104" loading="lazy" decoding="async">
+          </span>
+          <b>Behance</b>
+        </a>
+        <a class="ssoc" href="https://www.instagram.com/sanskar.studio8/" target="_blank" rel="noopener me" aria-label="Instagram" style="--k:2">
+          <span class="ssoc__hex">
+            <svg class="ssoc__well" viewBox="0 0 100 116" aria-hidden="true">
+              <polygon class="ssoc__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/>
+              <polygon class="ssoc__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/>
+            </svg>
+            <img src="assets/img-86.png" alt="" width="104" height="104" loading="lazy" decoding="async">
+          </span>
+          <b>Instagram</b>
+        </a>
+        <a class="ssoc" href="https://wa.me/916232442970?text=Hi%20Sanskar%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noopener" aria-label="WhatsApp" style="--k:3">
+          <span class="ssoc__hex">
+            <svg class="ssoc__well" viewBox="0 0 100 116" aria-hidden="true">
+              <polygon class="ssoc__ring" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5" pathLength="1"/>
+              <polygon class="ssoc__bg" points="50,1.5 98.5,29.5 98.5,86.5 50,114.5 1.5,86.5 1.5,29.5"/>
+            </svg>
+            <img src="assets/img-82.png" alt="" width="170" height="170" decoding="async">
+          </span>
+          <b>WhatsApp</b>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script src="js/main.js"></script>
+</body>
+</html>

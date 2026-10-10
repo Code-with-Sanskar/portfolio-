@@ -1,0 +1,3047 @@
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  /* ---- palette ----------------------------------------------
+     ink  #121212   paper #F5F0E6   accent #FF4901   highlight #FFCB02
+     Everything below is derived from those four.                */
+  --paper:#F5F0E6;      /* page ground */
+  --paper-2:#FCFAF3;    /* raised sections */
+  --paper-3:#EAE2D0;    /* media wells */
+  --ink:#121212;
+  --ink-2:#2B2823;      /* body copy */
+  --muted:#7D766A;
+  --line:#E2DACA;
+  --line-2:#CAC0AB;
+  --accent:#FF4901;     /* fills only — see --accent-ink for text */
+  --accent-ink:#D63C00; /* darkened so orange text clears contrast on cream */
+  --accent-2:#FFCB02;   /* highlight, used sparingly */
+  --accent-soft:#FFE2D4;
+  --dock:#121212;
+  --ok:#2F7D4F;
+
+  --maxw:1340px;
+  --maxw-hero:1560px;   /* hero runs wider than the rest so the split name has room */
+  --pad:clamp(20px,5vw,72px);
+  --gap:clamp(24px,3vw,48px);
+  --r:16px;
+
+  --t-fast:.28s cubic-bezier(.4,0,.2,1);
+  --t:.55s cubic-bezier(.22,1,.36,1);
+  --t-slow:1.1s cubic-bezier(.16,1,.3,1);
+
+  --font-sans:'Inter Tight',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font-serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  /* the small-label face. Named 'mono' from when it was JetBrains Mono;
+     kept as the token name so all 51 call sites still point at one place. */
+  --font-mono:'Outfit','Inter Tight',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font-hand:'Caveat','Segoe Script','Bradley Hand',cursive;
+
+  /* portrait, embedded so the file stays self-contained.
+     To swap it: replace the url() below with your own image path. */
+  /* brand mark, white on transparent — used by the dock and the loader */
+  --logo:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 156 96'><path fill='%23fff' fill-rule='evenodd' d='M0 95.5C0 95.2 0.1 95 0.4 94.7C0.7 94.3 2.1 91.8 2.1 91.4C2.1 91.3 2.3 91.1 2.4 90.9C2.6 90.7 2.8 90.3 2.9 90C3 89.7 3.3 89.2 3.5 89C3.6 88.7 3.9 88.2 4 88C4.1 87.7 4.3 87.2 4.5 86.9C4.7 86.6 5 86.1 5.1 85.8C5.2 85.5 5.4 85.1 5.5 84.8C5.7 84.6 5.9 84.2 6 83.8C6.1 83.5 6.4 83.1 6.5 82.8C6.7 82.6 6.9 82.2 7 82C7.1 81.8 7.3 81.4 7.4 81.1C7.6 80.8 7.9 80.4 8 80C8.1 79.7 8.4 79.2 8.5 79C8.7 78.8 8.9 78.3 9 78C9.1 77.6 9.4 77.2 9.5 77C9.7 76.7 9.9 76.4 10 76.1C10.2 75.9 10.6 75.3 11 74.9C11.7 74.2 12 74 12.9 73.6L13.9 73.2L23.8 73.2C30.8 73.1 33.8 73.2 34.2 73.2C34.5 73.3 34.7 73.5 34.8 73.7C34.8 73.9 34.9 78.1 34.9 84.3C34.9 93.7 34.9 94.7 34.7 95.3L34.5 96L17.2 96L0 96L0 95.5ZM39.5 95.4C39.3 94.8 39.2 93.7 39.2 79C39.2 68.5 39.3 63 39.4 62.9C39.4 62.8 39.7 62.6 39.9 62.5C40.2 62.4 43.8 62.4 51.9 62.4L63.6 62.4L63.9 62.7C64.1 63 64.1 63 64.1 78.9C64.1 90.6 64.1 94.9 64 95.4L63.8 96L51.8 96L39.7 96L39.5 95.4ZM69.1 95.8C69.1 95.7 69 95.3 68.9 95C68.8 94.6 68.8 91.6 68.8 84.1L68.8 73.7L69.2 73.4C69.4 73.2 69.7 73.1 70.1 73.1C71.9 73.1 73.8 72 75.2 70.3C75.9 69.3 75.9 69.4 76.3 67.8C76.7 66.1 76.7 65.6 76.2 63.6C75.9 62.3 75.8 61.9 75.3 61.2C75 60.7 74.5 60.1 74.2 59.8C73.6 59.2 72.2 58.4 71.4 58.1C71 58 66.6 57.9 47.6 57.9C25.8 57.8 24.3 57.8 23.7 57.6C23.3 57.5 22.3 57.2 21.4 57.1C20.4 56.9 19.3 56.6 18.9 56.5C18.5 56.3 17.9 56.1 17.6 56C17.3 55.9 16.7 55.7 16.3 55.4C15.9 55.2 15.4 55 15.3 55C15.2 55 14.9 54.8 14.5 54.6C14.2 54.3 13.7 54.1 13.5 53.9C13.1 53.7 12 53 10.7 52C9.7 51.3 7.6 49.2 7 48.4C6.7 48.1 6.3 47.5 5.9 47.1C5.6 46.7 5.3 46.3 5.2 46.1C5 45.9 4.8 45.5 4.6 45.2C4.3 44.9 4.1 44.4 4 44.1C3.8 43.8 3.6 43.4 3.4 43.2C3.3 43 3.1 42.7 3 42.5C3 42.3 2.8 41.9 2.6 41.4C2.3 41 2.1 40.3 1.9 39.9C1.8 39.5 1.6 38.9 1.5 38.6C1.4 38.3 1.1 37.4 1 36.7C0.8 35.3 0.5 34.7 0.2 34.5C0 34.5 0 33.7 0 29.2L0 23.9L0.3 23.6C0.7 23.2 0.8 22.8 1.1 21.2C1.2 20.6 1.4 19.7 1.6 19.3C1.7 18.9 1.9 18.4 1.9 18.2C2 17.8 2.7 16.4 3.3 15.2C4.3 13.1 4.3 13.2 5.8 11.1C7 9.4 10.1 6.4 11.9 5.2C12.1 5 12.5 4.7 12.8 4.5C13.1 4.3 13.5 4.1 13.7 4C13.9 3.9 14.2 3.7 14.5 3.5C14.7 3.4 15.2 3.1 15.5 3C15.9 2.8 16.3 2.6 16.5 2.5C16.9 2.2 19.9 1.2 20.9 1C22.1 0.8 22.9 0.5 23 0.2C23.1 0 23.3 0 28.9 0L34.7 0L34.8 0.6C34.9 1.6 34.9 20.9 34.8 21.3C34.6 21.7 34.4 21.8 33.1 22C32.3 22.2 31.8 22.4 31.2 22.7C30.4 23.2 29 24.5 29 24.8C29 24.8 28.8 25.2 28.6 25.5C28.2 26.1 28.1 26.5 27.9 27.4C27.6 29 27.6 29.4 27.9 31C28.1 32 28.2 32.4 28.6 33C29.3 34.1 30 34.7 30.9 35.4C32.4 36.4 31 36.3 55.2 36.4L76.5 36.5L78.9 36.8C80.5 37 81.6 37.2 82.4 37.5C83 37.7 83.7 37.9 84 38C84.3 38.1 85 38.3 85.4 38.6C87.1 39.3 87.4 39.5 87.9 39.8C88.1 39.9 88.5 40.1 88.8 40.2C89 40.3 89.4 40.5 89.6 40.7C89.8 40.8 90.1 41 90.3 41.2C93.3 43 97.6 47.3 99 49.9C99.2 50.3 99.4 50.6 99.5 50.7C99.6 50.7 99.8 51.2 100.1 51.7C100.3 52.2 100.5 52.6 100.6 52.7C100.7 52.7 100.8 53 100.9 53.4C101.1 53.8 101.3 54.4 101.5 54.8C101.7 55.1 101.9 55.8 102 56.2C102.1 56.7 102.3 57.3 102.5 57.6C102.8 58.3 102.9 58.8 103.4 62.2C103.8 64.8 103.9 67.5 103.6 69.1C103.2 71.9 102.7 74.2 102.5 74.8C102.3 75.2 102.1 75.9 102 76.2C101.9 76.5 101.7 77.1 101.5 77.4C101.3 77.7 101.1 78.2 101 78.5C100.9 78.8 100.7 79.3 100.5 79.6C100.3 79.9 100.1 80.3 100 80.5C99.9 80.7 99.7 81.1 99.5 81.5C99.2 81.8 99 82.3 98.8 82.5C97.7 84.2 94.6 87.8 93.1 88.9C92.9 89 92.5 89.3 92.2 89.6C92 89.8 91.5 90.1 91.2 90.3C90.8 90.6 90.2 91 89.7 91.3C89.2 91.6 88.7 91.9 88.5 92C88.3 92.1 87.9 92.3 87.6 92.5C87.3 92.7 86.8 93 86.5 93.1C86.2 93.2 85.7 93.4 85.3 93.6C84.4 94 81.5 94.8 80.1 95.1C79.5 95.2 78.5 95.4 77.9 95.6C76.8 95.9 76.8 95.9 73 96C69.4 96 69.1 96 69.1 95.8ZM123.4 95.7C123.4 95.5 123 95.1 122.5 94.7C122 94.3 121.1 93.5 120.5 93C119.9 92.5 118.8 91.6 118.1 91C117.4 90.4 116.6 89.7 116.2 89.4C115.9 89.2 115.4 88.7 115.1 88.5C114.8 88.3 114.1 87.6 113.5 87.1C112.9 86.6 111.8 85.7 111.1 85.1C110.3 84.4 109.3 83.5 108.7 83.1C108.1 82.6 107.5 82 107.2 81.9C107 81.7 106.5 81.2 106.1 80.9C105.3 80.1 105.2 79.8 105.7 79C105.8 78.7 106 78.2 106.1 77.8C106.2 77.5 106.4 77 106.5 76.7C106.7 76.4 106.9 75.7 107 75C107.1 74.4 107.4 73.5 107.5 73C107.9 71.9 108 70.6 108.1 67.5C108.2 63.6 107.9 60 107.4 58.6C107.3 58.4 107.2 57.7 107.1 57.1C106.9 56.5 106.7 55.5 106.4 54.9C106.2 54.3 106 53.6 106 53.5C106 53.4 105.8 52.9 105.6 52.5C105.4 52.1 105.1 51.5 105 51.2C104.9 50.8 104.6 50.3 104.5 50.1C104.3 49.9 104.1 49.5 104.1 49.3C104 49.1 103.7 48.7 103.4 48.4C103 47.9 102.9 47.6 102.9 47.4C102.9 46.8 103.3 46.6 104.4 46.6C106.1 46.6 108.9 46 110.3 45.3C111 45 111.5 44.7 111.6 44.6C111.7 44.5 112 44.2 112.3 44.1C112.9 43.7 114.8 41.8 115.1 41.3C115.2 41 115.4 40.6 115.6 40.3C115.8 40.1 116 39.8 116 39.7C116 39.6 116.2 39 116.4 38.5C116.9 37.4 117.1 36.2 117.1 34.1C117.1 32.4 116.9 30.7 116.5 29.9C116.3 29.6 116.1 29.1 116 28.8C115.9 28.5 115.7 28.1 115.6 27.9C115.4 27.7 115.1 27.3 115 27C114.5 26.2 112.7 24.4 111.9 24C111.6 23.8 111.2 23.5 111.1 23.4C111 23.3 110.8 23.2 110.5 23.1C110.3 23 109.7 22.8 109.3 22.6C107.7 21.9 108 21.9 87.9 21.9C75.1 21.9 69.2 21.9 68.7 22C67.7 22.2 66.5 22.9 65.7 23.8C65.2 24.4 64.5 26 64.2 27C64.2 27.3 64.1 28.4 64.2 29.5C64.2 31.4 64.2 31.4 63.9 31.6C63.6 31.9 63.3 31.9 51.7 31.8L39.7 31.8L39.5 31.5C39.3 31.2 39.2 30.8 39.2 15.6L39.2 0L76.8 0C109.2 0 114.4 0 114.5 0.2C114.6 0.5 115.3 0.7 116.8 1.1C117.6 1.2 118.5 1.4 118.8 1.5C119 1.6 119.7 1.8 120.2 2C120.7 2.1 121.3 2.4 121.5 2.5C121.8 2.6 122.3 2.9 122.7 3C123.1 3.1 123.5 3.3 123.7 3.5C123.9 3.6 124.3 3.8 124.6 3.9C124.8 4 125.3 4.3 125.7 4.5C126 4.8 126.5 5 126.6 5.1C127.1 5.4 128.6 6.4 129.2 6.9C130.1 7.6 130.9 8.3 131.1 8.5C131.2 8.6 131.7 9.1 132.1 9.5C134.2 11.3 136.7 14.6 138 17.1C138.2 17.5 138.5 17.9 138.6 18C138.7 18.1 138.9 18.5 139 18.9C139.1 19.3 139.3 19.8 139.5 20C139.6 20.2 139.9 20.7 140 21.2C140.2 21.8 140.4 22.4 140.5 22.6C140.6 22.8 140.9 23.6 141.1 24.4C141.2 25.1 141.4 25.9 141.5 26C141.8 26.5 142.1 29 142.4 32.5C142.5 35 142.1 40.3 141.6 42C141.4 42.5 141.1 43.4 141 44.1C140.9 44.7 140.6 45.3 140.5 45.6C140.4 45.8 140.2 46.3 140.1 46.7C140 47.1 139.7 47.7 139.5 48C139.4 48.3 139.1 48.9 139 49.2C138.9 49.6 138.6 50.1 138.5 50.3C138.3 50.5 138.1 50.9 138 51.1C137.9 51.4 137.7 51.7 137.5 51.9C137.4 52.1 137.1 52.5 137 52.8C136.8 53.1 136.6 53.5 136.4 53.7C136.2 53.9 136 54.2 136 54.2C136 54.3 135.8 54.6 135.5 55C135.2 55.3 134.7 55.8 134.5 56.2C133.8 57 130.8 60 130.2 60.5C129 61.4 128.5 61.8 128.1 62C127.9 62.1 127.6 62.3 127.5 62.4C127.4 62.6 127 62.8 126.6 63C126.2 63.2 125.9 63.4 125.8 63.5C125.8 63.6 125.3 63.8 124.9 64C124.4 64.2 124 64.5 123.9 64.6C123.8 64.7 123.2 64.9 122.6 65.1C121.8 65.4 121.6 65.6 121.5 65.8C121.3 66.3 121.5 66.6 122 67C122.3 67.1 123 67.7 123.6 68.1C125.2 69.6 126.2 70.4 127.7 71.6C128.1 72 128.7 72.5 128.9 72.6C129.1 72.8 129.6 73.2 130 73.6C130.4 73.9 130.9 74.4 131.2 74.6C131.4 74.8 132.2 75.4 132.9 76C133.6 76.6 134.7 77.5 135.4 78.1C136 78.7 136.8 79.3 137.1 79.6C137.3 79.8 138.1 80.4 138.7 81C139.3 81.5 140.2 82.2 140.7 82.6C141.1 83 141.7 83.5 141.9 83.6C142.1 83.8 142.5 84.2 142.8 84.4C143.1 84.7 143.9 85.4 144.5 85.9C145.1 86.4 146 87.1 146.4 87.5C146.9 87.9 148 88.8 148.9 89.6C149.8 90.4 150.8 91.2 151.1 91.4C151.3 91.7 152 92.3 152.6 92.8C153.2 93.3 153.9 93.8 154.1 94C154.3 94.1 154.7 94.5 155 94.8C155.2 95.2 155.5 95.6 155.7 95.6C155.9 95.7 156 95.8 156 95.9C156 96 148.7 96 139.8 96L123.5 96L123.4 95.7Z'/></svg>");
+
+  --photo:url("../assets/img-01.jpg");
+}
+
+*,*::before,*::after{box-sizing:border-box}
+/* Outfit — one variable file covering 100–900, subset to the characters this
+   page uses, with tabular figures kept so clocks and 01/02/03 numbering stay
+   on the same width. Supplied by the client; embedded so the small label text
+   never renders in a fallback first. */
+@font-face{
+  font-family:'Outfit';
+  src:url(../assets/font-01.woff2) format('woff2-variations');
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+html{-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
+html.is-loading{overflow:hidden}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:clamp(15px,1.05vw,17px);
+  line-height:1.55;
+  font-weight:400;
+  letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4,p,figure,blockquote{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+::selection{background:var(--ink);color:var(--paper)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* ============================================================
+   PRIMITIVES
+   ============================================================ */
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+.section{padding-block:clamp(72px,11vw,168px);position:relative}
+.section:focus,main:focus{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+.label{
+  font-family:var(--font-hand);
+  font-size:23px;                /* Caveat runs small; this matches the old 11px mono's presence */
+  font-weight:600;
+  letter-spacing:.01em;
+  line-height:1;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.label::before{
+  content:"";
+  width:22px;height:2px;background:var(--accent-2);flex:none;
+}
+
+.display{
+  font-size:clamp(46px,10.5vw,168px);
+  line-height:.86;
+  font-weight:600;
+  letter-spacing:-.045em;
+  word-spacing:.06em;
+}
+.h2{
+  font-size:clamp(34px,6.2vw,88px);
+  line-height:.94;
+  font-weight:600;
+  letter-spacing:-.04em;
+  /* the tight tracking eats the spaces too — this gives them back, so short
+     words like "I" do not get swallowed by their neighbours */
+  word-spacing:.07em;
+}
+.h3{
+  font-size:clamp(19px,1.8vw,26px);
+  line-height:1.2;
+  font-weight:500;
+  letter-spacing:-.025em;
+}
+.serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+/* in the display headings the serif half carries the accent, so every
+   section opens the same way */
+.h2 em.serif{color:var(--accent)}
+.lead{
+  font-size:clamp(17px,1.6vw,23px);
+  line-height:1.45;
+  letter-spacing:-.02em;
+  color:var(--ink-2);
+}
+.muted{color:var(--muted)}
+
+/* buttons */
+.btn{
+  --bg:var(--ink); --fg:var(--paper); --bd:var(--ink);
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 22px;
+  background:var(--bg);color:var(--fg);
+  border:1px solid var(--bd);
+  border-radius:100px;
+  font-size:14px;font-weight:500;letter-spacing:-.01em;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform var(--t-fast),background var(--t-fast),color var(--t-fast),border-color var(--t-fast);
+  will-change:transform;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn .arw{transition:transform var(--t-fast)}
+.btn:hover .arw{transform:translate(3px,-3px)}
+.btn--ghost{--bg:transparent;--fg:var(--ink);--bd:var(--line-2)}
+.btn--ghost:hover{--bg:var(--ink);--fg:var(--paper);--bd:var(--ink)}
+/* ink on orange, not white — white on #FF4901 sits under 3.5:1 */
+.btn--accent{--bg:var(--accent);--fg:var(--ink);--bd:var(--accent)}
+
+/* Accent CTA hover ("Send message", "Start a project"): an ink disc blooms
+   out from under the arrow and floods the pill, the label goes paper, the
+   arrow turns orange and flies out top-right then back in from bottom-left,
+   and the pill settles on a soft orange glow inside its own orange hairline.
+   The disc is a pseudo-element, so it never fights the magnetic transform
+   the script writes on the button itself. */
+.btn--accent{
+  isolation:isolate;
+  transition:transform var(--t-fast),background var(--t-fast),color var(--t-fast),border-color var(--t-fast),box-shadow .5s ease;
+}
+.btn--accent::before{
+  content:"";position:absolute;z-index:-1;inset:0;
+  background:var(--ink);
+  /* a circle wiping out from under the arrow. Sized in % of the button's own
+     box, so it floods the whole pill at any width — the narrow desktop button
+     and the full-width one on phone alike. */
+  clip-path:circle(0% at calc(100% - 28px) 50%);
+  transition:clip-path .55s cubic-bezier(.4,0,.15,1);
+}
+.btn--accent .arw{transition:transform var(--t-fast),color .3s ease}
+html.has-hover .btn--accent:hover{color:var(--paper);box-shadow:0 14px 30px -12px rgba(255,73,1,.6);transition-delay:0s,0s,.07s,0s,0s}
+html.has-hover .btn--accent:hover::before{clip-path:circle(150% at calc(100% - 28px) 50%)}
+html.has-hover .btn--accent:hover .arw{color:var(--accent);transform:none;animation:arwFly .6s cubic-bezier(.3,.1,.25,1) forwards}
+@keyframes arwFly{
+  0%{transform:translate(0,0);opacity:1}
+  42%{transform:translate(13px,-13px);opacity:0}
+  50%{transform:translate(-13px,13px);opacity:0}
+  100%{transform:translate(0,0);opacity:1}
+}
+.btn--accent:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  html.has-hover .btn--accent:hover .arw{animation:none}
+}
+
+/* Copy email: the icon swaps to a tick that draws itself, the label changes,
+   and the pill turns accent for a moment — then everything goes back. */
+.btn--copy{padding-left:18px}
+.btn__ic{position:relative;width:16px;height:16px;flex:none;display:grid;place-items:center}
+.btn__ic svg{position:absolute;width:16px;height:16px;transition:opacity .25s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.btn__ic .ic-done{opacity:0;transform:scale(.5);stroke-dasharray:1;stroke-dashoffset:1;pathLength:1}
+.btn__ic .ic-done path{stroke-dasharray:26;stroke-dashoffset:26;transition:stroke-dashoffset .4s cubic-bezier(.16,1,.3,1) .08s}
+.btn--copy.is-done{--bg:var(--accent);--fg:var(--ink);--bd:var(--accent)}
+.btn--copy.is-done .ic-copy{opacity:0;transform:scale(.6) rotate(-12deg)}
+.btn--copy.is-done .ic-done{opacity:1;transform:none}
+.btn--copy.is-done .ic-done path{stroke-dashoffset:0}
+.btn--copy .btn__t{transition:opacity .2s ease}
+.btn--copy.is-swapping .btn__t{opacity:0}
+@media (prefers-reduced-motion:reduce){
+  .btn__ic svg,.btn__ic .ic-done path,.btn--copy .btn__t{transition:none}
+}
+
+.pill{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:7px 14px 7px 12px;
+  border:1px solid var(--line-2);
+  border-radius:100px;
+  font-family:var(--font-mono);
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(252,250,243,.55);
+  backdrop-filter:blur(8px);
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);position:relative;flex:none}
+.dot::after{
+  content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid var(--ok);opacity:.45;
+  animation:ping 2.4s ease-out infinite;
+}
+@keyframes ping{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+
+/* grain + noise overlay */
+.grain{
+  position:fixed;inset:0;pointer-events:none;z-index:9;
+  opacity:.045;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* reveal */
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity var(--t-slow),transform var(--t-slow)}
+[data-reveal].in{opacity:1;transform:none}
+[data-reveal-delay="1"]{transition-delay:.08s}
+[data-reveal-delay="2"]{transition-delay:.16s}
+[data-reveal-delay="3"]{transition-delay:.24s}
+[data-reveal-delay="4"]{transition-delay:.32s}
+
+/* ============================================================
+   LOADER
+   Hidden entirely without JS, so the site is never blocked.
+   ============================================================ */
+.loader{display:none}
+.js .loader{
+  position:fixed;inset:0;z-index:200;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--ink);
+  padding:var(--pad) var(--pad) clamp(22px,3vw,40px);
+  opacity:1;
+  transition:opacity .4s ease;
+  will-change:opacity;
+}
+/* On the way out the loader's own ink backdrop goes clear, so the cells the
+   canvas is still drawing are the only thing between the reader and the hero;
+   by the time it fades there is nothing left to fade but the counter. */
+.js .loader.is-flipping{background:transparent;transition:opacity .3s ease}
+.js .loader.is-done{opacity:0;pointer-events:none}
+.loader__hex{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+/* keeps the type readable no matter which cells happen to ignite behind it */
+.loader__scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  transition:opacity .45s ease;
+  background:
+    radial-gradient(62% 44% at 50% 50%,rgba(10,10,10,.84) 0%,rgba(10,10,10,.46) 58%,rgba(10,10,10,0) 100%),
+    linear-gradient(to bottom,rgba(10,10,10,.7) 0%,rgba(10,10,10,0) 24%),
+    linear-gradient(to top,rgba(10,10,10,.88) 0%,rgba(10,10,10,.55) 24%,rgba(10,10,10,0) 50%);
+}
+.loader.is-flipping .loader__scrim{opacity:0}
+
+/* ---- Act 0: the black. A solid veil covers everything and lifts as a plain
+   opacity fade, 100 -> 0. Opacity is compositor-only, so the lift stays smooth
+   while the canvas underneath is busy. Nothing below it starts until it lifts,
+   so the black is truly empty — no counter ticking away behind it. ---- */
+.loader__veil{
+  position:absolute;inset:0;z-index:6;background:#000;
+  opacity:1;pointer-events:none;
+  transition:opacity .95s cubic-bezier(.5,0,.2,1);   /* holds a beat, then releases */
+}
+.loader.is-lit .loader__veil{opacity:0}
+/* the room lights up: a warm bloom flares at the centre as the black lifts,
+   then dissipates out into the grid */
+.loader__bloom{
+  position:absolute;left:50%;top:50%;z-index:1;pointer-events:none;
+  width:min(150vmax,1700px);aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(.5);opacity:0;
+  background:radial-gradient(circle,rgba(255,73,1,.44) 0%,rgba(255,120,1,.22) 16%,
+             rgba(255,203,2,.06) 32%,transparent 56%);
+  /* rasterised at first paint, under the black, instead of on the frame the
+     veil starts to lift */
+  will-change:transform,opacity;
+}
+.loader.is-lit .loader__bloom{animation:lbloom 1.75s cubic-bezier(.2,.65,.2,1) .05s both}
+@keyframes lbloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+  24%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.8)}
+}
+/* and a slow push-in on the grid, so the lift reads as a camera settling.
+   Done well before the flip, which needs the canvas at exactly 1:1. */
+.loader__hex{transform:scale(1.07);transform-origin:50% 50%;transition:transform 1.5s cubic-bezier(.16,1,.3,1)}
+.loader.is-lit .loader__hex{transform:none}
+
+.loader__top,.loader__id,.loader__bar{position:relative;z-index:2}
+.loader__top{
+  display:flex;align-items:flex-start;justify-content:flex-end;gap:20px;
+  opacity:0;transition:opacity .5s ease .1s,transform .4s ease;
+}
+.loader.is-in .loader__top{opacity:1}
+.loader.is-flipping .loader__top{opacity:0;transform:translateY(-14px);transition-delay:0s}
+.loader__count{
+  display:flex;align-items:flex-start;gap:.05em;
+  font-size:clamp(30px,3.8vw,54px);font-weight:700;line-height:1;letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums;color:var(--paper);
+}
+.loader__count sup{font-size:.34em;font-weight:500;color:var(--accent);margin-top:.18em}
+
+/* the name is the loader — centred, one letter at a time */
+.loader__id{
+  position:absolute;left:0;right:0;top:50%;
+  padding-inline:var(--pad);text-align:center;
+  transform:translate(0,-50%) scale(.94);
+  opacity:0;
+  transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .5s ease;
+}
+.loader.is-in .loader__id{transform:translate(0,-50%) scale(1);opacity:1}
+.loader.is-flipping .loader__id{
+  transform:translate(0,-50%) scale(1.08);opacity:0;
+  transition:transform .6s cubic-bezier(.7,0,.84,0),opacity .45s ease .08s;
+}
+/* the mark is cut into vertical slices that wipe up one after another,
+   from the middle outward — same choreography the hero name uses.
+   The asset itself is a traced vector, so it stays sharp at any size */
+.lmark{
+  position:relative;
+  width:clamp(150px,24vw,290px);
+  aspect-ratio:156/96;
+  margin:0 auto;
+}
+.lmark__ring{
+  position:absolute;left:50%;top:50%;
+  height:238%;width:auto;overflow:visible;
+  fill:none;
+  transform:translate(-50%,-50%);
+}
+/* The ring draws itself: one line leaves the top vertex, runs clockwise and
+   seals the shape. pathLength="1" on the polygon makes the dash maths
+   unit-free — a dash of 1 and an offset of 1 hide it, offset 0 shows it all,
+   whatever the rendered size. */
+.lmark__ring-line{
+  stroke:rgba(255,203,2,.42);stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round;
+  stroke-dasharray:1 1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.35s cubic-bezier(.6,0,.2,1);
+}
+.loader.is-in .lmark__ring-line{
+  stroke-dashoffset:0;
+  animation:ringseal .5s ease 1.2s both;           /* a brief brighten as the loop closes */
+}
+@keyframes ringseal{
+  0%{stroke:rgba(255,203,2,.42)} 35%{stroke:rgba(255,203,2,.9)} 100%{stroke:rgba(255,203,2,.42)}
+}
+/* The pen: a short bright dash riding the line's leading edge. Its offset is
+   the line's plus the dash length, so the two stay locked together; it fades
+   the moment the loop closes. */
+.lmark__ring-head,.lmark__ring-halo{
+  stroke-linecap:round;
+  stroke-dasharray:.035 .965;stroke-dashoffset:1.035;
+  opacity:0;
+}
+.lmark__ring-head{stroke:#FFCB02;stroke-width:1.6}
+/* the glow is a second, wider, faint stroke on the same dash — a filter here
+   would be re-rendered every frame the pen moves */
+.lmark__ring-halo{stroke:rgba(255,203,2,.28);stroke-width:4.5}
+.loader.is-in .lmark__ring-head,
+.loader.is-in .lmark__ring-halo{animation:ringhead 1.35s cubic-bezier(.6,0,.2,1) both}
+@keyframes ringhead{
+  0%{stroke-dashoffset:1.035;opacity:0}
+  5%{opacity:1}
+  93%{opacity:1}
+  100%{stroke-dashoffset:.035;opacity:0}
+}
+.loader.is-flipping .lmark__ring{
+  transform:translate(-50%,-50%) scale(1.4) rotate(8deg);opacity:0;
+  transition:transform .6s cubic-bezier(.7,0,.84,0),opacity .4s ease;
+}
+/* Every slice holds the WHOLE logo at the same size and shows only its own
+   column through clip-path. Slicing the image itself left hairline seams
+   wherever a column landed on a half pixel; this way they cannot appear. */
+/* inset 15% a side = the mark at 70% of the frame, centred. Only the mark
+   shrinks: .lmark itself keeps its size, so the hex ring and the role line
+   below it (both measured off .lmark) stay exactly where they were. */
+.lmark__cut{position:absolute;inset:15%}
+.lmark__cut i{
+  position:absolute;inset:0;
+  background:var(--logo) center/contain no-repeat;
+  /* each column reaches .6% into its neighbours; two antialiased clip edges
+     meeting exactly would otherwise leave a hairline down the mark */
+  --l:calc(var(--k,0) / var(--n,12) * 100% - .6%);
+  --r:calc((var(--n,12) - 1 - var(--k,0)) / var(--n,12) * 100% - .6%);
+  clip-path:inset(100% var(--r) 0 var(--l));
+  transform:translateY(14%);
+  transition:clip-path .78s cubic-bezier(.16,1,.3,1),transform .78s cubic-bezier(.16,1,.3,1);
+  transition-delay:calc(var(--i,0) * 46ms);
+  will-change:clip-path,transform;
+}
+.loader.is-in .lmark__cut i{clip-path:inset(0 var(--r) 0 var(--l));transform:translateY(0)}
+.loader.is-flipping .lmark__cut i{
+  clip-path:inset(0 var(--r) 100% var(--l));transform:translateY(-16%);
+  transition:clip-path .45s cubic-bezier(.7,0,.84,0),transform .45s cubic-bezier(.7,0,.84,0);
+  transition-delay:calc(var(--i,0) * 18ms);
+}
+.loader__bar{
+  height:2px;background:rgba(245,240,230,.14);overflow:hidden;
+  transition:opacity .35s ease,transform .45s cubic-bezier(.76,0,.24,1);
+}
+.loader.is-flipping .loader__bar{opacity:0;transform:translateY(-14px)}
+/* driven by scaleX rather than width, so the fill runs on the compositor
+   and never triggers layout while the grid is animating */
+.loader__bar i{
+  position:absolute;top:0;bottom:0;left:0;width:100%;
+  transform:scaleX(0);transform-origin:left center;
+  background:var(--accent);display:block;
+  box-shadow:0 0 12px rgba(255,73,1,.8);
+  will-change:transform;
+}
+
+/* ============================================================
+   FLOATING DOCK NAV
+   ============================================================ */
+.dock{
+  position:fixed;z-index:50;
+  left:50%;bottom:clamp(16px,2.4vw,30px);
+  transform:translateX(-50%);
+  display:flex;align-items:center;gap:2px;
+  padding:7px 7px 7px 8px;
+  background:var(--dock);
+  border-radius:100px;
+  box-shadow:0 2px 6px rgba(0,0,0,.14), 0 14px 34px rgba(0,0,0,.26);
+  transition:opacity var(--t),transform var(--t);
+  max-width:calc(100vw - 24px);
+}
+/* brand mark — the logo is white, so it only ever sits on the dark dock */
+.dock__home{
+  height:40px;padding-inline:13px;border-radius:100px;flex:none;
+  display:grid;place-items:center;
+  transition:background var(--t-fast);
+}
+.dock__home:hover{background:rgba(255,255,255,.11)}
+.dock__mark{
+  display:block;width:31px;height:19px;
+  background:var(--logo) center/contain no-repeat;
+  opacity:.92;transition:opacity var(--t-fast),transform var(--t-fast);
+}
+.dock__home:hover .dock__mark{opacity:1;transform:scale(1.06)}
+.dock a.dlink{
+  display:flex;align-items:center;gap:5px;
+  padding:11px 15px;border-radius:100px;
+  color:rgba(255,255,255,.82);
+  font-size:14.5px;letter-spacing:-.015em;white-space:nowrap;
+  transition:color var(--t-fast),background var(--t-fast);
+  perspective:420px;                   /* gives the flip a little depth */
+}
+.dock a.dlink:hover{color:#fff;background:rgba(255,255,255,.09)}
+.dock a.dlink.active{color:#fff}
+.dock a.dlink.active::before{
+  content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);
+  margin-right:2px;
+}
+.dock a.dlink svg{opacity:.55;transition:opacity var(--t-fast),color var(--t-fast)}
+.dock a.dlink:hover svg{opacity:1;color:var(--accent)}
+/* Hover flip, letter by letter. Every character is its own cube one line
+   tall: the white letter is the front face, the same letter in brand orange
+   is the face below it. Hovering rolls each cube a quarter turn, a beat
+   apart, so the word tips away left to right and the orange one rolls up
+   behind it. Both faces sit half a line forward (translateZ .6em on a 1.2
+   line), which is what keeps them on the cube's surface as it turns. */
+.dlink .flip{display:inline-flex;line-height:1.2;white-space:pre}
+.flip__ch{
+  position:relative;display:inline-block;
+  transform-style:preserve-3d;
+  transition:transform .46s cubic-bezier(.2,.8,.2,1);
+  transition-delay:calc(var(--i,0) * 26ms);
+}
+.flip__ch b{display:block;font-weight:inherit;transform:translateZ(.6em);backface-visibility:hidden}
+.flip__ch i{
+  position:absolute;left:0;top:0;font-style:normal;
+  color:var(--accent);
+  transform:rotateX(-90deg) translateZ(.6em);
+  backface-visibility:hidden;
+}
+.dlink:hover .flip__ch{transform:rotateX(90deg)}
+/* leaving rolls back from the far end, so it reads as one motion either way */
+.dlink .flip__ch{transition-delay:calc((var(--n,1) - 1 - var(--i,0)) * 22ms)}
+.dlink:hover .flip__ch{transition-delay:calc(var(--i,0) * 26ms)}
+/* a hairline draws under the label while the letters turn */
+.dock a.dlink{position:relative}
+.dock a.dlink::after{
+  content:"";position:absolute;left:15px;right:15px;bottom:7px;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;opacity:.8;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.dock a.dlink:hover::after{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){
+  .flip__ch{transition:none;transform:none!important}
+  .dock a.dlink::after{transition:none}
+}
+/* Contact pill — the same move as the phone menu's button. On hover a cream
+   disc grows out of the bottom-left corner and floods the pill, the label
+   rolls up and comes back, the arrow nudges up-right, and the whole thing
+   lifts on a soft orange glow. */
+.dock__cta{
+  position:relative;overflow:hidden;isolation:isolate;
+  display:inline-flex;align-items:center;gap:8px;
+  margin-left:4px;padding:11px 17px 11px 19px;border-radius:100px;
+  background:var(--accent);color:var(--ink);font-size:14.5px;font-weight:600;letter-spacing:-.015em;
+  white-space:nowrap;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease;
+}
+.dock__cta::before{
+  content:"";position:absolute;z-index:-1;
+  left:-10%;bottom:-160%;width:120%;aspect-ratio:1;border-radius:50%;
+  background:var(--paper);
+  transform:scale(0);transform-origin:50% 50%;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+.dock__roll{display:block;height:1.2em;line-height:1.2;overflow:hidden}
+.dock__roll span{display:block;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.dock__cta-arw{flex:none;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.dock__cta:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--paper),0 10px 26px -8px rgba(255,73,1,.65)}
+.dock__cta:hover::before{transform:scale(1.2)}
+.dock__cta:hover .dock__roll span{transform:translateY(-100%)}
+.dock__cta:hover .dock__cta-arw{transform:translate(3px,-3px)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:grid;place-items:center;
+  overflow:hidden;
+  padding-block:clamp(80px,11vh,140px) clamp(108px,14vh,170px);
+}
+/* 3D honeycomb — painted by drawHoneycomb() in the script below */
+.hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#F1ECE0}
+.hero__video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  /* a whisper of scale so the frame never shows an edge while cover recomputes */
+  transform:scale(1.03);
+  opacity:0;transition:opacity 1.2s ease;
+}
+.hero__video.is-ready{opacity:1}
+/* the film is white and grey; multiplying the paper colour over it turns the
+   whites cream and the greys warm, so it belongs to the same palette as the
+   rest of the page instead of sitting on it like a stock clip */
+.hero__tint{
+  position:absolute;inset:0;
+  background:var(--paper);mix-blend-mode:multiply;
+}
+.hero__tint::after{
+  content:"";position:absolute;inset:0;
+  /* and a soft radial lift behind the name, so the type sits on the brightest part */
+  background:radial-gradient(60% 50% at 50% 46%,rgba(255,253,248,.55),rgba(255,253,248,0) 70%);
+  mix-blend-mode:normal;
+}
+/* the honeycomb dissolves into the page: a taller, whiter fade so the hero
+   ends on the exact colour of the strip beneath it, with no visible seam */
+.hero__fade{
+  position:absolute;left:0;right:0;bottom:0;height:42%;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom,
+    rgba(252,250,243,0) 0%,rgba(252,250,243,.35) 38%,rgba(252,250,243,.78) 70%,var(--paper-2) 100%);
+}
+
+.hero__title{
+  position:relative;z-index:2;
+  width:100%;max-width:var(--maxw-hero);margin-inline:auto;padding-inline:var(--pad);
+  /* Three shared rows: kicker / name / location. Both halves sit on the same
+     grid lines, so the two names share a baseline and the two kickers share a
+     line — even though only the right side carries a location. */
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  grid-template-rows:auto auto auto;
+  align-items:center;
+  /* The side tracks are 1fr, so shrinking this alone changes nothing — the
+     tracks just absorb it. What closes the gap is the portrait taking up
+     more of the row. */
+  column-gap:clamp(12px,2.2vw,46px);
+  font-weight:400;
+}
+.hero__side{display:contents}
+.hero__side--l{text-align:left}
+.hero__side--r{text-align:right}
+.hero__side--l>*{grid-column:1}
+.hero__side--r>*{grid-column:3}
+.hero__kicker{grid-row:1}
+.hero__title .line{grid-row:2}
+#clock,#clock2{font-variant-numeric:tabular-nums}
+.hero__loc{grid-row:3}
+.hero__kicker{
+  font-size:clamp(11.5px,1.05vw,16px);color:var(--muted);
+  letter-spacing:-.005em;line-height:1.3;
+  margin-bottom:clamp(6px,.9vw,14px);
+}
+.hero__word{
+  display:block;
+  /* the 104px ceiling stops the name outgrowing its column on wide screens;
+     fitHeroNames() in the script is the safety net for longer names */
+  font-size:clamp(36px,6.7vw,104px);
+  font-weight:700;line-height:.92;letter-spacing:-.038em;
+  text-transform:uppercase;color:#1C1A16;
+}
+.hero__loc{
+  font-size:clamp(11.5px,1.05vw,16px);color:var(--muted);
+  /* measured ink gaps, not box gaps: the name's line box already carries ~13-18px
+     of leading below the glyphs, so this margin is the remainder needed to sit a
+     touch wider than the kicker above (which reads right under a big cap-height name) */
+  margin-top:clamp(10px,1.05vw,20px);
+  font-variant-numeric:tabular-nums;
+}
+.hero__photo{
+  /* overflow must stay visible: the box is 0px tall and the picture overflows it */
+  display:block;position:relative;overflow:visible;
+  /* Height 0, so the portrait reserves the middle column's WIDTH but adds no
+     height to the row. A 480px photo sharing rows with the text was stretching
+     them, and that — not the margins — is what pushed the kicker and location
+     away from the name. The picture itself is drawn by ::after, centred on the
+     name's row and free to overflow it; column 2 is empty otherwise. */
+  grid-column:2;grid-row:2;align-self:center;
+  width:clamp(150px,19vw,350px);
+  height:0;
+  transform:translateY(150px) scale(.9);opacity:0;
+  transition:transform 1.45s cubic-bezier(.16,1,.3,1) .18s,opacity .8s ease .18s;
+}
+.hero__photo::before,.hero__photo::after{
+  content:"";position:absolute;left:0;right:0;top:50%;
+  translate:0 -50%;               /* centring lives here so transform is free for the float */
+  aspect-ratio:27/37;
+  border-radius:clamp(12px,1.5vw,24px);
+}
+/* The picture floats as if on water: a slow bob with a little roll and drift,
+   on a long irregular cycle so it never reads as a metronome. The shadow is a
+   separate layer that stays on the "surface" and breathes — spreading and
+   lightening as the card lifts, tightening as it settles — which is what
+   sells the height. Both are transform/opacity only, so they cost nothing. */
+.hero__photo::after{
+  overflow:hidden;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  /* the first layer is a soft glare that the pointer drags across the card
+     while hovering; --glare is transparent until the script lights it */
+  background:
+    radial-gradient(circle at var(--gx,50%) var(--gy,50%),var(--glare,rgba(255,255,255,0)) 0,rgba(255,255,255,0) 58%),
+    var(--photo) center 18%/cover no-repeat, var(--paper-3);
+  animation:photoFloat 8.5s ease-in-out infinite;
+  will-change:transform;
+}
+/* Hover: the card tilts toward the pointer and is pulled a few px after it,
+   lifting slightly; the shadow is pushed the other way so it reads as staying
+   on the surface. All of it is driven by the script (see photoTilt), which
+   smooths every frame — so the 1.2s entrance transition has to step aside. */
+.hero__photo.is-live{transition:opacity .9s ease .12s}
+.hero__photo,.about__portrait{touch-action:pan-y}   /* swipe up/down scrolls; a sideways drag tilts the card */
+.hero__photo::before{
+  /* a narrower pool sitting low under the card, so it shows past the bottom
+     edge (.hero__photo is 0px tall, so this is done in the element's own %) */
+  translate:var(--sx,0px) calc(-21% + var(--sy,0px));
+  scale:.82 .72;
+  background:rgba(18,18,18,.95);
+  filter:blur(24px);
+  opacity:.5;
+  animation:photoShade 8.5s ease-in-out infinite;
+  will-change:transform,opacity;
+}
+@keyframes photoFloat{
+  0%,100%{transform:translate3d(0,4px,0) rotate(0deg)}
+  22%    {transform:translate3d(2px,-7px,0) rotate(-1.1deg)}
+  47%    {transform:translate3d(-1px,1px,0) rotate(.7deg)}
+  70%    {transform:translate3d(-3px,-8px,0) rotate(-.4deg)}
+}
+@keyframes photoShade{
+  0%,100%{transform:scale(.98);opacity:.5}
+  22%    {transform:scale(1.08);opacity:.3}
+  47%    {transform:scale(1);opacity:.45}
+  70%    {transform:scale(1.09);opacity:.27}
+}
+/* no individual-transform support: keep the picture centred, skip the float */
+@supports not (translate:0 0){
+  .hero__photo::before,.hero__photo::after{transform:translateY(-50%);animation:none}
+}
+.loaded .hero__photo{transform:none;opacity:1}
+
+/* padding-bottom keeps descenders (g, p, y) from being clipped by the mask */
+/* Entrance choreography, timed to the loader's peel: SANSKAR slides in from
+   the left edge, RAIKWAR from the right, each inside its own mask so it
+   appears to come from off the page; the photo rises from below a beat
+   later; the small lines settle last. */
+.line{overflow:hidden;display:block;padding-bottom:.14em;margin-bottom:-.12em}
+.line>span{display:block;transform:translateX(-112%);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.hero__side--r .line>span{transform:translateX(112%);transition-delay:.05s}
+.loaded .line>span{transform:none}
+.hero__kicker,.hero__loc{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .9s ease .75s,transform .9s cubic-bezier(.16,1,.3,1) .75s;
+}
+.loaded .hero__kicker,.loaded .hero__loc{opacity:1;transform:none}
+
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee{
+  border-block:1px solid var(--line);
+  background:var(--paper-2);
+  overflow:hidden;padding-block:20px;
+  display:flex;
+}
+/* Seamless marquees. Every .mq holds one .mq__set of unique items; the script
+   repeats the items until the set is at least as wide as the viewport, then
+   clones the whole set once and slides the pair by exactly one set — so the
+   loop point is invisible and the strip can never run out of content. The
+   speed is a px/s figure on data-speed, so it feels the same at every width. */
+.mq{overflow:hidden;display:flex}
+.mq__track{display:flex;flex:none;width:max-content;animation:march 40s linear infinite}
+.mq__set{display:flex;flex:none;margin:0;padding:0;list-style:none}
+.mq--pause:hover .mq__track{animation-play-state:paused}
+.marquee__track li{
+  display:flex;align-items:center;gap:clamp(24px,3vw,44px);
+  padding-inline:clamp(12px,1.6vw,22px);
+  font-size:clamp(17px,2vw,26px);font-weight:500;letter-spacing:-.03em;white-space:nowrap;
+}
+.marquee__track li::after{content:"✳";color:var(--accent);font-size:.55em;transform:translateY(-.12em)}
+@keyframes march{to{transform:translateX(-50%)}}
+
+/* ============================================================
+   SECTION HEAD
+   ============================================================ */
+/* Every section opens the same way now: kicker, one line of title with the
+   accent half in the serif, then the line that frames what follows. The
+   right-hand column is left for whatever the section needs there. */
+.shead__h{margin-top:20px;font-size:clamp(30px,5.1vw,72px)}
+.shead .shead__sub{margin-top:18px;max-width:min(660px,100%);font-size:15px;line-height:1.55;color:var(--muted)}
+.shead{
+  display:grid;grid-template-columns:1fr auto;gap:var(--gap);align-items:end;
+  margin-bottom:clamp(36px,5vw,72px);
+}
+.shead .label{margin-bottom:22px}
+.shead p{max-width:46ch}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skill{
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:clamp(22px,2.4vw,34px);
+  min-height:250px;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  background:var(--paper);
+  transition:background var(--t-fast),color var(--t-fast);
+}
+.skill::before{
+  content:"";position:absolute;inset:0;background:var(--ink);
+  transform:translateY(101%);transition:transform var(--t);z-index:0;
+}
+.skill:hover::before{transform:none}
+.skill>*{position:relative;z-index:1}
+.skill:hover{color:var(--paper)}
+.skill:hover .skill__num{color:var(--accent-2)}
+.skill:hover .skill__desc{color:rgba(245,240,230,.64)}
+.skill:hover .tag{border-color:rgba(245,240,230,.28);color:rgba(245,240,230,.82)}
+.skill__num{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;color:var(--muted);transition:color var(--t-fast)}
+.skill h3{margin-top:auto;padding-top:26px;font-size:clamp(19px,1.7vw,25px);font-weight:500;letter-spacing:-.03em;line-height:1.1}
+.skill__desc{font-size:14px;line-height:1.5;color:var(--muted);margin-top:10px;transition:color var(--t-fast)}
+/* min-height reserves two tag rows so every card title sits on the same line */
+.tags{display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px;margin-top:18px;min-height:56px}
+.tag{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line-2);border-radius:100px;padding:4px 9px;color:var(--muted);
+  transition:border-color var(--t-fast),color var(--t-fast);
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+/* Three parts: title, portrait, body. On wide screens the title and body
+   stack in the left column with the portrait beside them; on a phone they
+   simply flow in source order — title, then the photo, then the rest. */
+.about{
+  display:grid;grid-template-columns:1.1fr .9fr;grid-template-rows:auto 1fr;
+  column-gap:clamp(32px,5vw,84px);row-gap:32px;align-items:start;
+}
+.about__head{grid-column:1;grid-row:1}
+.about__body{grid-column:1;grid-row:2}
+.about__portrait{grid-column:2;grid-row:1 / 3}
+/* Same treatment as the hero portrait: the picture floats on ::after, a
+   breathing shadow sits on ::before, and the pointer tilt from the script
+   drives the host. This host has real height, so the layers fill it. */
+.about__portrait{aspect-ratio:4/5;position:relative;overflow:visible}
+.about__portrait::before,.about__portrait::after{
+  content:"";position:absolute;inset:0;border-radius:var(--r);
+}
+.about__portrait::after{
+  overflow:hidden;border:1px solid var(--line);
+  background:
+    radial-gradient(circle at var(--gx,50%) var(--gy,50%),var(--glare,rgba(255,255,255,0)) 0,rgba(255,255,255,0) 58%),
+    var(--photo) center 16%/cover no-repeat, var(--paper-3);
+  animation:photoFloat 9.5s ease-in-out infinite;    /* a different period from the hero, so the two never move in step */
+  will-change:transform;
+}
+.about__portrait::before{
+  top:22%;bottom:-22%;
+  translate:var(--sx,0px) var(--sy,0px);
+  scale:.82 .72;
+  background:rgba(18,18,18,.95);filter:blur(24px);opacity:.5;
+  animation:photoShade 9.5s ease-in-out infinite;
+  will-change:transform,opacity;
+}
+.about__portrait.is-live{transition:opacity var(--t-slow)}   /* transform is the script's from here on */
+.about__body p+p{margin-top:20px}
+/* the phrase that carries each line steps out of the grey */
+.about__body p em{font-style:normal;color:var(--ink-2);font-weight:500}
+/* the opening line matches the size of the paragraphs below it */
+.about__body .lead{font-size:inherit;line-height:1.55;letter-spacing:normal}
+.about__cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:clamp(28px,3.4vw,40px)}
+.about__list{margin-top:36px;border-top:1px solid var(--line)}
+.about__list li{
+  display:flex;justify-content:space-between;gap:20px;align-items:baseline;
+  padding:14px 0;border-bottom:1px solid var(--line);font-size:14.5px;
+}
+/* the label is the quiet half and the value the loud one — mono at 11px was
+   doing the opposite, and reading thin while it did */
+.about__list li span:first-child{color:var(--muted);font-weight:400}
+.about__list li span:last-child{
+  color:var(--ink);font-size:15.5px;font-weight:500;letter-spacing:-.015em;text-align:right;
+}
+
+/* ============================================================
+   PROCESS — one spine, three crafts
+   Six steps down a rail. Each step's segment of the rail fills with orange
+   as it passes a line ~60% down the viewport; the hexagon node lights when
+   the fill reaches it. Every step shows what it means in UI/UX, graphic and
+   video, so the "same order, different artefacts" point is on the page,
+   not just in the intro.
+   ============================================================ */
+.proc{position:relative;margin-top:clamp(8px,1vw,16px)}
+.proc__legend{
+  display:flex;justify-content:flex-end;gap:clamp(14px,2vw,28px);
+  margin-bottom:10px;padding-right:2px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+.proc__legend span{display:inline-flex;align-items:center;gap:7px}
+.proc__legend i{width:7px;height:8px;background:var(--line-2);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.proc__steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+
+.pstep{
+  --fill:0;
+  position:relative;
+  display:grid;grid-template-columns:44px 64px minmax(0,1.15fr) minmax(0,1.6fr);
+  gap:0 clamp(16px,2.4vw,36px);align-items:center;
+  padding:clamp(22px,2.6vw,34px) 0;border-bottom:1px solid var(--line);
+  transition:background .5s ease;
+}
+/* the rail: a hairline down the first column, its lit part painted on top */
+.pstep__rail{position:absolute;left:21px;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--line);pointer-events:none}
+.pstep__rail::before{
+  content:"";position:absolute;left:0;top:0;width:100%;height:calc(var(--fill) * 100%);
+  background:var(--accent);transition:height .12s linear;
+}
+/* the head: an orange bead that rides the fill's leading edge while this
+   step is the one being filled */
+.pstep__rail::after{
+  content:"";position:absolute;left:50%;top:calc(var(--fill) * 100%);width:8px;height:8px;margin:-4px 0 0 -4px;
+  border-radius:50%;background:var(--accent-2);
+  box-shadow:0 0 0 3px rgba(255,203,2,.22),0 0 14px 2px rgba(255,73,1,.55);
+  opacity:0;transition:opacity .25s ease,top .12s linear;
+}
+.pstep.is-filling .pstep__rail::after{opacity:1}
+/* the rail starts at the first node and stops at the last (--node is the
+   node's position down its row, set by the script, so this holds on the
+   stacked phone layout too) */
+.pstep:first-child .pstep__rail{clip-path:inset(calc(var(--node,.5) * 100%) 0 0 0)}
+.pstep:last-child .pstep__rail{clip-path:inset(0 0 calc((1 - var(--node,.5)) * 100%) 0)}
+/* the node: a small hexagon on the rail, hollow until the fill reaches it */
+.pstep__node{
+  position:relative;z-index:1;width:18px;height:20px;justify-self:center;
+  display:grid;place-items:center;
+}
+.pstep__node svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pstep__nodebg{fill:var(--paper);stroke:var(--line-2);stroke-width:1.5;vector-effect:non-scaling-stroke;
+  transition:fill .35s ease,stroke .35s ease,transform .5s cubic-bezier(.16,1,.3,1);transform-origin:50% 50%}
+.pstep__nodering{fill:none;stroke:var(--accent);stroke-width:1.2;vector-effect:non-scaling-stroke;opacity:0;transform-origin:50% 50%}
+.pstep.is-lit .pstep__nodebg{fill:var(--accent);stroke:var(--accent);transform:scale(1.18)}
+.pstep.is-lit .pstep__nodering{animation:procPulse .9s cubic-bezier(.16,1,.3,1) both}
+@keyframes procPulse{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
+
+.pstep__n{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:12px;letter-spacing:.12em;color:var(--muted);transition:color .35s ease}
+.pstep.is-lit .pstep__n{color:var(--accent-ink)}
+.pstep__name{
+  font-size:clamp(22px,2.4vw,34px);font-weight:600;letter-spacing:-.035em;line-height:1.02;
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+.pstep__desc{margin-top:6px;font-size:14px;line-height:1.45;color:var(--muted);max-width:30ch}
+/* the three crafts: label over value, one column each */
+.pstep__crafts{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.6vw,22px);margin:0;
+}
+.pstep__crafts div{min-width:0;padding-left:12px;border-left:1px solid var(--line);transition:border-color .35s ease}
+.pstep__crafts dt{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+.pstep__crafts dt::before{content:"";width:6px;height:7px;background:var(--line-2);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);transition:background .35s ease}
+.pstep__crafts dd{margin:5px 0 0;font-size:13.5px;line-height:1.4;color:var(--ink-2);letter-spacing:-.01em}
+.pstep.is-lit .pstep__crafts dt::before{background:var(--accent)}
+
+/* hover (pointer): the row warms from the rail outwards, the name steps
+   right, the craft dividers turn orange */
+.pstep::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,73,1,.055),rgba(255,73,1,.02) 40%,transparent 68%);
+  opacity:0;transform:translateX(-6%);transition:opacity .45s ease,transform .7s cubic-bezier(.16,1,.3,1);
+}
+
+  html.has-hover .pstep:hover::after{opacity:1;transform:none}
+  html.has-hover .pstep:hover .pstep__name{transform:translateX(8px)}
+  html.has-hover .pstep:hover .pstep__crafts div{border-color:rgba(255,73,1,.5)}
+  html.has-hover .pstep:hover .pstep__n{color:var(--accent-ink)}
+
+/* entrance: rows rise one after another */
+.pstep[data-rise]{transition-delay:calc(var(--k,0) * 90ms)}
+
+/* ============================================================
+   EXPERIENCE — one role, three crafts, then the credentials
+   The job is a single block: the company across the top, and the three
+   crafts as columns beneath it, so it reads as one place where three
+   kinds of work happen — not as three jobs. A labelled divider separates
+   what was earned from what is done.
+   ============================================================ */
+.xp{
+  position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(22px,3vw,40px);
+}
+.xp__head{
+  display:grid;grid-template-columns:1fr auto;gap:clamp(16px,3vw,40px);align-items:start;
+  padding-bottom:clamp(20px,2.4vw,30px);border-bottom:1px solid var(--line);
+}
+.xp__head + .xdiv--in{margin-top:clamp(18px,2.2vw,26px)}
+.xp__who{display:flex;align-items:flex-start;gap:14px;min-width:0}
+/* the studio's own mark, in the same hexagon well the toolkit and the
+   credential use. It settles in as the card arrives and lifts with the
+   card on hover — the same quiet move, nothing louder. */
+.xp__mark{
+  position:relative;width:54px;aspect-ratio:.866;flex:none;margin-top:1px;
+  display:grid;place-items:center;
+  transform:translateY(6px) scale(.86);opacity:0;
+  transition:transform .7s cubic-bezier(.16,1,.3,1) .12s,opacity .5s ease .12s,filter .45s ease;
+}
+.xp[data-reveal].in .xp__mark{transform:none;opacity:1}
+/* the frame turns one hexagon step (60 degrees, so it lands on itself)
+   while the mark inside stays upright — the cell moves, the logo does not */
+.xp__well{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  transform:rotate(-30deg);transform-origin:50% 50%;
+  transition:transform .95s cubic-bezier(.16,1,.3,1) .1s}
+.xp[data-reveal].in .xp__well{transform:none}
+.xp__wellbg{fill:#fff;stroke:var(--line-2);stroke-width:1.2;vector-effect:non-scaling-stroke;transition:stroke .35s ease}
+.xp__wellring{
+  fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1) .45s;
+}
+.xp[data-reveal].in .xp__wellring{stroke-dashoffset:0}
+.xp__mark img{position:relative;width:66%;height:66%;object-fit:contain;display:block;
+  transition:transform .7s cubic-bezier(.16,1,.3,1)}
+/* the reveal rules carry .in, so hover has to out-rank them */
+
+  html.has-hover .xp[data-reveal].in:hover .xp__mark{transform:translateY(-4px);filter:drop-shadow(0 11px 14px rgba(255,73,1,.26))}
+  html.has-hover .xp[data-reveal].in:hover .xp__well{transform:rotate(60deg)}
+  html.has-hover .xp[data-reveal].in:hover .xp__wellbg{stroke:var(--accent)}
+  html.has-hover .xp[data-reveal].in:hover .xp__mark img{transform:scale(1.07)}
+  html.has-hover .xp[data-reveal].in:hover .xp__wellring{animation:sealDraw .95s cubic-bezier(.16,1,.3,1)}
+
+@media (prefers-reduced-motion:reduce){
+  .xp__mark,.xp__well{transform:none;opacity:1}  html.has-hover .xp[data-reveal].in:hover .xp__mark,
+  html.has-hover .xp[data-reveal].in:hover .xp__well,
+  html.has-hover .xp[data-reveal].in:hover .xp__mark img{transform:none;filter:none}  html.has-hover .xp[data-reveal].in:hover .xp__wellring{animation:none}
+}
+.xp__co{font-size:clamp(26px,3vw,42px);font-weight:600;letter-spacing:-.04em;line-height:1}
+.xp__co span{display:block;margin-top:8px;font-size:13px;font-weight:400;letter-spacing:.1em;
+  text-transform:uppercase;font-family:var(--font-mono);color:var(--muted)}
+.xp__when{text-align:right}
+.xp__role{display:block;font-size:clamp(15px,1.5vw,19px);font-weight:500;letter-spacing:-.02em}
+.xp__dates{
+  display:inline-flex;align-items:center;gap:8px;margin-top:9px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+}
+.xp__dates b{font-weight:500;color:var(--accent-ink)}
+.xp__live{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 0 rgba(255,73,1,.5);animation:xpLive 2.4s ease-out infinite}
+@keyframes xpLive{0%{box-shadow:0 0 0 0 rgba(255,73,1,.5)}70%{box-shadow:0 0 0 7px rgba(255,73,1,0)}100%{box-shadow:0 0 0 0 rgba(255,73,1,0)}}
+
+/* the three crafts, side by side under one roof */
+.xp__crafts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.craft{position:relative;padding:clamp(16px,2vw,24px) clamp(16px,2vw,28px) 4px;transition:background .45s ease}
+.craft + .craft{border-left:1px solid var(--line)}
+.craft:first-child{padding-left:0}
+.craft:last-child{padding-right:0}
+.craft__n{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;color:var(--muted);transition:color .35s ease}
+.craft__t{margin-top:12px;font-size:clamp(17px,1.7vw,22px);font-weight:600;letter-spacing:-.03em;line-height:1.1;
+  transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.craft__d{margin-top:10px;font-size:14px;line-height:1.5;color:var(--muted)}
+/* the rule under each craft's title draws in as the column arrives */
+.craft__t::after{
+  content:"";display:block;width:34px;height:2px;margin-top:12px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.16,1,.3,1) calc(.25s + var(--k,0) * 120ms);
+}
+.craft[data-rise].in .craft__t::after{transform:scaleX(1)}
+.craft[data-rise]{transition-delay:calc(var(--k,0) * 120ms)}
+
+  html.has-hover .craft:hover .craft__n{color:var(--accent-ink)}
+  html.has-hover .craft:hover .craft__t{transform:translateX(4px)}
+
+
+/* the divider: a labelled break between what is done and what was earned */
+.xdiv{display:flex;align-items:center;gap:18px;margin:clamp(34px,5vw,64px) 0 clamp(20px,3vw,34px)}
+/* the same break, used once inside the role card */
+.xdiv--in{margin:clamp(20px,2.4vw,28px) 0 0}
+.xdiv--in .label{font-size:20px}
+.xdiv .label{flex:none;margin:0}
+.xdiv__line{flex:1;height:1px;background:var(--line);transform:scaleX(0);transform-origin:left;
+  transition:transform 1.1s cubic-bezier(.16,1,.3,1) .1s}
+.xdiv[data-reveal].in .xdiv__line{transform:scaleX(1)}
+
+/* the credential */
+.cert{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.6vw,34px)}
+.cert__main{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(14px,2vw,26px);align-items:center}
+.cert__seal{position:relative;width:56px;aspect-ratio:.866;flex:none;display:grid;place-items:center}
+.cert__sealsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  transform:rotate(-30deg);transform-origin:50% 50%;
+  transition:transform .95s cubic-bezier(.16,1,.3,1) .1s}
+.cert[data-reveal].in .cert__sealsvg{transform:none}
+/* the issuer's own mark sits in the well; a small orange badge on the
+   shoulder ticks itself once the ring has finished drawing */
+.cert__g{position:relative;width:46%;height:46%;object-fit:contain;display:block;
+  transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.cert__check{
+  position:absolute;right:-8px;bottom:1px;width:23px;height:27px;
+  display:grid;place-items:center;
+  transform:scale(.5);opacity:0;
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1) 1.05s,opacity .3s ease 1.05s;
+}
+.cert__check > svg:first-child{position:absolute;inset:0;width:100%;height:100%}
+.cert__check > svg:first-child polygon{fill:var(--accent);stroke:var(--paper);stroke-width:5;paint-order:stroke fill}
+.cert__check .cert__ck{position:relative;width:11px;height:11px}
+.cert[data-reveal].in .cert__check{transform:none;opacity:1}
+
+/* hover: the card is the target, so the seal reacts wherever the pointer
+   is. It lifts a little on a soft glow and its ring quietly redraws —
+   nothing else moves. */
+.cert__seal{transition:transform .5s cubic-bezier(.16,1,.3,1),filter .45s ease}
+/* the reveal rules carry .in, so hover has to out-rank them */
+
+  html.has-hover .cert[data-reveal].in:hover .cert__seal{transform:translateY(-4px);filter:drop-shadow(0 11px 14px rgba(255,73,1,.26))}
+  html.has-hover .cert[data-reveal].in:hover .cert__sealsvg{transform:rotate(60deg)}
+  html.has-hover .cert[data-reveal].in:hover .cert__sealbg{stroke:var(--accent)}
+  html.has-hover .cert[data-reveal].in:hover .cert__g{transform:scale(1.07)}
+  html.has-hover .cert[data-reveal].in:hover .cert__check{transform:scale(1.12);transition-delay:0s}
+  html.has-hover .cert[data-reveal].in:hover .cert__sealring{animation:sealDraw .95s cubic-bezier(.16,1,.3,1)}
+
+@keyframes sealDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){  .cert__sealsvg,
+  html.has-hover .cert[data-reveal].in:hover .cert__seal,
+  html.has-hover .cert[data-reveal].in:hover .cert__sealsvg,
+  html.has-hover .cert[data-reveal].in:hover .cert__g{transform:none;filter:none}  html.has-hover .cert[data-reveal].in:hover .cert__sealring{animation:none}
+}
+
+.cert__sealbg{fill:#fff;stroke:var(--line-2);stroke-width:1.3;vector-effect:non-scaling-stroke;transition:stroke .35s ease}
+.cert__sealring{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.3s cubic-bezier(.16,1,.3,1) .35s}
+.cert__tick{fill:none;stroke:var(--ink);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .45s cubic-bezier(.16,1,.3,1) 1.35s}
+.cert[data-reveal].in .cert__sealring,.cert[data-reveal].in .cert__tick{stroke-dashoffset:0}
+.cert__t{font-size:clamp(19px,2vw,27px);font-weight:600;letter-spacing:-.035em;line-height:1.15}
+.cert__meta{margin-top:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.cert__meta b{font-weight:500;color:var(--accent-ink)}
+/* the card's own button: a hexagon, the label, an arrow. On hover the ink
+   rises from the bottom and the pill inverts — the same move the Verify
+   buttons inside the certificate page use, one size up. */
+.cert__verify{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:inline-flex;align-items:center;gap:10px;white-space:nowrap;cursor:pointer;
+  padding:12px 18px 12px 15px;border:1px solid var(--line-2);border-radius:100px;
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  transition:color .3s ease,border-color .35s ease,transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease;
+}
+.cert__verify::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--ink);
+  transform:translateY(101%);transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+.cert__verify i{
+  width:10px;height:11px;flex:none;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  transition:background .35s ease,transform .55s cubic-bezier(.16,1,.3,1);
+}
+.cert__verify span{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.cert__verify svg{width:9px;height:9px;overflow:visible;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.cert__verify svg path{stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;fill:none}
+
+  html.has-hover .cert__verify:hover{color:var(--paper);border-color:var(--ink);transform:translateY(-3px);
+    box-shadow:0 16px 26px -18px rgba(18,18,18,.6)}
+  html.has-hover .cert__verify:hover::before{transform:none}
+  html.has-hover .cert__verify:hover i{background:var(--accent-2);transform:rotate(90deg) scale(1.1)}
+  html.has-hover .cert__verify:hover span{transform:translateX(2px)}
+  html.has-hover .cert__verify:hover svg{transform:translate(3px,-3px)}
+
+.cert__verify:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* the seven courses inside it */
+.cert__courses{
+  list-style:none;margin:clamp(20px,2.4vw,30px) 0 0;padding:clamp(18px,2vw,24px) 0 0;
+  border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.cert__courses li{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px 8px 11px;border:1px solid var(--line);border-radius:100px;
+  font-size:12.5px;color:var(--ink-2);background:var(--paper-2);
+  opacity:0;transform:translateY(10px) scale(.96);
+  transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1),border-color .35s ease,background .35s ease;
+  transition-delay:calc(.5s + var(--k,0) * 70ms);
+}
+.cert[data-reveal].in .cert__courses li{opacity:1;transform:none}
+.cert__courses li::before{
+  content:"";width:7px;height:8px;flex:none;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+}
+html.has-hover .cert__courses li:hover{border-color:var(--line-2);background:var(--paper)}
+
+
+/* ============================================================
+   WORK
+   ============================================================ */
+/* the head: kicker, one line of title with the accent half in the serif, the
+   line that frames the grid, and the way through to everything else on the
+   right — the same shape the section heads elsewhere use, one row taller */
+.work__head{align-items:end}
+.work__h{margin-top:20px;font-size:clamp(30px,5.1vw,72px)}
+.work__h em{color:var(--accent)}
+.shead .work__note{margin-top:18px;max-width:min(660px,100%);font-size:15px;line-height:1.55;color:var(--muted)}
+/* a filled pill this time; the cream rises through it on hover */
+.work__all{--bg:var(--ink);--fg:var(--paper);--bd:var(--ink);
+  position:relative;overflow:hidden;isolation:isolate;cursor:pointer;white-space:nowrap}
+.work__all::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--paper);
+  transform:translateY(101%);transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+
+  html.has-hover .work__all:hover{color:var(--ink);border-color:var(--ink)}
+  html.has-hover .work__all:hover::before{transform:none}
+
+.grid-work{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(18px,2.4vw,34px)}
+.work{display:block;position:relative}
+.work--wide{grid-column:span 2}
+.work__media{
+  aspect-ratio:16/11;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+  position:relative;background:var(--paper-3);
+}
+.work--wide .work__media{aspect-ratio:21/9}
+.work__art{position:absolute;inset:0;transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
+.work:hover .work__art{transform:scale(1.045)}
+/* placeholder art, mixed from the four palette colours */
+.work__art--a{background:radial-gradient(88% 120% at 18% 20%,#FFC3A3,transparent 62%),linear-gradient(140deg,#FBF3E7,#F0E4CE)}
+.work__art--b{background:radial-gradient(85% 110% at 80% 25%,#FFE79A,transparent 60%),linear-gradient(160deg,#FDF8EA,#F1E7CE)}
+.work__art--c{background:radial-gradient(95% 120% at 30% 80%,#E8CBB6,transparent 62%),linear-gradient(120deg,#FAF5EA,#EBE1CD)}
+.work__art--d{background:radial-gradient(90% 120% at 72% 28%,#FFD1B4,transparent 60%),linear-gradient(200deg,#FCF6EC,#EFE6D3)}
+.work__art--e{background:radial-gradient(100% 130% at 50% 12%,#D9CFC0,transparent 62%),linear-gradient(180deg,#F8F3E9,#E9DFCC)}
+.work__ghost{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+.work__badge{
+  position:absolute;left:14px;top:14px;z-index:2;
+  background:var(--accent-2);color:var(--ink);
+  border-radius:100px;padding:6px 12px;
+  font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+}
+.work__open{
+  position:absolute;right:14px;bottom:14px;z-index:2;
+  width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--paper);
+  display:grid;place-items:center;
+  transform:scale(.75);opacity:0;transition:transform var(--t),opacity var(--t);
+}
+.work:hover .work__open{transform:none;opacity:1}
+.work__meta{display:flex;justify-content:space-between;gap:18px;align-items:baseline;padding-top:16px}
+.work__meta h3{font-size:clamp(18px,1.8vw,25px);font-weight:500;letter-spacing:-.03em}
+.work__meta span{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.work__desc{font-size:14.5px;line-height:1.5;color:var(--muted);margin-top:8px;max-width:62ch}
+/* ---- one project at a time ----
+   A single stage instead of a grid: each project slides in from the right,
+   holds, then leaves to the left while the next one arrives. Three of them,
+   one per craft, on a loop. The rail underneath doubles as a progress bar
+   and as the way to jump between them. */
+.stage{position:relative;margin-top:clamp(28px,4vw,56px)}
+.stage__view{
+  position:relative;aspect-ratio:21/9;overflow:hidden;
+  border-radius:var(--r);border:1px solid var(--line);background:var(--paper-3);
+}
+.slide{
+  position:absolute;inset:0;margin:0;
+  transform:translateX(103%);opacity:0;
+  transition:transform .95s cubic-bezier(.65,0,.2,1),opacity .5s ease;
+  will-change:transform;
+}
+.slide.is-on{transform:none;opacity:1}
+.slide.is-out{transform:translateX(-103%);opacity:0}
+/* the art drifts a little slower than the frame, so the move has depth */
+.slide__art{position:absolute;inset:0;transform:scale(1.06);transition:transform 1.2s cubic-bezier(.65,0,.2,1)}
+.slide.is-on .slide__art{transform:none}
+.slide__ghost{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+.slide__badge{
+  position:absolute;left:clamp(12px,1.4vw,18px);top:clamp(12px,1.4vw,18px);z-index:2;
+  background:var(--accent-2);color:var(--ink);border-radius:100px;padding:6px 12px;
+  font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+}
+.slide__craft{
+  position:absolute;right:clamp(12px,1.4vw,18px);top:clamp(12px,1.4vw,18px);z-index:2;
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--paper);border-radius:100px;padding:7px 14px 7px 11px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+}
+.slide__craft i{width:7px;height:8px;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+
+/* the words under the frame get their own, quieter change */
+.stage__meta{position:relative;margin-top:clamp(18px,2.2vw,28px);min-height:118px}
+.smeta{
+  position:absolute;inset:0;
+  opacity:0;transform:translateY(14px);pointer-events:none;
+  transition:opacity .5s ease,transform .7s cubic-bezier(.16,1,.3,1);
+}
+.smeta.is-on{opacity:1;transform:none;pointer-events:auto;transition-delay:.18s}
+.smeta__n{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:11px;letter-spacing:.16em;color:var(--accent-ink)}
+.smeta h3{margin-top:9px;font-size:clamp(19px,2vw,28px);font-weight:500;letter-spacing:-.03em;line-height:1.15}
+.smeta p{margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--muted);max-width:min(620px,100%)}
+
+/* the rail: three segments, the live one filling as the hold runs down */
+.stage__rail{display:flex;gap:10px;margin-top:clamp(18px,2.4vw,30px)}
+.srail{
+  position:relative;flex:1;background:none;border:0;padding:14px 0 0;cursor:pointer;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);text-align:left;transition:color .3s ease;
+}
+.srail::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--line-2);
+}
+.srail::after{
+  content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--accent);
+}
+.srail.is-on{color:var(--ink)}
+.srail.is-done::after{width:100%}
+.srail.is-on::after{animation:srailFill var(--hold,4s) linear forwards}
+.stage.is-held .srail.is-on::after{animation-play-state:paused}
+@keyframes srailFill{from{width:0}to{width:100%}}
+html.has-hover .srail:hover{color:var(--ink)}
+.srail:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+@media (prefers-reduced-motion:reduce){
+  .slide,.slide__art,.smeta{transition:none}
+  .slide.is-out{opacity:0}
+  .srail.is-on::after{animation:none;width:100%}
+}
+
+
+/* ============================================================
+   REVIEWS
+   A track of cards that steps one card to the left every few seconds.
+   The set is cloned once behind the original, so when the run ends the
+   track snaps back with the animation off and the loop never rewinds.
+   The next card is always half in view, which is what says "there is more".
+   ============================================================ */
+.revs{background:var(--paper-2);border-top:1px solid var(--line);--cgap:clamp(14px,1.6vw,22px)}
+.rq{position:relative}
+/* the arrows live up in the section head, opposite the title */
+.rq__head{display:flex;gap:10px;align-self:end}
+.rqbtn{
+  width:46px;height:46px;flex:none;border:1px solid var(--line);border-radius:100px;
+  background:none;cursor:pointer;display:grid;place-items:center;color:var(--ink);
+  transition:background .32s ease,border-color .32s ease,color .32s ease;
+}
+.rqbtn svg{width:16px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round}
+html.has-hover .rqbtn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.rqbtn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* The sides must clip — the track is far wider than the frame. But overflow
+   clips every edge, which cut the top off the lifted card and the shadow off
+   its bottom. Overflow clips at the padding box, so vertical padding buys that
+   room back. The ticks below lose their own top margin to match, so the
+   spacing on the page is unchanged. */
+.rq__view{position:relative;overflow:hidden;padding-block:20px 48px;
+  /* a little side room so the hovered card's accent border and lift are not
+     clipped at the left/right edges; the negative margin keeps the cards in
+     the same place, and it stays under --cgap so no neighbour peeks in */
+  padding-inline:12px;margin-inline:-12px}
+.rtrack{display:flex;gap:var(--cgap);will-change:transform}
+
+/* one card */
+.rcd{
+  position:relative;flex:0 0 calc((100% - var(--cgap)) / 2);display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(24px,2.8vw,40px);
+  transition:border-color .4s ease,box-shadow .5s ease,transform .55s cubic-bezier(.16,1,.3,1);
+}
+/* The pair rises in one after the other when the section arrives. This is an
+   animation rather than a transition on purpose: when it ends the transform
+   returns to what the stylesheet says, so the hover lift is unaffected. */
+@keyframes rcdIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.rq[data-reveal].in .rcd{
+  animation:rcdIn .8s cubic-bezier(.16,1,.3,1) backwards;
+  animation-delay:calc(var(--k,0) * 110ms);
+}
+@media (prefers-reduced-motion:reduce){
+  .rq[data-reveal].in .rcd{animation:none}
+}
+
+/* Hover: one gesture, five small parts. The card lifts, an accent edge
+   draws down its left, the quote mark darkens and leans, the stars pop
+   left to right, and the ring closes around the client's initial. Each
+   piece is deliberately small — together they read as the card waking up,
+   not as five effects firing at once. */
+/* any-hover, not hover: on a touchscreen laptop the primary pointer is the
+   screen, so (hover:hover) is false and every hover rule here would be
+   skipped even with a mouse attached. */
+
+  /* the card you are pointing at stays lit and lifts; the one beside it drops
+     back. On a card this wide a 6px nudge vanished — the focus shift is what
+     actually reads. */
+  html.has-hover .rtrack:hover .rcd{opacity:.45;transition:opacity .4s ease,transform .55s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
+  html.has-hover .rtrack:hover .rcd:hover{opacity:1}
+  html.has-hover .rcd:hover{
+    border-color:var(--accent);
+    box-shadow:0 38px 60px -34px rgba(18,18,18,.5), 0 3px 10px -3px rgba(18,18,18,.08);
+    transform:translateY(-10px) scale(1.012);
+  }
+  html.has-hover .rcd:hover .rcd__mark{color:var(--ink);transform:translateY(-2px) rotate(-5deg)}
+  html.has-hover .rcd:hover .rcd__st{transform:scale(1.32) translateY(-1px)}
+  html.has-hover .rcd:hover .rcd__st:nth-child(1){transition-delay:.02s}
+  html.has-hover .rcd:hover .rcd__st:nth-child(2){transition-delay:.06s}
+  html.has-hover .rcd:hover .rcd__st:nth-child(3){transition-delay:.1s}
+  html.has-hover .rcd:hover .rcd__st:nth-child(4){transition-delay:.14s}
+  html.has-hover .rcd:hover .rcd__st:nth-child(5){transition-delay:.18s}
+  html.has-hover .rcd:hover .rcd__hex{transform:rotate(60deg)}
+  html.has-hover .rcd:hover .rcd__ring{stroke-dashoffset:0;opacity:1}
+  html.has-hover .rcd:hover .rcd__bg{fill:#fff;stroke:var(--accent)}
+  html.has-hover .rcd:hover .rcd__av b{color:var(--accent-ink)}
+
+.rcd__top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.rcd__mark{
+  font-family:var(--font-serif);font-style:italic;font-size:58px;line-height:.52;height:.4em;
+  overflow:hidden;color:var(--line-2);display:block;
+  transition:color .4s ease,transform .55s cubic-bezier(.16,1,.3,1);
+}
+/* the rating. no data-stars on the card means no rating was given,
+   and the whole row disappears rather than showing five empty stars */
+.rcd__stars{display:flex;gap:3px;flex:none}
+.rcd:not([data-stars]) .rcd__stars{display:none}
+.rcd__st{width:14px;height:14px;display:block;color:var(--line-2);transform-origin:50% 55%;
+  transition:color .35s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.rcd[data-stars="1"] .rcd__st:nth-child(-n+1),
+.rcd[data-stars="2"] .rcd__st:nth-child(-n+2),
+.rcd[data-stars="3"] .rcd__st:nth-child(-n+3),
+.rcd[data-stars="4"] .rcd__st:nth-child(-n+4),
+.rcd[data-stars="5"] .rcd__st:nth-child(-n+5){color:var(--accent)}
+
+.rcd__q{margin:clamp(16px,1.8vw,24px) 0 0;font-size:15.5px;line-height:1.66;color:var(--ink-2);flex:1}
+.rcd__q em{font-family:var(--font-serif);font-style:italic;color:var(--accent-ink)}
+
+.rcd__by{
+  display:flex;align-items:center;gap:13px;
+  margin-top:clamp(20px,2.2vw,28px);padding-top:clamp(16px,1.8vw,22px);border-top:1px solid var(--line);
+}
+/* the client mark: a hexagon well with their initial, or their logo */
+.rcd__av{position:relative;width:44px;aspect-ratio:.866;flex:none;display:grid;place-items:center}
+/* a hexagon has six-fold symmetry, so a 60deg turn lands exactly back on
+   itself — the cell spins and settles square. The letter sits outside this
+   element so it stays upright while the frame turns. */
+.rcd__hex{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  transform-origin:50% 50%;transition:transform .95s cubic-bezier(.16,1,.3,1)}
+.rcd__bg{fill:var(--paper);stroke:var(--line-2);stroke-width:1.2;vector-effect:non-scaling-stroke;
+  transition:fill .4s ease,stroke .4s ease}
+.rcd__ring{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;
+  transition:stroke-dashoffset .85s cubic-bezier(.16,1,.3,1),opacity .2s ease}
+.rcd__av b{position:relative;font-family:var(--font-mono);font-size:13.5px;font-weight:500;color:var(--ink);
+  transition:color .4s ease}
+.rcd__av img{position:relative;width:58%;height:58%;object-fit:contain;display:block}
+.rcd__who{display:grid;gap:4px;min-width:0}
+.rcd__n{font-size:14.5px;font-weight:600;letter-spacing:-.02em}
+.rcd__r{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* four short lines under the track — the live one fills as its hold runs down */
+.rq__ticks{display:flex;justify-content:center;gap:10px;margin-top:0}
+.rtick{
+  position:relative;width:34px;height:36px;flex:none;
+  padding:0;border:0;background:none;cursor:pointer;display:grid;align-content:center;
+}
+.rtick i{display:block;height:2px;background:var(--line);position:relative;overflow:hidden;
+  transition:background .3s ease}
+.rtick i::after{content:"";position:absolute;inset:0;background:var(--accent);
+  transform:scaleX(0);transform-origin:left}
+.rtick.is-on i{background:var(--line-2)}
+.rq.is-live .rtick.is-on i::after{animation:rtickFill var(--hold,4s) linear forwards}
+.rq.is-paused .rtick.is-on i::after{animation-play-state:paused}
+@keyframes rtickFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+html.has-hover .rtick:hover i{background:var(--ink)}
+.rtick:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){
+  .rcd,.rcd__mark,.rcd__st,.rcd__ring{transition:none}  html.has-hover .rcd:hover{transform:none}  html.has-hover .rcd:hover .rcd__st{transform:none}  .rcd__hex,
+  html.has-hover .rcd:hover .rcd__hex{transition:none;transform:none}
+  .rq.is-live .rtick.is-on i::after{animation:none;transform:scaleX(1)}
+}
+
+.revs__note{
+  margin-top:clamp(24px,3vw,38px);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+
+/* ============================================================
+   EVERYTHING ELSE — the archive as a trail
+   A full-height ink band. Moving the pointer drops pieces of work along
+   the path: each one appears centred on the pointer, stays put, and fades
+   a moment later, newest on top. The copy sits above the pile. On touch
+   screens a ghost pointer wanders so the section still moves.
+   ============================================================ */
+.trail{position:relative;background:var(--ink);color:var(--paper);border-block:1px solid #2a2824;overflow:hidden;
+  min-height:min(100vh,900px);display:grid;align-items:center;cursor:default}
+.trail__layer{position:absolute;inset:0;z-index:1;pointer-events:none}
+.trail__copy{position:relative;z-index:5;text-align:center;padding-block:clamp(72px,10vw,120px);pointer-events:none}
+.trail__copy > *{pointer-events:auto}
+.trail .label{justify-content:center;color:rgba(245,240,230,.5)}
+.trail__h2{margin-top:22px;font-size:clamp(46px,8.5vw,128px);line-height:.9;letter-spacing:-.045em}
+.trail__h2 em.serif{color:var(--accent-2)}
+.trail__lead{margin:22px auto 0;max-width:40ch;font-size:clamp(15px,1.3vw,18px);line-height:1.5;color:rgba(245,240,230,.62)}
+.trail__lead b{font-weight:600;color:var(--paper)}
+/* the hint: hand font and a small arrow that draws itself in */
+.trail__hint{
+  display:inline-flex;align-items:center;gap:10px;margin-top:30px;
+  font-family:var(--font-hand);font-size:24px;font-weight:600;color:rgba(245,240,230,.55);
+}
+.trail__hint b{font-weight:600}
+.trail__hint-touch{display:none}
+html:not(.has-hover) .trail__hint-mouse{display:none}html:not(.has-hover) .trail__hint-touch{display:inline}
+.trail__hint svg{width:38px;height:22px;overflow:visible}
+.trail__hint path{fill:none;stroke:var(--accent-2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1) .5s}
+.trail__hint.in path{stroke-dashoffset:0}
+.trail.is-live .trail__hint{opacity:.45;transition:opacity .6s ease}
+
+/* one dropped piece */
+.trail__item{
+  --tw:clamp(120px,13vw,200px);--r:0deg;--s:.86;
+  position:absolute;left:0;top:0;width:var(--tw);aspect-ratio:9/16;
+  transform:translate(-50%,-50%) rotate(var(--r)) scale(var(--s));
+  opacity:0;pointer-events:none;will-change:transform,opacity;
+  border-radius:6px;overflow:hidden;background:#1d1c19;
+  box-shadow:0 0 0 1px rgba(255,255,255,.07),0 34px 44px -26px rgba(0,0,0,.85);
+}
+.trail__item[data-shape="square"]{width:calc(var(--tw) * 1.15);aspect-ratio:1}
+.trail__item[data-shape="feed"]{width:calc(var(--tw) * 1.1);aspect-ratio:4/5}
+.trail__item[data-shape="wide"]{width:calc(var(--tw) * 1.7);aspect-ratio:16/10}
+.trail__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* placeholder pieces: a palette wash and a ghost label, until the real files land */
+.trail__item .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:12px;
+  font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(18,18,18,.55)}
+/* pop in fast, sit still, fade out slow */
+.trail__item.is-on{opacity:1;--s:1;transition:opacity .12s ease,transform .22s cubic-bezier(.16,1,.3,1)}
+.trail__item.is-out{opacity:0;transition:opacity 1s ease}
+/* the newest piece carries its caption */
+.trail__item i{
+  position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;
+  background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,0));
+  font-family:var(--font-mono);font-style:normal;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);
+  display:flex;align-items:center;gap:7px;opacity:0;transform:translateY(6px);transition:opacity .25s ease,transform .35s cubic-bezier(.16,1,.3,1);
+}
+.trail__item i::before{content:"";width:6px;height:7px;flex:none;background:var(--accent);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.trail__item.is-new i{opacity:1;transform:none}
+/* reduced motion: a still scatter instead of a trail */
+.trail.is-still .trail__item{opacity:1;--s:1}
+
+/* ============================================================
+   TOOLKIT
+   ============================================================ */
+.toolkit{background:var(--paper-2);border-block:1px solid var(--line)}
+/* ---- Toolkit honeycomb ----
+   A grid of half-width columns: every hexagon spans two, and every other
+   row starts one column in, which is what staggers it. Rows are pulled up
+   by a quarter of a hexagon's height so the cells nest. */
+/* Three groups, one per craft. On wide screens one rail on the left stays
+   put for the whole section and shows the head of whichever honeycomb is
+   passing it — the script swaps them with a crossfade. On narrow screens the
+   rail is gone and each group's own head sits above its honeycomb. */
+.tk{
+  display:grid;grid-template-columns:minmax(200px,.75fr) 2.25fr;gap:clamp(24px,4vw,64px);
+  align-items:start;margin-top:clamp(28px,4vw,56px);
+}
+.tk__rail{position:sticky;top:calc(var(--topbar,0px) + 110px);min-height:220px}
+.tk__rail .tkgroup__head{
+  position:absolute;left:0;top:0;width:100%;
+  opacity:0;transform:translateY(14px);pointer-events:none;
+  transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1);
+}
+.tk__rail .tkgroup__head.is-on{opacity:1;transform:none}
+.tk__groups{min-width:0}
+.tkgroup{padding-top:clamp(28px,4vw,52px);margin-top:clamp(28px,4vw,52px);border-top:1px solid var(--line)}
+.tkgroup:first-child{padding-top:0;margin-top:0;border-top:0}
+.tk__groups .tkgroup__head{display:none}         /* the rail shows these on wide screens */
+.tkgroup__hand{display:block;font-family:var(--font-hand);font-size:22px;font-weight:600;color:var(--muted);line-height:1}
+.tkgroup__title{margin-top:14px;font-size:clamp(26px,2.6vw,38px);font-weight:600;letter-spacing:-.035em;line-height:1.02}
+.tkgroup__desc{margin-top:14px;max-width:30ch;font-size:14.5px;line-height:1.55;color:var(--muted)}
+.tkgroup__count{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+.tkgroup__count::before{content:"";width:18px;height:2px;background:var(--accent)}
+.hive{
+  --gap:8px;--cols:9;--rows:2;
+  /* one hexagon's width (two columns and the gap between them) and height */
+  --w:calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols) * 2 + var(--gap));
+  --h:calc(var(--w) / .866);
+  /* rows are pulled up so the slanted edges sit the SAME gap apart as the
+     vertical ones: a quarter of the height, less the gap's diagonal share */
+  --pull:calc(var(--h) * .25 - .866 * var(--gap));
+  display:grid;grid-template-columns:repeat(var(--cols),1fr);
+  column-gap:var(--gap);row-gap:0;
+  margin-bottom:calc(-1 * (var(--rows) - 1) * var(--pull));
+}
+.tool{
+  grid-column:span 2;
+  aspect-ratio:.866;                       /* pointy-top hexagon: height = width x 2/sqrt3 */
+  transform:translateY(calc(var(--row,0) * (-25% + .866 * var(--gap))));
+  position:relative;z-index:1;
+}
+.tool:hover{z-index:3}
+/* a faint pool of shadow under each cell, so the near-white tiles sit a
+   little above the cream rather than printed on it */
+.tool::before{
+  content:"";position:absolute;inset:8% 12% 4%;z-index:-1;pointer-events:none;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  background:rgba(60,50,30,.07);filter:blur(12px);transform:translateY(8px);
+}
+/* placement (grid-column and --row) is set per tile by layoutHives() from
+   the number of cells per row at the current width: 4 / 3 / 2 */
+
+.tool__hex,.tool__in{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.tool__hex{
+  position:absolute;inset:0;
+  /* the 1px "stroke": a hairline that fades lighter toward the top, as if
+     the cells were lit from above */
+  background:linear-gradient(180deg,rgba(202,192,171,.4) 0%,rgba(202,192,171,.68) 100%);
+  transition:transform .55s cubic-bezier(.16,1,.3,1),background .35s ease;
+}
+/* one transform for every state — reveal scale, pointer tilt and hover lift
+   all feed it through custom properties (the selector outranks the generic
+   [data-reveal].in reset) */
+.tool__hex,.tool__hex[data-reveal],.tool__hex[data-reveal].in{
+  transform:perspective(720px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--s,1));
+}
+.tool.is-tilting .tool__hex{transition-duration:0s,.35s}
+.tool__in{
+  position:absolute;inset:1px;
+  background:linear-gradient(180deg,#FFFFFF 0%,#FEFDF9 52%,#F9F6EE 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:16% 13% 16%;gap:4px;
+  transition:background .35s ease,color .35s ease;
+}
+/* a soft sheen crosses the cell on hover — the same sweep the menu rows use */
+.tool__in::before{
+  content:"";position:absolute;inset:-30% -70%;pointer-events:none;
+  background:linear-gradient(108deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.14) 50%,rgba(255,255,255,0) 58%);
+  transform:translateX(-72%);transition:transform .95s cubic-bezier(.16,1,.3,1);
+}
+.tool:hover .tool__in::before{transform:translateX(72%)}
+.tool__in i{font-family:var(--font-mono);font-style:normal;font-size:10px;letter-spacing:.16em;color:var(--muted);transition:color .35s ease}
+.tool__in b{font-size:clamp(15px,1.35vw,20px);font-weight:600;letter-spacing:-.03em;line-height:1.1;margin-top:2px}
+.tool__in span{font-size:12px;line-height:1.35;color:var(--muted);transition:color .35s ease}
+/* the text sits a touch behind the mark: it drifts less when the cell tilts */
+.tool__in b,.tool__in span{translate:calc(var(--px,0) * 2px) calc(var(--py,0) * 2px)}
+
+/* the mark: a small hexagon well cut from the same cloth as the cell, with
+   the tool's own logo inside. Tools without artwork yet show their initials
+   in the same well, so the row stays even while the logos arrive. */
+.tool__mark{
+  position:relative;flex:none;width:34%;aspect-ratio:.866;margin:2px 0 3px;
+  display:grid;place-items:center;
+  translate:calc(var(--px,0) * 6px) calc(var(--py,0) * 6px);
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+.tool__well{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  filter:drop-shadow(0 6px 8px rgba(18,18,18,.11));transition:filter .4s ease}
+.tool__wellbg{fill:#fff;stroke:rgba(202,192,171,.62);stroke-width:1.25;vector-effect:non-scaling-stroke;transition:stroke .35s ease}
+/* the ring draws itself around the well on hover, from the top point,
+   the way the loader's ring does */
+.tool__wellring{
+  fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+  stroke-dasharray:1;stroke-dashoffset:1;opacity:0;
+  transition:stroke-dashoffset .85s cubic-bezier(.16,1,.3,1),opacity .2s ease,stroke .35s ease;
+}
+.tool__mark img{position:relative;width:56%;height:56%;object-fit:contain;display:block}
+.tool__ch{position:relative;font-family:var(--font-sans);font-weight:600;color:var(--ink);
+  font-size:clamp(12px,1.05vw,16px);letter-spacing:-.04em;line-height:1}
+
+/* AI tiles: same cell, marked — an orange pill on the well's shoulder and
+   an orange number; on hover they fill with the accent instead of ink, so
+   the two rows read as two kinds */
+.tool__ai{
+  position:absolute;top:-2px;right:-14px;z-index:1;
+  font-family:var(--font-mono);font-style:normal;font-size:8px;letter-spacing:.16em;line-height:1.3;
+  padding:1px 5px;border-radius:100px;background:var(--accent);color:var(--ink);
+  box-shadow:0 0 0 2px var(--paper-2);
+  transition:background .35s ease,color .35s ease,box-shadow .35s ease;
+}
+.tool[data-ai] .tool__in i{color:var(--accent-ink)}
+.tool[data-ai]:hover .tool__hex{background:var(--ink)}
+.tool[data-ai]:hover .tool__in{background:linear-gradient(180deg,#FF6A2B 0%,var(--accent) 50%,#E63F00 100%);color:var(--ink)}
+.tool[data-ai]:hover .tool__in i{color:var(--ink)}
+.tool[data-ai]:hover .tool__in span{color:rgba(18,18,18,.7)}
+.tool[data-ai]:hover .tool__ai{background:var(--ink);color:var(--paper);box-shadow:0 0 0 2px var(--accent)}
+.tool[data-ai]:hover .tool__wellring{stroke:var(--ink)}
+.tool[data-ai]:hover .tool__wellbg{stroke:var(--ink)}
+.tool[data-ai]:hover .tool__well{filter:drop-shadow(0 14px 14px rgba(18,18,18,.35))}
+.tkgroup__count b{font-weight:500;color:var(--accent-ink)}
+/* hover: the cell inverts, tilts toward the pointer and lifts; the well rises
+   and its ring draws in orange; the number turns yellow */
+.tool:hover .tool__hex{background:var(--accent)}
+.tool:hover .tool__in{background:linear-gradient(180deg,#1C1B19 0%,var(--ink) 55%,#0A0A0A 100%);color:var(--paper)}
+.tool:hover .tool__in i{color:var(--accent-2)}
+.tool:hover .tool__in span{color:rgba(245,240,230,.65)}
+.tool:hover .tool__mark{transform:translateY(-3px) scale(1.06)}
+.tool:hover .tool__well{filter:drop-shadow(0 14px 14px rgba(255,73,1,.42))}
+.tool:hover .tool__wellbg{stroke:var(--accent)}
+.tool:hover .tool__wellring{stroke-dashoffset:0;opacity:1}
+.tool:hover .tool__ai{box-shadow:0 0 0 2px var(--ink)}
+/* entrance: cells pop in one after another, following the honeycomb order */
+.tool__hex[data-reveal]{--s:.6;transition-delay:calc(var(--k,0) * 70ms)}
+.tool__hex[data-reveal].in{--s:1;transition-delay:0s}
+.tool:hover .tool__hex,.tool:hover .tool__hex[data-reveal].in{--s:1.07}
+
+/* ============================================================
+   SKILLS — stacked deck
+   Each card is position:sticky with a slightly lower top than the one
+   before, so the previous card's edge peeks out above like a deck. The
+   script reads how far the next card has covered each one and scales /
+   dims it, and drives the preview's crossfade and tilt from the same
+   numbers — everything follows the scroll, nothing runs on a timer.
+   ============================================================ */
+.stack{
+  --stack-top:calc(var(--topbar,0px) + 88px);
+  --peek:16px;
+  margin-top:clamp(28px,4vw,56px);
+}
+.stack__cards{display:flex;flex-direction:column;gap:38vh;padding-bottom:22vh}
+.scard{position:sticky;top:calc(var(--stack-top) + var(--i,0) * var(--peek))}
+.scard[data-i="1"]{--i:1} .scard[data-i="2"]{--i:2}
+/* each card is a full-width row: text on the left, its own visual on the right */
+.srow{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,72px);align-items:start;
+  transform:translateY(calc(var(--p,0) * -6px)) scale(calc(1 - var(--p,0) * .045));
+  transform-origin:50% 0;will-change:transform;
+}
+.scard__in{
+  position:relative;
+  background:var(--paper-2);border:1px solid var(--line);
+  border-radius:calc(var(--r) + 8px);
+  box-shadow:0 1px 2px rgba(0,0,0,.04), 0 30px 60px -30px rgba(0,0,0,.28);
+  transform-origin:50% 0;
+  will-change:transform;
+}
+/* Entrance: the sticky wrapper rises from below and fades in the first time
+   it scrolls into view (the preview a beat later). It lives on the wrapper,
+   not the box, so it never fights the scroll-driven push-back below. */
+[data-rise]{opacity:0;transform:translateY(90px);transition:opacity .9s ease,transform 1.2s cubic-bezier(.16,1,.3,1)}
+[data-rise].in{opacity:1;transform:none}
+[data-rise-delay="1"]{transition-delay:.15s}
+.scard__viz{display:none}
+.scard__body{padding:clamp(24px,2.8vw,40px)}
+.scard__hand{display:block;font-family:var(--font-hand);font-size:20px;font-weight:600;color:var(--muted);line-height:1}
+.scard__title{margin-top:18px;font-size:clamp(24px,2.3vw,34px);font-weight:600;letter-spacing:-.035em;line-height:1.05}
+.scard__num{color:var(--accent-ink);font-weight:500}
+.scard__desc{margin-top:16px;font-size:15px;line-height:1.55;color:var(--ink-2);max-width:52ch}
+.scard__list{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:9px 18px}
+.scard__list li{
+  position:relative;padding-left:16px;font-size:13.5px;letter-spacing:-.01em;color:var(--muted);
+}
+.scard__list li::before{
+  content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--accent);
+}
+/* the row underneath: the whole row (text + visual) is pushed back by --p on
+   .srow above; the text card also dims a touch as the next covers it */
+.scard__in::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:var(--paper-3);opacity:calc(var(--p,0) * .55);transition:opacity .1s linear;
+}
+
+/* --- preview --- */
+.stack__side{position:relative;align-self:stretch}      /* as tall as the card column, so the preview has room to stick */
+.stack__preview{
+  position:sticky;top:var(--stack-top);
+  perspective:1200px;
+}
+/* Hover: the same pointer tilt the portraits use (photoTilt / attachTilt) —
+   the frame leans toward the cursor, is pulled a few px after it, lifts, and
+   a soft glare follows the pointer across the visual. The tilt lives on this
+   host so it stacks cleanly with the scroll-driven lean on the frame inside. */
+.stack__tilt{position:relative;touch-action:pan-y}
+.stack__frame{
+  position:relative;
+  height:min(calc((100vh - var(--stack-top) - 44px) * .8),560px);   /* 20% under the column's full height */
+  aspect-ratio:4/5;max-width:100%;margin-inline:auto;
+  border-radius:calc(var(--r) + 10px);overflow:hidden;
+  background:var(--ink);
+  box-shadow:0 2px 6px rgba(0,0,0,.12), 0 40px 80px -30px rgba(0,0,0,.45);
+  transition:box-shadow .45s ease;
+  will-change:transform;   /* the pointer tilt (attachTilt) drives transform from the script */
+}
+.stack__frame::after{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),var(--glare,rgba(255,255,255,0)) 0,rgba(255,255,255,0) 58%);
+}
+.stack__frame.is-live:hover{box-shadow:0 2px 6px rgba(0,0,0,.14), 0 56px 100px -30px rgba(0,0,0,.55), 0 0 0 1px rgba(255,203,2,.18)}
+.viz{
+  position:absolute;inset:0;
+  opacity:0;transform:scale(1.06);
+  transition:opacity .6s ease,transform 1s cubic-bezier(.16,1,.3,1);
+}
+.viz.is-on{opacity:1;transform:none}
+.stack__badge{
+  position:absolute;left:50%;bottom:18px;z-index:2;
+  transform:translateX(calc(-50% - var(--badge-x,0px)));
+  display:flex;align-items:center;gap:12px;
+  width:max-content;max-width:calc(100% - 16px);   /* size to content, not to half the frame — keeps it off the squished wrap */
+  padding:9px 14px 9px 10px;border-radius:100px;
+  background:rgba(18,18,18,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:var(--paper);border:1px solid rgba(245,240,230,.14);
+}
+.stack__badge-mark{width:30px;height:19px;background:var(--logo) center/contain no-repeat;flex:none}
+.stack__badge span:last-child{display:flex;flex-direction:column;line-height:1.15;white-space:nowrap}
+.stack__badge b{font-size:13px;font-weight:600;letter-spacing:-.01em}
+.stack__badge em{font-style:normal;font-size:11px;color:rgba(245,240,230,.6)}
+
+/* 01 · UX — a phone frame being laid out */
+.viz--ux{background:radial-gradient(80% 60% at 70% 20%,rgba(255,73,1,.22),transparent 60%),#161616}
+.viz__phone{
+  position:absolute;left:50%;top:50%;width:52%;aspect-ratio:9/17.5;
+  transform:translate(-50%,-50%);
+  background:#F5F0E6;border-radius:9% / 5%;padding:9% 8%;
+  display:flex;flex-direction:column;gap:6%;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+}
+.viz__bar{display:block;height:5%;border-radius:100px;background:#E2DACA}
+.viz__bar--w40{width:40%}.viz__bar--w60{width:60%}.viz__bar--w70{width:70%}.viz__bar--w90{width:90%}
+.viz__hero{height:26%;border-radius:8%;background:linear-gradient(135deg,#FF4901,#FFCB02)}
+.viz__row{display:flex;gap:6%}
+.viz__row i{flex:1;aspect-ratio:1;border-radius:14%;background:#EAE2D0}
+.viz__btn{margin-top:auto;height:9%;border-radius:100px;background:#121212}
+.viz__sel{
+  position:absolute;left:4%;top:34%;width:92%;height:31%;
+  border:1.5px dashed #FF4901;border-radius:4px;
+  transform-origin:50% 50%;
+  animation:vizSel 4s ease-in-out infinite;
+}
+.viz__sel b{position:absolute;width:7px;height:7px;background:#fff;border:1.5px solid #FF4901}
+.viz__sel b:nth-child(1){left:-4px;top:-4px}.viz__sel b:nth-child(2){right:-4px;top:-4px}
+.viz__sel b:nth-child(3){left:-4px;bottom:-4px}.viz__sel b:nth-child(4){right:-4px;bottom:-4px}
+@keyframes vizSel{0%,100%{transform:scale(1)}50%{transform:scale(1.03,1.06)}}
+.viz__cursor{
+  position:absolute;left:62%;top:58%;width:14px;height:20px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 20'%3E%3Cpath d='M1 1l12 9-5 1 3 6-2 1-3-6-4 4z' fill='%23fff' stroke='%23121212' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat;
+  animation:vizCursor 6s ease-in-out infinite;
+}
+@keyframes vizCursor{0%,100%{transform:translate(0,0)}35%{transform:translate(-90px,-70px)}65%{transform:translate(-40px,30px)}}
+
+/* 02 · Graphic — a poster with the mark, swatches and a hexagon */
+.viz--gfx{background:#FF4901}
+.viz__poster{position:absolute;inset:8%;border-radius:10px;background:#F5F0E6;overflow:hidden}
+.viz__mark{position:absolute;left:8%;top:8%;width:34%;aspect-ratio:156/96;background:var(--logo) center/contain no-repeat;filter:invert(1)}
+.viz__swatches{position:absolute;right:8%;top:8%;display:flex;gap:6px}
+.viz__swatches i{width:18px;height:18px;border-radius:50%;border:1px solid rgba(18,18,18,.15)}
+.viz__swatches i:nth-child(1){background:#121212}.viz__swatches i:nth-child(2){background:#FF4901}
+.viz__swatches i:nth-child(3){background:#FFCB02}.viz__swatches i:nth-child(4){background:#F5F0E6}
+.viz__hex{
+  position:absolute;right:-12%;bottom:-8%;width:70%;aspect-ratio:100/116;
+  background:#121212;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  animation:vizHex 12s linear infinite;
+}
+@keyframes vizHex{to{transform:rotate(360deg)}}
+.viz__type{position:absolute;left:8%;bottom:9%;color:#121212;line-height:.9}
+.viz__type b{display:block;font-size:clamp(64px,9vw,120px);font-weight:700;letter-spacing:-.06em}
+.viz__type span{display:block;margin-top:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7D766A}
+
+/* GFX scene, alive: the real brand reel fills the poster on a loop, with the
+   brand marks floated over it on soft scrims — logo, swatches, a live tag and
+   the BRAND / 2026 line, so the poster identity stays while the film runs. */
+.viz__poster--reel{background:#121212;inset:4%}   /* half the orange frame — the reel sits bigger */
+.viz__vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+.viz__scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(18,18,18,.6),rgba(18,18,18,0) 24%,rgba(18,18,18,0) 60%,rgba(18,18,18,.66)),
+    radial-gradient(120% 80% at 80% 20%,rgba(255,73,1,.16),transparent 55%);
+}
+.viz__poster--reel .viz__mark{filter:none;z-index:2}            /* white logo reads over the film */
+.viz__poster--reel .viz__swatches{z-index:2}
+.viz__poster--reel .viz__swatches i{border-color:rgba(245,240,230,.55)}
+.viz__poster--reel .viz__type{z-index:2;color:#F5F0E6}
+.viz__poster--reel .viz__type span{margin-top:0;color:rgba(245,240,230,.8)}
+.viz__reeltag{
+  position:absolute;right:8%;bottom:9%;z-index:2;
+  display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:100px;
+  background:rgba(18,18,18,.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border:1px solid rgba(245,240,230,.18);
+  font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#F5F0E6;
+}
+.viz__reeltag i{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:reelPulse 1.6s ease-in-out infinite}
+@keyframes reelPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+@media (prefers-reduced-motion:reduce){
+  .viz__reeltag i{animation:none}
+}
+
+/* 03 · Video — a monitor and a timeline */
+.viz--vid{background:#121212;display:flex;flex-direction:column;padding:4%;gap:6%}   /* half the black frame — the monitor sits bigger */
+.viz__monitor{
+  position:relative;flex:1;border-radius:10px;overflow:hidden;
+  background:linear-gradient(160deg,#2B2823,#121212 60%),#1a1a1a;border:1px solid rgba(245,240,230,.1);
+}
+.viz__play{
+  position:absolute;left:50%;top:50%;width:64px;height:64px;border-radius:50%;
+  transform:translate(-50%,-50%);background:rgba(245,240,230,.1);border:1px solid rgba(245,240,230,.25);
+}
+.viz__play::after{
+  content:"";position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);
+  border-left:18px solid #FFCB02;border-top:11px solid transparent;border-bottom:11px solid transparent;
+}
+.viz__tc{position:absolute;right:12px;bottom:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:rgba(245,240,230,.7)}
+.viz__tl{position:relative;display:flex;flex-direction:column;gap:8px;padding-top:6px}
+.viz__track{position:relative;height:22px;border-radius:5px;background:rgba(245,240,230,.06)}
+.viz__track i{position:absolute;top:2px;bottom:2px;left:var(--x);width:var(--w);border-radius:4px;background:#FF4901}
+.viz__track--b i{background:#FFCB02}
+.viz__track--c i{background:#2F7D4F}
+.viz__head{
+  position:absolute;top:0;bottom:0;left:4%;width:2px;background:#F5F0E6;
+  animation:vizHead 7s linear infinite;          /* translate, not left: no layout per frame */
+}
+.viz__head::before{content:"";position:absolute;left:-5px;top:-4px;border-top:7px solid #F5F0E6;border-left:6px solid transparent;border-right:6px solid transparent}
+@keyframes vizHead{0%{transform:translateX(0)}100%{transform:translateX(calc(var(--tlw,520px) * .9))}}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+/* Two separate statements. First, on the paper: the headline across the
+   full width with the lead beside it, then the four facts as a row of cards.
+   Second, a dark panel that holds nothing but the form. */
+/* the finale keeps the biggest type on the page, but it opens the same way
+   every other section does: one line, then the line beneath it */
+.contact__head{margin-top:26px}
+.contact__head .h2{font-size:clamp(34px,6.1vw,96px);line-height:.94}
+.contact__sub{margin-top:20px;max-width:min(680px,100%);font-size:clamp(15px,1.3vw,17px);line-height:1.55;color:var(--muted)}
+
+/* Two actions first — the things a recruiter clicks — then two quiet facts
+   below them. Every mark sits in the same hexagon well the rest of the site
+   uses, and turns one hexagon step on hover. */
+.contact__cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1vw,14px);
+  margin-top:clamp(26px,3.2vw,44px);
+}
+@media (max-width:1200px){ .contact__cards{grid-template-columns:1fr} }
+.rcard{
+  position:relative;display:grid;grid-template-columns:auto 1fr auto;
+  gap:clamp(11px,1.1vw,14px);align-items:center;
+  padding:clamp(13px,1.3vw,16px) clamp(14px,1.4vw,18px);
+  border:1px solid var(--line-2);border-radius:var(--r);background:var(--paper-2);
+  color:var(--ink);overflow:hidden;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .3s ease,background .3s ease,box-shadow .45s ease;
+}
+/* the sheen the rest of the site uses */
+.rcard::after{
+  content:"";position:absolute;inset:-40% -70%;pointer-events:none;
+  background:linear-gradient(108deg,rgba(255,255,255,0) 42%,rgba(255,73,1,.10) 50%,rgba(255,255,255,0) 58%);
+  transform:translateX(-72%);transition:transform 1s cubic-bezier(.16,1,.3,1);
+}
+.rcard__body{display:flex;flex-direction:column;gap:4px;min-width:0}
+.rcard__k{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);transition:color .3s ease}
+.rcard__v{font-size:clamp(13.5px,1vw,15px);font-weight:600;letter-spacing:-.02em;line-height:1.3;overflow-wrap:break-word}
+.rcard__arw{
+  width:30px;height:30px;border-radius:50%;flex:none;
+  display:grid;place-items:center;
+  border:1px solid var(--line-2);color:var(--ink);
+  transition:background .3s ease,border-color .3s ease,color .3s ease,transform .45s cubic-bezier(.16,1,.3,1);
+}
+.rcard__arw svg{width:10px;height:10px}
+.rcard .cwell{width:40px}
+
+/* the well, shared by the action cards and the fact rows */
+.cwell{position:relative;width:46px;aspect-ratio:.866;flex:none;display:grid;place-items:center;
+  transition:transform .5s cubic-bezier(.16,1,.3,1),filter .45s ease}
+.cwell--sm{width:34px}
+.cwell__svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  transform-origin:50% 50%;transition:transform .95s cubic-bezier(.16,1,.3,1)}
+.cwell__bg{fill:#fff;stroke:var(--line-2);stroke-width:1.2;vector-effect:non-scaling-stroke;transition:stroke .35s ease}
+.cwell__ring{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;
+  transition:stroke-dashoffset .9s cubic-bezier(.16,1,.3,1),opacity .2s ease}
+.cwell__ic{position:relative;width:44%;height:44%;color:var(--ink);transition:color .35s ease}
+.cwell img{position:relative;width:62%;height:62%;object-fit:contain;display:block}
+/* the pin: it breathes on its own, and drops in with a ping when the row
+   is hovered — the ellipse under it is the ground it lands on */
+.cwell__pin{position:relative;width:50%;height:50%;color:var(--ink);overflow:visible;
+  transition:color .35s ease}
+.cwell__pinbody{transform-box:fill-box;transform-origin:50% 100%;
+  animation:pinBob 3.4s ease-in-out infinite}
+.cwell__ping{fill:var(--accent);opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+@keyframes pinBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.3px)}}
+@keyframes pinDrop{0%{transform:translateY(-5px) scale(.94)}55%{transform:translateY(.5px) scale(1.03)}100%{transform:translateY(0) scale(1)}}
+@keyframes pinPing{0%{opacity:.55;transform:scale(.4)}100%{opacity:0;transform:scale(2.4)}}
+
+
+  html.has-hover a.rcard:hover{transform:translateY(-4px);border-color:var(--ink);background:var(--paper);
+    box-shadow:0 24px 40px -26px rgba(0,0,0,.4)}
+  html.has-hover a.rcard:hover::after{transform:translateX(72%)}
+  html.has-hover a.rcard:hover .rcard__arw{background:var(--accent);border-color:var(--accent);color:var(--ink);transform:translate(2px,-2px)}
+  html.has-hover a.rcard:hover .rcard__k{color:var(--accent-ink)}
+  html.has-hover a.rcard:hover .cwell{transform:translateY(-2px)}
+  html.has-hover a.rcard:hover .cwell__svg{transform:rotate(60deg)}
+  html.has-hover a.rcard:hover .cwell__bg{stroke:var(--accent)}
+  html.has-hover a.rcard:hover .cwell__ring{stroke-dashoffset:0;opacity:1}
+  html.has-hover .fact:hover .cwell__svg{transform:rotate(60deg)}
+  html.has-hover .fact:hover .cwell__bg{stroke:var(--accent)}
+  html.has-hover .fact:hover{border-color:var(--line-2)}
+  html.has-hover .fact:hover .cwell__pinbody{animation:pinDrop .75s cubic-bezier(.34,1.56,.64,1)}
+  html.has-hover .fact:hover .cwell__ping{animation:pinPing .85s cubic-bezier(.16,1,.3,1) .1s}
+
+
+/* the two facts: no arrow, no lift — they are not buttons */
+.contact__facts{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1vw,14px);
+  margin-top:clamp(10px,1vw,14px);
+}
+.fact{
+  display:grid;grid-template-columns:auto 1fr auto;gap:2px clamp(11px,1.2vw,14px);align-items:center;
+  padding:clamp(11px,1.2vw,14px) clamp(14px,1.5vw,18px);
+  border:1px solid var(--line);border-radius:var(--r);
+  transition:border-color .35s ease;
+}
+.fact .cwell{width:30px}
+.fact .cwell{grid-row:1 / span 2}
+.fact__k{grid-column:2;font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.fact__v{grid-column:2;font-size:clamp(13px,1vw,14.5px);font-weight:500;letter-spacing:-.02em;line-height:1.25}
+.fact__x{
+  grid-column:3;grid-row:1 / span 2;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
+.fact__live{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;
+  box-shadow:0 0 0 0 rgba(255,73,1,.5);animation:xpLive 2.4s ease-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .fact__live,.cwell__pinbody{animation:none}  html.has-hover .fact:hover .cwell__pinbody,
+  html.has-hover .fact:hover .cwell__ping{animation:none}  html.has-hover a.rcard:hover .cwell__svg,
+  html.has-hover .fact:hover .cwell__svg{transform:none}
+}
+
+/* the form panel: ink on the paper, with a warm glow tucked into one corner */
+.cpanel{
+  position:relative;overflow:hidden;
+  margin-top:clamp(56px,7vw,110px);
+  background:var(--ink);color:var(--paper);
+  border-radius:calc(var(--r) + 12px);
+  padding:clamp(30px,4.5vw,72px);
+  display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,5vw,80px);
+}
+.cpanel>*{position:relative}
+.cpanel .label{color:rgba(245,240,230,.5)}
+.cpanel__h{
+  margin-top:22px;
+  font-size:clamp(34px,4.6vw,66px);line-height:.95;font-weight:600;letter-spacing:-.04em;
+}
+.cpanel__p{margin-top:18px;max-width:30ch;font-size:15.5px;line-height:1.55;color:rgba(245,240,230,.62)}
+.cpanel__note{
+  margin-top:auto;padding-top:28px;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,240,230,.4);
+  display:flex;align-items:center;gap:10px;
+}
+.cpanel__note i{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.cpanel__intro{display:flex;flex-direction:column}
+
+.form{display:grid;gap:22px}
+.field{display:grid;gap:9px}
+.field label{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,230,.55);
+}
+.field input,.field select,.field textarea{
+  width:100%;background:transparent;border:0;border-bottom:1px solid rgba(245,240,230,.22);
+  padding:12px 2px;font-size:16px;letter-spacing:-.015em;border-radius:0;color:var(--paper);
+  transition:border-color var(--t-fast);
+}
+.field input::placeholder,.field textarea::placeholder{color:rgba(245,240,230,.3)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:var(--accent)}
+.field textarea{resize:vertical;min-height:110px}
+.field select{appearance:none;cursor:pointer;background:transparent}
+/* the line that appears only when a send actually failed */
+.form__err{
+  margin-top:14px;font-size:13.5px;line-height:1.5;color:var(--accent);
+  display:flex;gap:9px;align-items:flex-start;
+}
+.form__err::before{
+  content:"";flex:none;margin-top:4px;width:8px;height:9px;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+}
+.form__err[hidden]{display:none}
+.btn[disabled]{opacity:.55;cursor:progress;pointer-events:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.choices{display:flex;gap:8px;flex-wrap:wrap}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.choice span{
+  display:block;padding:9px 16px;border:1px solid rgba(245,240,230,.25);border-radius:100px;
+  font-size:13.5px;cursor:pointer;color:rgba(245,240,230,.8);transition:all var(--t-fast);
+}
+.choice:hover span{border-color:rgba(245,240,230,.6);color:var(--paper)}
+.choice input:checked+span{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.choice input:focus-visible+span{outline:2px solid var(--accent);outline-offset:3px}
+
+.sent{
+  display:none;border:1px solid rgba(245,240,230,.16);border-radius:var(--r);
+  padding:clamp(26px,3vw,40px);background:rgba(245,240,230,.05);text-align:left;
+}
+.sent.show{display:block;animation:pop .5s cubic-bezier(.16,1,.3,1)}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sent .tick{
+  width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--ink);
+  display:grid;place-items:center;margin-bottom:18px;
+}
+.sent .muted{color:rgba(245,240,230,.6)}
+.sent .btn--ghost{--fg:var(--paper);--bd:rgba(245,240,230,.35)}
+.sent .btn--ghost:hover{--bg:var(--paper);--fg:var(--ink);--bd:var(--paper)}
+.form.hide{display:none}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+/* extra bottom padding clears the fixed dock */
+.foot{
+  position:relative;overflow:hidden;
+  border-top:1px solid var(--line);
+  padding-bottom:clamp(92px,10vw,116px);
+}
+/* The name, one line, giant, drifting slowly to the left and coming back in
+   from the right without end. White fill with a light grey stroke — it sits
+   on the paper like a watermark. paint-order puts the stroke underneath the
+   fill, so the letterforms keep their true weight and only the outer half
+   of the stroke shows. */
+.foot__banner{padding-top:clamp(30px,4vw,56px)}
+.foot__namemq{padding-block:.04em 0}
+.foot__name{
+  display:flex;align-items:baseline;
+  padding-inline:.2em;             /* the gap between one pass of the name and the next */
+  font-size:clamp(88px,16vw,300px);
+  font-weight:700;line-height:.92;letter-spacing:-.045em;
+  text-transform:uppercase;white-space:nowrap;
+  color:#fff;
+  -webkit-text-stroke:3px rgba(202,192,171,.22);  /* --line-2, mostly faded out: the letters melt into the paper, with just enough edge to read */
+  paint-order:stroke fill;
+}
+
+/* dark strip — the brand mark stands in for the separator */
+.foot__strip{
+  margin-top:clamp(26px,3.6vw,52px);
+  background:var(--ink);
+  overflow:hidden;display:flex;
+  padding-block:clamp(14px,1.6vw,22px);
+}
+.foot__track li{
+  display:flex;align-items:center;gap:clamp(20px,2.4vw,36px);
+  padding-inline:clamp(10px,1.4vw,18px);
+  color:var(--paper);white-space:nowrap;
+  font-size:clamp(18px,2.2vw,30px);font-weight:500;letter-spacing:-.03em;
+}
+.foot__sep{
+  display:block;flex:none;
+  width:clamp(26px,2.5vw,36px);height:clamp(16px,1.55vw,22px);
+  background:var(--logo) center/contain no-repeat;
+}
+
+/* ---- the structured half ----
+   Four columns under a hairline: who and what, where to go, where else to
+   find him, and how to reach him. Everything that used to float in the
+   centre now sits on a grid line. */
+.fgrid{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(0,1.15fr);
+  gap:clamp(32px,4.5vw,80px);
+  padding-block:clamp(44px,5.5vw,78px) clamp(36px,4.5vw,64px);
+  border-top:1px solid var(--line);
+}
+/* the mark at the head of the brand column — the logo on its own, no cell
+   around it. The art is white in the source, so it is flipped for the cream
+   ground. Sized 50% up on what the hexagon used to allow. */
+.fmark{
+  display:inline-flex;align-self:flex-start;
+  margin-bottom:clamp(20px,2.4vw,30px);
+  transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.fmark__logo{
+  display:block;width:clamp(45px,3.9vw,56px);aspect-ratio:156/96;
+  background:var(--logo) center/contain no-repeat;filter:invert(1);
+}
+
+  html.has-hover .fmark:hover{transform:translateY(-3px) scale(1.05)}
+
+.fmark:focus-visible{outline:2px solid var(--accent);outline-offset:5px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){
+  .fmark{transition:none}  html.has-hover .fmark:hover{transform:none}
+}
+
+.fcol{display:flex;flex-direction:column;min-width:0}
+.fcol__h{
+  display:flex;align-items:center;gap:9px;margin:0 0 clamp(16px,1.8vw,22px);
+  font-family:var(--font-mono);font-size:11px;font-weight:400;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);
+}
+.fcol__h::before{
+  content:"";flex:none;width:7px;height:8px;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+}
+.fcol__line{
+  margin:clamp(16px,1.8vw,22px) 0 0;max-width:34ch;
+  font-size:14.5px;line-height:1.6;color:var(--muted);
+}
+.fcol__line b{font-weight:600;color:var(--ink-2)}
+.fcol__cta{margin-top:clamp(20px,2.4vw,30px);align-self:flex-start}
+.fcol__loc{
+  margin:clamp(14px,1.6vw,20px) 0 0;
+  font-family:var(--font-mono);font-size:10.5px;line-height:1.9;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+/* email and phone, at column scale — the chip is sized in em so it follows */
+.fcol .foot__link{font-size:clamp(15.5px,1.25vw,18px);letter-spacing:-.015em;padding-block:6px}
+.fcol .foot__tel{margin-top:2px}
+.fcol .foot__wa{margin-top:2px}
+
+.foot__tag{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);align-self:flex-start;
+}
+.foot__tag i{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.foot__link{
+  display:inline-flex;align-items:center;gap:.5em;
+  font-size:clamp(17px,2.1vw,28px);font-weight:500;letter-spacing:-.035em;   /* email and phone share one size */
+  color:var(--ink);
+  transition:color .3s ease;
+}
+.foot__link:hover{color:var(--accent-ink)}
+/* underline grows out from the middle on hover — on the text only, not the icon */
+.foot__link span{
+  padding-bottom:.08em;
+  background-image:linear-gradient(var(--accent),var(--accent));
+  background-size:0 2px;background-position:50% 100%;background-repeat:no-repeat;
+  transition:background-size .45s cubic-bezier(.16,1,.3,1);
+}
+.foot__link:hover span{background-size:100% 2px}
+.foot__tel{margin-top:clamp(8px,1vw,14px)}
+/* Icon chip: a thin ring that fills with the accent on hover. The glyph
+   inside has its own move — the envelope's flap redraws and the whole mark
+   pops; the handset rings and its two sound arcs appear one after the other. */
+.ic{
+  flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:1.5em;height:1.5em;border-radius:50%;
+  border:1px solid var(--line-2);color:var(--ink);
+  transition:background .35s ease,border-color .35s ease,color .35s ease,
+             transform .5s cubic-bezier(.16,1,.3,1);
+}
+.ic svg{width:.82em;height:.82em;display:block;overflow:visible}
+.foot__link:hover .ic{background:var(--accent);border-color:var(--accent);color:#fff;transform:translateY(-2px)}
+.ic__flap{stroke-dasharray:30;stroke-dashoffset:0}
+.foot__link:hover .ic--mail svg{animation:icPop .55s cubic-bezier(.34,1.56,.64,1)}
+.foot__link:hover .ic__flap{animation:icFlap .6s ease-out .05s}
+@keyframes icPop{0%{transform:scale(1)}40%{transform:scale(1.14) translateY(-.5px)}100%{transform:scale(1)}}
+@keyframes icFlap{0%{stroke-dashoffset:30}100%{stroke-dashoffset:0}}
+.ic__wave{opacity:0;transform-origin:center}
+.foot__link:hover .ic--tel svg{animation:icRing .75s ease-in-out;transform-origin:50% 60%}
+.foot__link:hover .ic__wave{animation:icWave .6s ease-out .15s both}
+.foot__link:hover .ic__wave--2{animation-delay:.3s}
+.foot__link:hover .ic--wa svg{animation:icPop .55s cubic-bezier(.34,1.56,.64,1)}
+@keyframes icRing{0%,100%{transform:rotate(0)}15%{transform:rotate(-14deg)}30%{transform:rotate(12deg)}45%{transform:rotate(-10deg)}60%{transform:rotate(8deg)}75%{transform:rotate(-4deg)}}
+@keyframes icWave{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
+.foot__row{
+  font-variant-numeric:tabular-nums;
+  display:flex;justify-content:space-between;gap:clamp(14px,2.4vw,34px);flex-wrap:wrap;align-items:center;
+  padding-block:22px clamp(26px,3vw,42px);border-top:1px solid var(--line);
+  /* Outfit is proportional, so it sets a touch smaller than the mono it
+     replaced at the same px — nudged up to hold the same presence */
+  font-family:var(--font-mono);font-size:11.5px;font-weight:400;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+}
+.foot__top{
+  display:inline-flex;align-items:center;gap:8px;color:var(--muted);
+  transition:color .3s ease;
+}
+.foot__top i{
+  width:9px;height:10px;flex:none;background:currentColor;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s ease;
+}
+
+  html.has-hover .foot__top:hover{color:var(--ink)}
+  html.has-hover .foot__top:hover i{background:var(--accent);transform:translateY(-3px)}
+
+.foot__top:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+/* ---- socials ----
+   Three links, quieter than the email above them. At rest each is a hex
+   dot, the platform's name and a small arrow. On hover the dot turns and
+   fills, the name steps right and darkens, the arrow leaves the corner,
+   a hairline draws underneath, and the handle fades in below — placed
+   absolutely so nothing in the row moves. */
+/* stacked down a column now, with room under each row for the handle that
+   fades in on hover */
+.socials{display:flex;flex-direction:column;align-items:flex-start;gap:22px;margin-left:-10px}
+.soc{
+  position:relative;display:inline-flex;align-items:center;gap:12px;
+  padding:9px 10px 10px;color:var(--ink-2);
+  font-size:16.5px;font-weight:500;letter-spacing:-.015em;
+  transition:color .35s ease;
+}
+/* the mark: the same hexagon well the toolkit tiles use, at footer scale.
+   It carries the platform's own logo; until those land it shows initials. */
+.soc__hex{
+  position:relative;width:34px;aspect-ratio:.866;flex:none;
+  display:grid;place-items:center;
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+.soc__well{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  filter:drop-shadow(0 3px 4px rgba(18,18,18,.10));transition:filter .4s ease}
+.soc__wellbg{fill:#fff;stroke:rgba(202,192,171,.7);stroke-width:1.1;vector-effect:non-scaling-stroke;transition:stroke .35s ease}
+.soc__wellring{
+  fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;
+  transition:stroke-dashoffset .7s cubic-bezier(.16,1,.3,1),opacity .2s ease;
+}
+.soc__hex img{position:relative;width:66%;height:66%;object-fit:contain;display:block}
+.soc__ch{position:relative;font-family:var(--font-sans);font-weight:600;font-size:9px;
+  letter-spacing:-.02em;line-height:1;text-transform:none;color:var(--ink)}
+.soc__name{transition:transform .5s cubic-bezier(.16,1,.3,1),color .35s ease}
+.soc__go{width:9px;height:9px;flex:none;overflow:visible;color:var(--line-2);transition:color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.soc__go path{stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;fill:none}
+/* the hairline that draws in under the link */
+.soc::after{
+  content:"";position:absolute;left:10px;right:10px;bottom:2px;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+/* the handle, parked below the row so it costs no layout */
+.soc__at{
+  position:absolute;left:10px;top:calc(100% + 2px);white-space:nowrap;
+  font-size:11px;letter-spacing:.06em;text-transform:none;color:var(--accent-ink);
+  opacity:0;transform:translateY(-4px);pointer-events:none;
+  transition:opacity .3s ease,transform .45s cubic-bezier(.16,1,.3,1);
+}
+
+  html.has-hover .soc:hover{color:var(--ink)}
+  html.has-hover .soc:hover .soc__hex{transform:translateY(-2px) scale(1.08)}
+  html.has-hover .soc:hover .soc__well{filter:drop-shadow(0 7px 8px rgba(255,73,1,.4))}
+  html.has-hover .soc:hover .soc__wellbg{stroke:var(--accent)}
+  html.has-hover .soc:hover .soc__wellring{stroke-dashoffset:0;opacity:1}
+  html.has-hover .soc:hover .soc__name{transform:translateX(4px);color:var(--accent-ink)}
+  html.has-hover .soc:hover .soc__go{color:var(--accent);transform:translate(2px,-2px)}
+  html.has-hover .soc:hover::after{transform:scaleX(1)}
+  html.has-hover .soc:hover .soc__at{opacity:1;transform:none}
+
+.soc:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* ============================================================
+   CERTIFICATES — a page inside the page
+   The View certificate button opens a full-screen takeover: its own bar,
+   its own scroll, its own history entry. Cards pop in the way the toolkit
+   hexagons do; clicking one lifts the certificate to full size.
+   ============================================================ */
+/* display is set on both of these, so the hidden attribute needs to win */
+.certdoc[hidden],.clight[hidden]{display:none}
+.certdoc{
+  position:fixed;inset:0;z-index:120;background:var(--paper);
+  display:flex;flex-direction:column;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .4s ease,transform .6s cubic-bezier(.16,1,.3,1);
+}
+.certdoc.is-open{opacity:1;transform:none}
+.certdoc__bar{
+  flex:none;display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:14px clamp(16px,4vw,48px);border-bottom:1px solid var(--line);
+  background:var(--paper-2);
+}
+.certdoc__back{
+  display:inline-flex;align-items:center;gap:11px;background:none;border:0;padding:6px 2px;cursor:pointer;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+}
+.certdoc__hex{
+  position:relative;width:30px;aspect-ratio:.866;flex:none;display:grid;place-items:center;
+  transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.certdoc__hex svg.bg{position:absolute;inset:0;width:100%;height:100%}
+.certdoc__hex svg.bg polygon{fill:var(--ink);transition:fill .35s ease}
+.certdoc__hex svg.ar{position:relative;width:11px;height:11px}
+.certdoc__hex svg.ar path{stroke:var(--paper);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none;transition:stroke .35s ease}
+
+  html.has-hover .certdoc__back:hover .certdoc__hex{transform:translateX(-4px)}
+  html.has-hover .certdoc__back:hover .certdoc__hex svg.bg polygon{fill:var(--accent)}
+
+.certdoc__count{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.certdoc__count b{font-weight:500;color:var(--accent-ink)}
+.certdoc__scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.certdoc__head{padding:clamp(34px,6vw,80px) 0 clamp(24px,3.4vw,44px)}
+.certdoc__head .h2{margin-top:20px}
+.certdoc__lead{margin-top:20px;max-width:56ch;font-size:15.5px;line-height:1.55;color:var(--muted)}
+.certdoc__lead b{font-weight:500;color:var(--ink-2)}
+
+
+/* the programme's own certificate, ahead of the seven it is made of */
+.cfeat{
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);
+  gap:clamp(20px,3vw,44px);align-items:center;
+  margin-bottom:clamp(30px,4vw,56px);
+  padding-bottom:clamp(30px,4vw,52px);border-bottom:1px solid var(--line);
+}
+.cfeat__open{
+  position:relative;display:block;width:100%;padding:0;border:0;cursor:zoom-in;
+  border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#fff;
+  transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .45s ease,border-color .35s ease;
+}
+.cfeat__open.ccard__open img{display:block;width:100%;aspect-ratio:1.909;object-fit:contain;background:#fff}
+/* Glare, not a tint. The certificate is white paper, so a plain white band
+   would vanish into it — what sells the pass is the pair of faint shadows
+   riding either side of a hard specular line. Light crossing glass. */
+.cfeat__open::after{
+  content:"";position:absolute;inset:-40% -20%;pointer-events:none;
+  background:
+    linear-gradient(108deg,
+      rgba(255,255,255,0) 47.6%,
+      rgba(255,255,255,1) 49.4%,
+      rgba(255,255,255,1) 50.6%,
+      rgba(255,255,255,0) 52.4%),
+    linear-gradient(108deg,
+      rgba(18,18,18,0) 41%,
+      rgba(18,18,18,.13) 46.5%,
+      rgba(255,255,255,.92) 50%,
+      rgba(18,18,18,.13) 53.5%,
+      rgba(18,18,18,0) 59%);
+  transform:translateX(-55%);
+}
+
+  html.has-hover .cfeat__open:hover{transform:translateY(-6px);box-shadow:0 32px 44px -28px rgba(18,18,18,.5);border-color:var(--line-2)}
+  html.has-hover .cfeat__open:hover::after{animation:certSweep .9s cubic-bezier(.4,.16,.3,.98) forwards}
+  html.has-hover .cfeat__open:hover .ccard__zoom{transform:none;opacity:1;background:var(--accent);color:var(--ink)}
+
+.cfeat__open:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* One pass, left to right, and that is it. A transition would replay itself
+   backwards the moment the pointer leaves; an animation just ends. Both the
+   start and end positions sit off the card, so the reset is never seen. */
+@keyframes certSweep{
+  from{transform:translateX(-55%)}
+  to{transform:translateX(55%)}
+}
+@media (prefers-reduced-motion:reduce){  html.has-hover .cfeat__open:hover::after,
+  html.has-hover .ccard__open:hover::after{animation:none}
+}
+
+.cfeat__tag{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+.cfeat__tag i{width:8px;height:9px;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.cfeat__t{margin-top:16px;font-size:clamp(24px,2.8vw,40px);font-weight:600;letter-spacing:-.04em;line-height:1.02}
+.cfeat__t em{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+.cfeat__d{margin-top:14px;font-size:14.5px;line-height:1.55;color:var(--muted);max-width:34ch}
+.cfeat__meta{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;
+}
+.cfeat__meta span{
+  font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);border-radius:100px;padding:6px 11px;
+}
+.cfeat .cert__verify{margin-top:22px}
+.cgrid__lab{display:flex;align-items:center;gap:18px;margin-bottom:clamp(16px,2vw,24px)}
+.cgrid__lab .label{flex:none;margin:0;font-size:20px}
+.cgrid__lab span:last-child{flex:1;height:1px;background:var(--line)}
+
+.cgrid{list-style:none;margin:0;padding:0 0 clamp(48px,8vw,110px);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px)}
+.ccard{display:flex;flex-direction:column}
+.ccard__open{
+  display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;
+  position:relative;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:#fff;
+  transition:transform .55s cubic-bezier(.16,1,.3,1),box-shadow .45s ease,border-color .35s ease;
+}
+.ccard__open img{display:block;width:100%;aspect-ratio:1.294;object-fit:contain;background:#fff}
+/* same white glare as the featured card, a touch quicker on the small ones */
+.ccard__open::after{
+  content:"";position:absolute;inset:-40% -20%;pointer-events:none;
+  background:
+    linear-gradient(108deg,
+      rgba(255,255,255,0) 47.6%,
+      rgba(255,255,255,1) 49.4%,
+      rgba(255,255,255,1) 50.6%,
+      rgba(255,255,255,0) 52.4%),
+    linear-gradient(108deg,
+      rgba(18,18,18,0) 41%,
+      rgba(18,18,18,.12) 46.5%,
+      rgba(255,255,255,.9) 50%,
+      rgba(18,18,18,.12) 53.5%,
+      rgba(18,18,18,0) 59%);
+  transform:translateX(-55%);
+}
+.ccard__zoom{
+  position:absolute;right:12px;bottom:12px;width:34px;aspect-ratio:.866;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  background:var(--ink);color:var(--paper);display:grid;place-items:center;
+  transform:scale(.7);opacity:0;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s ease,background .35s ease;
+}
+.ccard__zoom svg{width:13px;height:13px}
+.ccard__zoom svg path{stroke:currentColor;stroke-width:1.7;stroke-linecap:round;fill:none}
+
+  html.has-hover .ccard__open:hover{transform:translateY(-5px);box-shadow:0 26px 34px -24px rgba(18,18,18,.5);border-color:var(--line-2)}
+  html.has-hover .ccard__open:hover::after{animation:certSweep .85s cubic-bezier(.4,.16,.3,.98) forwards}
+  html.has-hover .ccard__open:hover .ccard__zoom{transform:none;opacity:1;background:var(--accent);color:var(--ink)}
+
+.ccard__open:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.ccard__meta{padding-top:16px}
+.ccard__n{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;color:var(--accent-ink)}
+.ccard__t{margin-top:9px;font-size:clamp(15px,1.4vw,18px);font-weight:600;letter-spacing:-.025em;line-height:1.25}
+.ccard__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
+.ccard__date{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+/* Verify is a real button: a hexagon tick, the word, an arrow. On hover the
+   ink rises from the bottom and the whole pill inverts. */
+.ccard__verify{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 14px 9px 11px;border-radius:100px;
+  border:1px solid var(--line-2);background:var(--paper);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  transition:color .3s ease,border-color .35s ease,transform .45s cubic-bezier(.16,1,.3,1);
+}
+.ccard__verify::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--ink);
+  transform:translateY(101%);transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+.ccard__verify i{
+  width:9px;height:10px;flex:none;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  transition:background .35s ease,transform .5s cubic-bezier(.16,1,.3,1);
+}
+.ccard__verify svg{width:8px;height:8px;overflow:visible;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.ccard__verify svg path{stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
+
+  html.has-hover .ccard__verify:hover{color:var(--paper);border-color:var(--ink);transform:translateY(-2px)}
+  html.has-hover .ccard__verify:hover::before{transform:none}
+  html.has-hover .ccard__verify:hover i{background:var(--accent-2);transform:rotate(90deg)}
+  html.has-hover .ccard__verify:hover svg{transform:translate(2px,-2px)}
+
+.ccard__verify:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* cards arrive one after another, the way the toolkit cells do */
+.ccard{opacity:0;transform:translateY(26px) scale(.96)}
+.certdoc.is-open .ccard{opacity:1;transform:none;
+  transition:opacity .5s ease,transform .7s cubic-bezier(.16,1,.3,1);
+  transition-delay:calc(.18s + var(--k,0) * 70ms)}
+
+/* full size */
+.clight{
+  position:fixed;inset:0;z-index:130;background:rgba(12,11,10,.93);
+  display:grid;place-items:center;padding:clamp(14px,3vw,44px);
+  opacity:0;transition:opacity .35s ease;
+}
+.clight.is-open{opacity:1}
+.clight__fig{margin:0;max-width:1180px;width:100%;
+  transform:scale(.96);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.clight.is-open .clight__fig{transform:none}
+.clight__fig img{display:block;width:100%;height:auto;max-height:76vh;object-fit:contain;
+  border-radius:10px;background:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.clight__cap{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  margin-top:18px;color:var(--paper);
+}
+.clight__cap h3{font-size:clamp(15px,1.5vw,20px);font-weight:600;letter-spacing:-.025em}
+.clight__cap span{display:block;margin-top:6px;font-family:var(--font-mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,230,.55)}
+.clight__go{
+  display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:100px;
+  background:var(--accent);color:var(--ink);
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+}
+.clight__go svg{width:9px;height:9px;overflow:visible}
+.clight__go svg path{stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
+html.has-hover .clight__go:hover{transform:translateY(-2px)}
+.clight__x,.clight__nav{
+  position:absolute;background:rgba(245,240,230,.1);border:0;cursor:pointer;color:var(--paper);
+  width:44px;aspect-ratio:.866;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  display:grid;place-items:center;transition:background .35s ease,transform .4s cubic-bezier(.16,1,.3,1);
+}
+.clight__x{top:clamp(12px,2vw,24px);right:clamp(12px,2vw,24px)}
+.clight__nav--p{left:clamp(8px,1.6vw,22px);top:50%;margin-top:-25px}
+.clight__nav--n{right:clamp(8px,1.6vw,22px);top:50%;margin-top:-25px}
+.clight__x svg,.clight__nav svg{width:14px;height:14px}
+.clight__x svg path,.clight__nav svg path{stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
+
+  html.has-hover .clight__x:hover,
+  html.has-hover .clight__nav:hover{background:var(--accent);color:var(--ink)}
+  html.has-hover .clight__nav--p:hover{transform:translateX(-3px)}
+  html.has-hover .clight__nav--n:hover{transform:translateX(3px)}
+
+body.is-locked{overflow:hidden}
+@media (prefers-reduced-motion:reduce){
+  .certdoc,.certdoc.is-open,.ccard,.certdoc.is-open .ccard,.clight__fig{transition:none;transform:none}
+}
+
+/* ============================================================
+   WORK GALLERY — a page inside the page
+   See all work opens a full-screen takeover: its own bar, its own scroll,
+   its own history entry. A filter row across the top, a masonry wall
+   underneath, and any tile lifts to full size.
+   ============================================================ */
+.workdoc[hidden]{display:none}
+.workdoc{
+  position:fixed;inset:0;z-index:120;background:var(--paper);
+  display:flex;flex-direction:column;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .4s ease,transform .6s cubic-bezier(.16,1,.3,1);
+}
+.workdoc.is-open{opacity:1;transform:none}
+.workdoc__scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.workdoc__head{padding:clamp(34px,6vw,76px) 0 clamp(20px,2.6vw,32px);text-align:center}
+.workdoc__head .label{justify-content:center}
+.workdoc__h{margin-top:20px;font-size:clamp(30px,5.1vw,72px);line-height:.98;font-weight:600;letter-spacing:-.045em;word-spacing:.07em}
+.workdoc__h em{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em;color:var(--accent-ink)}
+.workdoc__lead{margin:20px auto 0;max-width:52ch;font-size:15.5px;line-height:1.55;color:var(--muted)}
+
+/* the filter row */
+.wfilt{
+  position:sticky;top:0;z-index:4;
+  display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(6px,1.4vw,20px);
+  padding:14px 0;margin-bottom:clamp(20px,3vw,36px);
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(to bottom,var(--paper) 78%,rgba(245,240,230,.86));
+  backdrop-filter:blur(8px);
+}
+.wfilt button{
+  position:relative;background:none;border:0;cursor:pointer;padding:8px 12px 12px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);transition:color .3s ease;
+}
+.wfilt button i{font-style:normal;color:var(--line-2);margin-right:7px;transition:color .3s ease}
+.wfilt button::after{
+  content:"";position:absolute;left:12px;right:12px;top:0;height:2px;background:var(--accent);
+  transform:scaleX(0);transition:transform .45s cubic-bezier(.16,1,.3,1);
+}
+.wfilt button:hover{color:var(--ink)}
+.wfilt button.is-on{color:var(--accent-ink)}
+.wfilt button.is-on i{color:var(--accent)}
+.wfilt button.is-on::after{transform:scaleX(1)}
+.wfilt b{font-weight:400;opacity:.55;margin-left:6px}
+
+/* the wall: real columns, so every piece keeps its own shape */
+.wgrid{columns:4;column-gap:clamp(12px,1.6vw,20px);padding-bottom:clamp(40px,7vw,96px)}
+.wtile{
+  break-inside:avoid;margin:0 0 clamp(12px,1.6vw,20px);
+  opacity:0;transform:translateY(18px) scale(.97);
+  transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1);
+  transition-delay:calc(var(--k,0) * 34ms);
+}
+.wtile.is-in{opacity:1;transform:none}
+.wtile[hidden]{display:none}
+.wtile__open{
+  position:relative;display:block;width:100%;padding:0;border:0;cursor:zoom-in;background:#1d1c19;
+  border-radius:12px;overflow:hidden;border:1px solid var(--line);
+  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .45s ease,border-color .35s ease;
+}
+.wtile__open img{display:block;width:100%;height:auto}
+/* the project slots borrow the grid's placeholder art, which is normally
+   positioned absolutely — here it has to sit in the flow */
+.wtile__ph.work__art{position:static;inset:auto;transition:none}
+.wtile__ph{width:100%;aspect-ratio:16/11;display:grid;place-items:center;text-align:center;padding:14px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(18,18,18,.5)}
+.wtile__cap{
+  position:absolute;left:0;right:0;bottom:0;padding:30px 12px 11px;
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,0));
+  font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);
+  opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .45s cubic-bezier(.16,1,.3,1);
+}
+.wtile__cap::before{content:"";width:6px;height:7px;flex:none;background:var(--accent);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+
+  html.has-hover .wtile__open:hover{transform:translateY(-5px);box-shadow:0 26px 34px -24px rgba(18,18,18,.55);border-color:var(--line-2)}
+  html.has-hover .wtile__open:hover .wtile__cap{opacity:1;transform:none}
+
+.wtile__open:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wgrid__empty{
+  columns:1;text-align:center;padding:clamp(40px,8vw,90px) 0;color:var(--muted);font-size:15px;
+}
+.workdoc__foot{
+  border-top:1px solid var(--line);padding:clamp(26px,4vw,46px) 0 clamp(40px,6vw,80px);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;
+}
+.workdoc__foot p{font-size:14.5px;color:var(--muted);max-width:44ch}
+@media (prefers-reduced-motion:reduce){
+  .workdoc,.workdoc.is-open,.wtile,.wtile.is-in{transition:none;transform:none;opacity:1}
+}
+
+/* ============================================================
+   BACK TO TOP — hexagon, with the scroll position as its ring
+   ============================================================ */
+.totop{
+  position:fixed;z-index:49;
+  right:clamp(16px,2.4vw,34px);
+  bottom:clamp(16px,2.4vw,30px);
+  width:54px;height:61px;
+  background:none;border:0;padding:0;cursor:pointer;
+  opacity:0;pointer-events:none;
+  transform:translateY(14px) scale(.86);
+  transition:opacity .4s ease,transform .55s cubic-bezier(.16,1,.3,1);
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.22));
+}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+.totop svg{display:block;width:100%;height:100%;overflow:visible}
+.totop__fill{fill:var(--dock);transition:fill var(--t-fast)}
+.totop__track{fill:none;stroke:rgba(245,240,230,.22);stroke-width:2}
+.totop__bar{
+  fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:138;stroke-dashoffset:138;
+  transition:stroke .2s ease;
+}
+.totop:hover .totop__fill{fill:var(--accent)}
+.totop:hover .totop__bar{stroke:var(--ink)}
+
+/* the arrow swaps for a fresh one on hover */
+.totop__ico{
+  position:absolute;left:50%;top:50%;
+  width:16px;height:16px;margin:-8px 0 0 -8px;
+  overflow:hidden;color:var(--paper);
+  transition:color var(--t-fast);
+}
+.totop:hover .totop__ico{color:var(--ink)}
+.totop__ico svg{
+  position:absolute;left:0;top:0;width:16px;height:16px;
+  transition:transform .42s cubic-bezier(.16,1,.3,1);
+}
+.totop__ico svg + svg{transform:translateY(105%)}
+.totop:hover .totop__ico svg{transform:translateY(-105%)}
+.totop:hover .totop__ico svg + svg{transform:translateY(0)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1080px){
+  .fgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(26px,3.4vw,44px)}
+  .fcol--brand{grid-column:1 / -1}
+
+  .tk{grid-template-columns:1fr}
+  .tk__rail{display:none}
+  .tk__groups .tkgroup__head{display:block;margin-bottom:22px}
+
+  .stack{--peek:12px;--stack-top:calc(var(--topbar,0px) + 20px)}
+  .stack__cards{gap:0;padding-bottom:6vh}
+  /* on phones the cards scroll normally (no cramped stacking of tall cards):
+     each skill is its own visual on top with the text card below */
+  .scard{position:static}
+  /* a hairline between each skill so they read as separate blocks */
+  .scard + .scard{border-top:1px solid var(--line);margin-top:clamp(30px,6vh,54px);padding-top:clamp(30px,6vh,54px)}
+  .srow{grid-template-columns:1fr;gap:18px;transform:none}
+  .srow .stack__frame{width:100%;max-width:none;height:auto;aspect-ratio:4/5;order:-1}   /* full width, same as the text card below */
+  .scard__in::after{opacity:0}
+  .about{grid-template-columns:1fr;grid-template-rows:none;row-gap:30px}
+  .about__head,.about__body,.about__portrait{grid-column:1;grid-row:auto}
+  .about__portrait{max-width:420px}
+  .contact__head{grid-template-columns:1fr;align-items:start}
+
+  .cgrid{grid-template-columns:repeat(2,1fr)}
+  .wgrid{columns:3}
+  .cpanel{grid-template-columns:1fr;gap:34px}
+}
+/* Tablet (641–1080): the single-column visual would otherwise fill the whole
+   column — a huge 4:5 card. Cap it to a centred, card-sized preview. Phones
+   (≤640) keep the full-width visual they were set to. */
+@media (min-width:641px) and (max-width:1080px){
+  .srow .stack__frame{width:min(420px,56%);max-width:none;margin-inline:auto}
+}
+@media (max-width:860px){
+  .rcd{flex-basis:76%}
+  /* hero stacks, all centred: both role lines at the top, then the name,
+     the photo, the surname, the location. The second role line used to sit
+     between the photo and the surname, where the card's shadow fell on it. */
+  .hero__title{
+    grid-template-columns:1fr;
+    grid-template-rows:repeat(6,auto);
+    justify-items:center;column-gap:0;
+  }
+  .hero__side--l,.hero__side--r{text-align:center}
+  .hero__side--l>*,.hero__side--r>*{grid-column:1}
+  .hero__side--l .hero__kicker{grid-row:1;margin-bottom:4px}
+  .hero__side--r .hero__kicker{grid-row:2}
+  .hero__side--r .hero__kicker::before{content:"& "}   /* reads as one sentence with the line above */
+  .hero__side--l .line{grid-row:3}
+  /* stacked: the photo needs its own row height back (desktop zeroes it so it
+     can't stretch the name row), so height:auto + the ::after fills the box. */
+  .hero__photo{
+    grid-column:1;grid-row:4;align-self:auto;
+    width:clamp(180px,53vw,269px);          /* 20% up from 44vw / 224px on the phone layout */
+    height:auto;aspect-ratio:27/37;
+    margin-block:clamp(16px,3.6vw,28px) clamp(30px,5vw,44px);   /* more below: the shadow pool lives there */
+  }
+  .hero__photo::before,.hero__photo::after{top:0;bottom:0;translate:0 0;aspect-ratio:auto}
+  .hero__photo::before{top:18%;bottom:-18%;translate:0 0}   /* a shorter pool, so the surname sits on clean paper */
+  .hero__side--r .line{grid-row:5}
+  .hero__side--r .hero__loc{grid-row:6}
+  .hero__word{font-size:clamp(50px,15.8vw,106px)}   /* 20% up from 13.2vw / 88px */
+  .hero__loc{margin-top:14px}
+
+  .grid-work{grid-template-columns:1fr}
+  .stage__view{aspect-ratio:16/10}
+  .stage__meta{min-height:150px}
+  .stage__rail{gap:7px}
+  .srail{font-size:9px;letter-spacing:.1em;padding-top:11px}
+  .slide__craft span{display:none}
+  .slide__craft{padding:7px 10px}
+  .work--wide{grid-column:span 1}
+  .work--wide .work__media{aspect-ratio:16/11}
+  .shead{grid-template-columns:1fr}
+  .work__head{align-items:start}
+  .work__all{width:100%;justify-content:center}
+  .xp__head{grid-template-columns:1fr;gap:18px}
+  .xp__when{text-align:left;padding-left:60px}
+  .xp__mark{width:46px;margin-top:0}
+  .xp__crafts{grid-template-columns:1fr}
+  .craft{padding:22px 0 4px}
+  .craft + .craft{border-left:0;border-top:1px solid var(--line)}
+  .cert__main{grid-template-columns:auto 1fr;gap:12px 14px}
+  .cfeat{grid-template-columns:1fr;gap:20px;padding-bottom:28px;margin-bottom:26px}
+  .cfeat .cert__verify{width:100%;justify-content:center}
+  .cgrid{grid-template-columns:1fr}
+  .wgrid{columns:2;column-gap:10px}
+  .wtile{margin-bottom:10px}
+  .wfilt{gap:2px;padding:10px 0}
+  .wfilt button{font-size:9.5px;letter-spacing:.08em;padding:7px 8px 10px}
+  .wfilt button i{margin-right:4px}
+  .wtile__cap{font-size:8.5px;letter-spacing:.1em;padding:22px 8px 8px}
+  .certdoc__bar{padding:12px 16px}
+  .certdoc__back{font-size:10px;gap:9px}
+  .certdoc__count{font-size:9px;letter-spacing:.1em;white-space:nowrap}
+  .clight__nav{display:none}
+  .clight__fig img{max-height:60vh}
+  .clight__cap{flex-direction:column;align-items:flex-start;gap:12px}
+  .contact__cards,.contact__facts{grid-template-columns:1fr}
+  .rcard{gap:14px;padding:18px}
+  .rcard__v{font-size:16px}
+  .contact__cards .rcard--wide{grid-template-columns:auto 1fr auto}
+  .rcard__meta{display:none}
+  .fact{grid-template-columns:auto 1fr;row-gap:3px}
+  .fact__x{grid-column:2;grid-row:3;justify-self:start;margin-top:6px}
+  .cert__seal{width:44px}
+  .cert__check{width:19px;height:22px;right:-7px}
+  .cert__check .cert__ck{width:9px;height:9px}
+  .cert__meta{font-size:10px;letter-spacing:.08em}
+  .cert__verify{grid-column:1 / -1;justify-content:center;margin-top:4px}
+  .cert__courses li{font-size:12px;padding:7px 12px 7px 10px}
+  .proc__legend{justify-content:flex-start}
+  .pstep{grid-template-columns:32px 1fr;row-gap:12px;padding:20px 0}
+  .pstep__rail{left:15px}
+  .pstep__node{grid-row:1 / span 2;align-self:start;margin-top:14px}
+  .pstep__n{grid-column:2;margin-bottom:-6px}
+  .pstep__main{grid-column:2}
+  .pstep__crafts{grid-column:2;grid-template-columns:1fr;gap:8px}
+  .pstep__crafts div{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:baseline;padding-left:10px}
+  .pstep__crafts dd{margin:0}
+  .pstep__name{font-size:24px}
+  .pstep__desc{max-width:none}
+  .trail{min-height:78vh}
+  .trail__item{--tw:clamp(96px,30vw,140px)}
+  .trail__hint{font-size:21px}
+
+
+}
+/* ---- Phone: the floating dock becomes a top bar ----
+   A plain full-width rectangle in ink, the SR mark on the left and a Menu
+   button on the right. The links live in a sheet that drops over the page. */
+.topbar{display:none}
+.sheet{display:none}
+@media (max-width:640px){
+  .fgrid{grid-template-columns:1fr;gap:32px}
+  .fcol__line{max-width:100%}
+  .fcol__cta{align-self:stretch;justify-content:center}
+  .foot__row{justify-content:flex-start;gap:12px}
+  .rcd{flex-basis:88%}
+  .rtick{width:40px;height:44px}
+  .rq__ticks{gap:8px}
+  .rqbtn{width:42px;height:42px}
+
+  /* Phone: the six process steps run tighter so they don't stretch the page —
+     smaller step titles, less padding, closer craft rows. */
+  .proc__legend{margin-bottom:6px}
+  .pstep{padding:13px 0;row-gap:7px}
+  .pstep__node{margin-top:11px}
+  .pstep__name{font-size:20px}
+  .pstep__desc{margin-top:3px;font-size:12.5px;line-height:1.4}
+  .pstep__crafts{gap:6px}
+  .pstep__crafts div{grid-template-columns:54px 1fr;gap:9px;padding-left:9px}
+  .pstep__crafts dt{font-size:9px}
+  .pstep__crafts dd{font-size:12.5px;line-height:1.35}
+
+  :root{--topbar:60px}
+  .stage__view{aspect-ratio:4/3}
+  .dock{display:none}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:60;height:var(--topbar);
+    display:flex;align-items:center;justify-content:space-between;
+    padding-inline:18px 8px;
+    background:var(--dock);color:var(--paper);
+    box-shadow:0 1px 0 rgba(255,255,255,.06), 0 10px 30px rgba(0,0,0,.18);
+  }
+  .topbar__home{display:flex;align-items:center;height:100%;padding-right:10px}
+  .topbar__mark{width:44px;height:27px;background:var(--logo) center/contain no-repeat;display:block}
+  .topbar__btn{
+    display:flex;align-items:center;justify-content:center;
+    width:44px;height:44px;padding:0;border:0;background:none;color:var(--paper);
+    cursor:pointer;border-radius:50%;
+  }
+  .topbar__btn:active{background:rgba(255,255,255,.08)}
+  /* The icon is the site's hexagon: a thin brand-yellow ring with two bars
+     of unequal length inside. Tapping turns the ring a quarter turn while
+     the bars slide to the middle and fold into a cross; releasing runs it
+     all backwards. Pressing fills the ring with the accent for a beat. */
+  .topbar__ico{width:28px;height:28px;flex:none;overflow:visible}
+  .topbar__hex{
+    fill:rgba(255,203,2,0);stroke:rgba(255,203,2,.75);stroke-width:1.3;stroke-linejoin:round;
+    transform-origin:14px 14px;
+    transition:transform .6s cubic-bezier(.16,1,.3,1),fill .3s ease,stroke .3s ease;
+  }
+  .topbar__bar{
+    fill:currentColor;transform-origin:14px 14px;
+    transition:transform .5s cubic-bezier(.16,1,.3,1);
+  }
+  .topbar__btn:active .topbar__hex{fill:rgba(255,73,1,.35);stroke:var(--accent)}
+  body.menu-open .topbar__hex{transform:rotate(90deg);stroke:var(--accent)}
+  /* translate first, then rotate: each bar is moved onto the centre and
+     turned there, so the cross sits dead-centre in the ring */
+  body.menu-open .topbar__bar--1{transform:rotate(45deg) translateY(2.1px) scaleX(1.17)}
+  body.menu-open .topbar__bar--2{transform:rotate(-45deg) translateY(-2.1px) scaleX(1.17)}
+
+  .sheet{
+    position:fixed;inset:0;z-index:55;
+    display:flex;flex-direction:column;
+    padding:calc(var(--topbar) + 28px) 22px calc(28px + env(safe-area-inset-bottom,0px));
+    background:var(--dock);color:var(--paper);
+    overflow-y:auto;overscroll-behavior:contain;
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .35s ease,visibility 0s linear .35s;
+  }
+  body.menu-open .sheet{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .35s ease}
+  /* Each row: the section number in mono on the left (the same "01 —"
+     labels the sections carry), the name with a one-line hint under it, and
+     an arrow ring on the right. The row you're in is marked in the accent. */
+  .sheet__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .sheet__list li{overflow:hidden;border-bottom:1px solid rgba(245,240,230,.1)}
+  .sheet__link{
+    position:relative;
+    display:grid;grid-template-columns:34px 1fr 40px;align-items:center;gap:12px;
+    padding:15px 0;color:var(--paper);
+    transform:translateY(110%);transition:transform .7s cubic-bezier(.16,1,.3,1),color .3s ease;
+  }
+  .sheet__link small{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:rgba(245,240,230,.38);padding-top:.35em}
+  .sheet__link>*{position:relative}
+  .sheet__txt{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .sheet__txt b{font-size:clamp(26px,7.6vw,34px);font-weight:600;letter-spacing:-.035em;line-height:1;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  .sheet__txt em{font-style:normal;font-size:12.5px;letter-spacing:-.01em;color:rgba(245,240,230,.48)}
+  .sheet__arw{
+    width:40px;height:40px;border-radius:50%;
+    border:1px solid rgba(245,240,230,.22);
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8' stroke='%23F5F0E6' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat;
+    transition:background-color .3s ease,border-color .3s ease,transform .45s cubic-bezier(.16,1,.3,1);
+  }
+  /* Hover / press: a warm band sweeps in from the left, an accent hairline
+     draws along the bottom, the name steps right, the number and the arrow
+     ring light up. Press does the same on touch. */
+  .sheet__link::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(90deg,rgba(255,73,1,.14),rgba(255,73,1,.05) 45%,rgba(255,73,1,0) 75%);
+    transform:translateX(-101%);transition:transform .65s cubic-bezier(.16,1,.3,1);
+  }
+  .sheet__link::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+    background:var(--accent);transform:scaleX(0);transform-origin:left;
+    transition:transform .6s cubic-bezier(.16,1,.3,1);
+  }
+  .sheet__link:hover::before,.sheet__link:active::before{transform:none}
+  .sheet__link:hover::after,.sheet__link:active::after{transform:scaleX(1)}
+  .sheet__link:hover .sheet__txt b,.sheet__link:active .sheet__txt b{transform:translateX(8px)}
+  .sheet__link:hover small,.sheet__link:active small{color:var(--accent)}
+  .sheet__link:hover .sheet__txt em,.sheet__link:active .sheet__txt em{color:rgba(245,240,230,.78)}
+  .sheet__link:hover .sheet__arw,.sheet__link:active .sheet__arw{
+    background-color:var(--accent);border-color:var(--accent);transform:translate(2px,-2px);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8' stroke='%23121212' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  .sheet__txt em{transition:color .3s ease}
+  .sheet__link small{transition:color .3s ease}
+  .sheet__link.active .sheet__txt b{color:var(--accent)}
+  .sheet__link.active small{color:var(--accent)}
+  .sheet__link.active .sheet__arw{
+    background-color:var(--accent);border-color:var(--accent);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 9.5 9.5 2.5M9.5 2.5H4M9.5 2.5V8' stroke='%23121212' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  body.menu-open .sheet__link{transform:none}
+  .sheet__list li:nth-child(1) .sheet__link{transition-delay:.05s}
+  .sheet__list li:nth-child(2) .sheet__link{transition-delay:.1s}
+  .sheet__list li:nth-child(3) .sheet__link{transition-delay:.15s}
+  .sheet__list li:nth-child(4) .sheet__link{transition-delay:.2s}
+  .sheet__list li:nth-child(5) .sheet__link{transition-delay:.25s}
+  .sheet__foot{
+    margin-top:auto;display:flex;flex-direction:column;gap:14px;
+    opacity:0;transform:translateY(10px);transition:opacity .5s ease .3s,transform .5s ease .3s;
+  }
+  body.menu-open .sheet__foot{opacity:1;transform:none}
+  /* same inverting move as the dock pill — hover on a mouse, press on touch */
+  .sheet__cta{
+    position:relative;overflow:hidden;isolation:isolate;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    height:54px;border-radius:100px;background:var(--accent);color:var(--ink);
+    font-size:15px;font-weight:600;letter-spacing:-.01em;
+    transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s ease,color .35s ease;
+  }
+  .sheet__cta::before{
+    content:"";position:absolute;z-index:-1;
+    left:-10%;bottom:-160%;width:120%;aspect-ratio:1;border-radius:50%;
+    background:var(--paper);
+    transform:scale(0);transition:transform .6s cubic-bezier(.16,1,.3,1);
+  }
+  .sheet__cta .dock__roll span+span{color:var(--ink)}
+  .sheet__cta-arw{transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  .sheet__cta:hover,.sheet__cta:active{
+    transform:translateY(-2px);
+    box-shadow:inset 0 0 0 1px var(--paper),0 12px 30px -10px rgba(255,73,1,.55);
+  }
+  .sheet__cta:hover::before,.sheet__cta:active::before{transform:scale(1.2)}
+  .sheet__cta:hover .dock__roll span,.sheet__cta:active .dock__roll span{transform:translateY(-100%)}
+  .sheet__cta:hover .sheet__cta-arw,.sheet__cta:active .sheet__cta-arw{transform:translate(3px,-3px)}
+  /* the footer's email / phone rows, on ink: same chips, same moves */
+  .sheet__contact{display:flex;flex-direction:column;align-items:center;gap:2px;padding-top:4px}
+  .sheet__contact .foot__link{font-size:16px;color:var(--paper)}
+  .sheet__contact .foot__link:hover,.sheet__contact .foot__link:active{color:var(--accent)}
+  .sheet__contact .foot__tel{margin-top:6px}
+  .sheet__contact .ic{border-color:rgba(245,240,230,.28);color:var(--paper)}
+  .sheet__contact .foot__link:hover .ic,.sheet__contact .foot__link:active .ic{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+  .sheet__contact .foot__link:active .ic--mail svg{animation:icPop .55s cubic-bezier(.34,1.56,.64,1)}
+  .sheet__contact .foot__link:active .ic__flap{animation:icFlap .6s ease-out .05s}
+  .sheet__contact .foot__link:active .ic--tel svg{animation:icRing .75s ease-in-out}
+  .sheet__contact .foot__link:active .ic__wave{animation:icWave .6s ease-out .15s both}
+
+  /* the three profiles, as wells on ink — logos only, the names sit under
+     them so the row stays short at the bottom of the sheet */
+  .sheet__soc{
+    display:flex;justify-content:center;gap:clamp(18px,7vw,34px);
+    margin-top:20px;padding-top:20px;border-top:1px solid rgba(245,240,230,.12);
+    width:100%;
+  }
+  @media (max-height:700px){
+    .sheet__soc{margin-top:14px;padding-top:14px}
+    .ssoc__hex{width:40px}
+    .ssoc b{font-size:9px}
+  }
+  .ssoc{
+    display:flex;flex-direction:column;align-items:center;gap:9px;
+    opacity:0;transform:translateY(12px) scale(.9);
+    transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1);
+    transition-delay:calc(.42s + var(--k,0) * 80ms);
+  }
+  body.menu-open .ssoc{opacity:1;transform:none}
+  .ssoc__hex{position:relative;width:46px;aspect-ratio:.866;display:grid;place-items:center;
+    transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  .ssoc__well{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .ssoc__bg{fill:#fff;stroke:rgba(245,240,230,.22);stroke-width:1.2;vector-effect:non-scaling-stroke;transition:stroke .3s ease}
+  .ssoc__ring{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round;
+    vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;
+    transition:stroke-dashoffset .6s cubic-bezier(.16,1,.3,1),opacity .2s ease}
+  .ssoc__hex img{position:relative;width:62%;height:62%;object-fit:contain;display:block}
+  .ssoc b{font-family:var(--font-mono);font-size:9.5px;font-weight:400;letter-spacing:.14em;
+    text-transform:uppercase;color:rgba(245,240,230,.5);transition:color .3s ease}
+  .ssoc:active .ssoc__hex,.ssoc:hover .ssoc__hex{transform:translateY(-3px) scale(1.06)}
+  .ssoc:active .ssoc__ring,.ssoc:hover .ssoc__ring{stroke-dashoffset:0;opacity:1}
+  .ssoc:active b,.ssoc:hover b{color:var(--accent)}
+
+  .sheet__contact .foot__link:active .ic__wave--2{animation-delay:.3s}
+  body.menu-open{overflow:hidden}
+
+  /* no dock underneath any more — the button can sit in the corner */
+  .totop{width:46px;height:52px;right:14px;bottom:16px}
+  /* section tops clear the bar when a link scrolls to them */
+  .section{scroll-margin-top:var(--topbar)}
+}
+@media (max-width:560px){
+  .tool__in{padding:15% 10% 15%;gap:3px}
+  .tool__in i{font-size:9px}
+  .tool__in b{font-size:15px}
+  .tool__in span{font-size:10.5px;line-height:1.3}
+  .tool__mark{width:32%;margin:1px 0 2px}
+  .tool__ai{top:-3px;right:-12px;font-size:7.5px;padding:1px 4px}
+  /* phone: the social rows go full width with the handle always shown —
+     there is no hover to reveal it. The bottom bar simply stacks in order. */
+  .foot__row{flex-direction:column;align-items:flex-start;gap:16px;padding-block:20px 28px}
+  .socials{align-items:stretch;gap:20px;margin-left:0}
+  .soc{
+    display:grid;grid-template-columns:auto auto 1fr auto;gap:12px;align-items:center;
+    padding:15px 2px;border-bottom:1px solid var(--line);color:var(--ink);
+  }
+  .soc::after{display:none}
+  .soc__at{position:static;opacity:1;transform:none;text-align:right;color:var(--muted)}
+  .soc__go{width:11px;height:11px;color:var(--accent)}
+  .soc__hex{width:32px}
+  .soc__ch{font-size:11px}
+
+  .two{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .line>span,.hero__side--r .line>span{transform:none}
+  .mq__track{animation:none}
+  [data-rise]{opacity:1;transform:none}
+}

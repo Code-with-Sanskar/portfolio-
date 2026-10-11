@@ -1523,7 +1523,10 @@ html:not(.has-hover) .trail__hint-mouse{display:none}html:not(.has-hover) .trail
   transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1);
 }
 .tk__rail .tkgroup__head.is-on{opacity:1;transform:none}
-.tk__groups{min-width:0}
+/* the hives pull their last row up with a negative margin, which leaves the
+   last group shorter than the sticky rail's head; this keeps room for it so
+   the head never spills over the section below */
+.tk__groups{min-width:0;padding-bottom:clamp(64px,8vw,120px)}
 .tkgroup{padding-top:clamp(28px,4vw,52px);margin-top:clamp(28px,4vw,52px);border-top:1px solid var(--line)}
 .tkgroup:first-child{padding-top:0;margin-top:0;border-top:0}
 .tk__groups .tkgroup__head{display:none}         /* the rail shows these on wide screens */
@@ -2676,6 +2679,7 @@ body.is-locked{overflow:hidden}
 
   .tk{grid-template-columns:1fr}
   .tk__rail{display:none}
+  .tk__groups{padding-bottom:0}
   .tk__groups .tkgroup__head{display:block;margin-bottom:22px}
 
   .stack{--peek:12px;--stack-top:calc(var(--topbar,0px) + 20px)}
@@ -2702,6 +2706,15 @@ body.is-locked{overflow:hidden}
    (≤640) keep the full-width visual they were set to. */
 @media (min-width:641px) and (max-width:1080px){
   .srow .stack__frame{width:min(420px,56%);max-width:none;margin-inline:auto}
+}
+/* Phones only: the hero gives up the strip's height (padding 20+20, a line of
+   text and two hairlines ≈ 64px) so the marquee sits inside the first screen
+   instead of appearing only after a scroll. */
+@media (max-width:640px){
+  .hero{
+    min-height:calc(100svh - 64px);
+    padding-block:clamp(72px,10vh,110px) clamp(64px,9vh,96px);
+  }
 }
 @media (max-width:860px){
   .rcd{flex-basis:76%}

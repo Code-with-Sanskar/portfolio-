@@ -3084,3 +3084,12 @@ body.is-locked{overflow:hidden}
 
   #send{width:100%;justify-content:center}
 }
+
+/* ---- Phone: footer bottom ----
+   The 92-116px under the footer was there to clear the floating dock, which
+   phones don't have (they get the top bar). The page now ends a short, even
+   breath below "Back to top"; the round to-top button floats on the right,
+   clear of the left-aligned links. */
+@media (max-width:640px){
+  .foot{padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+}

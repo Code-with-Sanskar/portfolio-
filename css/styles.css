@@ -3076,7 +3076,7 @@ body.is-locked{overflow:hidden}
   .field{gap:2px}
   .field label{font-size:10px}
   .field input,.field select,.field textarea{padding:8px 2px}   /* 16px type stays, so iOS does not zoom */
-  .field textarea{min-height:76px;rows:3}
+  .field textarea{min-height:76px}
 
   /* four options as a tidy 2 x 2 instead of a ragged wrap */
   .choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}

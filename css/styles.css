@@ -2713,7 +2713,10 @@ body.is-locked{overflow:hidden}
 @media (max-width:640px){
   .hero{
     min-height:calc(100svh - 64px);
-    padding-block:clamp(72px,10vh,110px) clamp(64px,9vh,96px);
+    /* the fixed top bar covers the first 60px of the hero, so it is added to
+       the top padding: the content then centres in the part you can see,
+       with equal space above (below the bar) and below (above the strip) */
+    padding-block:calc(var(--topbar,60px) + clamp(40px,6vh,64px)) clamp(40px,6vh,64px);
   }
 }
 @media (max-width:860px){

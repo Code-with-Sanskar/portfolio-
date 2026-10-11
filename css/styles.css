@@ -3061,3 +3061,26 @@ body.is-locked{overflow:hidden}
   .mq__track{animation:none}
   [data-rise]{opacity:1;transform:none}
 }
+
+/* ---- Phone: a tighter "Start a project" form ----
+   Same fields, same order — just less air, so the whole form reads as one
+   compact card instead of two screens of scrolling. Phones only. */
+@media (max-width:640px){
+  .cpanel{padding:24px 18px 22px;gap:18px;margin-top:40px}
+  .cpanel__h{margin-top:12px;font-size:30px;line-height:1}
+  .cpanel__h br{display:none}                       /* one line: "Tell me about it." */
+  .cpanel__p{margin-top:10px;max-width:none;font-size:14px;line-height:1.5}
+  .cpanel__note{padding-top:14px;font-size:10px}
+
+  .form{gap:14px}
+  .field{gap:2px}
+  .field label{font-size:10px}
+  .field input,.field select,.field textarea{padding:8px 2px}   /* 16px type stays, so iOS does not zoom */
+  .field textarea{min-height:76px;rows:3}
+
+  /* four options as a tidy 2 x 2 instead of a ragged wrap */
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+  .choice span{padding:8px 10px;font-size:12.5px;text-align:center;white-space:nowrap}
+
+  #send{width:100%;justify-content:center}
+}

@@ -426,12 +426,25 @@
     var cards = Array.prototype.slice.call(stack.querySelectorAll('.scard'));
     if(!cards.length) return;
 
-    /* nudge every card reel to play (muted autoplay is allowed, but some
-       browsers still want a poke) — Graphic Design and Video Editing cards */
-    Array.prototype.forEach.call(stack.querySelectorAll('.viz__vid'), function(v){
-      var play = function(){ var pr = v.play(); if(pr && pr.catch){ pr.catch(function(){}); } };
-      play(); v.addEventListener('canplay', play); v.addEventListener('loadeddata', play);
-    });
+    /* card reels (Graphic Design, Video Editing) stay unloaded until their
+       card is close to the screen, play while it is there, and pause once it
+       has left — nothing downloads or runs on first load */
+    (function cardReels(){
+      var vids = Array.prototype.slice.call(stack.querySelectorAll('.viz__vid'));
+      if(!vids.length || reduce) return;
+      function play(v){ var pr = v.play(); if(pr && pr.catch){ pr.catch(function(){}); } }
+      if(!('IntersectionObserver' in window)){ vids.forEach(play); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          var v = en.target;
+          if(en.isIntersecting && !document.hidden) play(v); else v.pause();
+        });
+      }, {rootMargin:'250px 0px'});
+      vids.forEach(function(v){ io.observe(v); });
+      document.addEventListener('visibilitychange', function(){
+        if(document.hidden) vids.forEach(function(v){ v.pause(); });
+      });
+    })();
 
     /* the playhead travels in px (transform), so tell it how wide the timeline is */
     function sizeTimelines(){
